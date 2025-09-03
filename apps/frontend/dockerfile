@@ -1,0 +1,16 @@
+FROM node:20-bullseye
+WORKDIR /app
+
+# Install dependencies
+COPY package.json package-lock.json* ./
+RUN npm install
+
+# Copy all source files
+COPY . .
+
+# Expose port for dev server
+EXPOSE 3000
+ENV NODE_ENV=development
+
+# Start Next.js in development mode with hot reload
+CMD ["npm", "run", "dev"]

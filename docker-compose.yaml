@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+
+  nlpservice:
+    build: ./apps/nlpService
+    ports:
+      - "8100:8100"
+    volumes:
+      - ./apps/nlpService:/app
+
+  backend:
+    build: ./apps/backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      - nlpservice
+    volumes:
+      - ./apps/backend:/app
+
+  frontend:
+    build: ./apps/frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    volumes:
+      - ./apps/frontend:/app
+      - /app/node_modules
