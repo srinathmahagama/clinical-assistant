@@ -1,0 +1,8442 @@
+[
+  {
+    "id": 1,
+    "text": "Ngaitj koort kalyakal",
+    "translation": "heart is tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "text": "Ngaitj moorditj",
+    "translation": "I am strong/severe",
+    "entities": [
+      {
+        "start": 7,
+        "end": 15,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "text": "Ngaitj miyal yoowart kadak",
+    "translation": "My eye is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 26,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "text": "Ngaitj mooly moorditj moorditj",
+    "translation": "My nose is strong strong/severe",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "text": "Ngaitj waarngk kwop yoowart",
+    "translation": "mouth is no fever / not good health",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 27,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "text": "miyal ngaitj moorditj, waarngk ngaitj yoowart",
+    "translation": "My eye is strong/severe, my mouth is fever",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "text": "Ngaitj kaat kalyakal",
+    "translation": "head is tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "text": "Ngaitj miyal kwop kalyakal",
+    "translation": "My eye is good/well tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 26,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 17,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "text": "djen ngaitj wara, mooly ngaitj wara",
+    "translation": "My foot is bad/sick, my nose is bad/sick",
+    "entities": [
+      {
+        "start": 0,
+        "end": 4,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 16,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "text": "Ngaitj moorn",
+    "translation": "I am sick/unwell",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "text": "djen ngaitj kalyakal, ngoorndiny ngaitj moorditj",
+    "translation": "My foot is tired, my ear is strong/severe",
+    "entities": [
+      {
+        "start": 0,
+        "end": 4,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "text": "Ngaitj kwop yoowart",
+    "translation": "I am no fever / not good health",
+    "entities": [
+      {
+        "start": 7,
+        "end": 19,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "text": "Ngaitj kaat wara",
+    "translation": "head is bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 16,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "text": "Ngaitj mooly moorditj",
+    "translation": "nose is strong/severe",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "text": "Ngaitj korbol kwop yoowart",
+    "translation": "My stomach is not good / no illness",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 14,
+        "end": 26,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "text": "Ngaitj mooly yoowart kadak",
+    "translation": "My nose is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 26,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "text": "korbol ngaitj kwop yoowart, korbol ngaitj wara",
+    "translation": "My stomach is no fever / not good health, my stomach is bad/sick",
+    "entities": [
+      {
+        "start": 0,
+        "end": 6,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 14,
+        "end": 26,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "text": "ngoorndiny ngaitj yoowart, djen ngaitj wara",
+    "translation": "My ear is fever, my foot is bad/sick",
+    "entities": [
+      {
+        "start": 0,
+        "end": 10,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 25,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "text": "waarngk ngaitj kalyakal, kaat ngaitj kalyakal",
+    "translation": "My mouth is tired, my head is tired",
+    "entities": [
+      {
+        "start": 0,
+        "end": 7,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 23,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "text": "Ngaitj waarngk yoowart",
+    "translation": "mouth is fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 22,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "text": "Ngaitj korbol kwop yoowart",
+    "translation": "My stomach is good/well fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 19,
+        "end": 26,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 14,
+        "end": 18,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "text": "Ngaitj ngoorndiny kalyakal boola boola kalyakal",
+    "translation": "My ear is always tired very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 33,
+        "end": 47,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 18,
+        "end": 32,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "text": "Ngaitj ngoorndiny wara",
+    "translation": "ear is bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 22,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "text": "Ngaitj koort kwop yoowart",
+    "translation": "My heart is not good / no illness",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 25,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "text": "Ngaitj ngoorndiny moorn",
+    "translation": "ear is sick/unwell",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 23,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "text": "Ngaitj woort kwop yoowart",
+    "translation": "throat is no fever / not good health",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 25,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "text": "Ngaitj korbol wara",
+    "translation": "stomach is bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 14,
+        "end": 18,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "text": "Ngaitj djen kadak",
+    "translation": "My foot is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 17,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "text": "Ngaitj ngoorndiny boola kalyakal",
+    "translation": "ear is very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 32,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "text": "Ngaitj waarngk yoowart kadak",
+    "translation": "My mouth is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 28,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "text": "woort ngaitj nyidiny, korbol ngaitj kalyakal",
+    "translation": "My throat is cold, my stomach is tired",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "text": "Ngaitj waarngk kwop yoowart",
+    "translation": "My mouth is not good / no illness",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 27,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "text": "Ngaitj nyidiny",
+    "translation": "I am cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "text": "ngoorndiny ngaitj moorn, ngoorndiny ngaitj kwop yoowart",
+    "translation": "My ear is sick/unwell, my ear is no fever / not good health",
+    "entities": [
+      {
+        "start": 0,
+        "end": 10,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 23,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "text": "Ngaitj kwop yoowart",
+    "translation": "I am no fever / not good health",
+    "entities": [
+      {
+        "start": 7,
+        "end": 19,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 36,
+    "text": "Ngaitj korbol kwop boola kalyakal",
+    "translation": "My stomach is good/well very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 19,
+        "end": 33,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 14,
+        "end": 18,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "text": "korbol ngaitj yoowart, koort ngaitj wara",
+    "translation": "My stomach is fever, my heart is bad/sick",
+    "entities": [
+      {
+        "start": 0,
+        "end": 6,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 14,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 38,
+    "text": "Ngaitj yoowart",
+    "translation": "I am fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 39,
+    "text": "Ngaitj kalyakal",
+    "translation": "I am tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 15,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 40,
+    "text": "Ngaitj wara",
+    "translation": "I am bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 41,
+    "text": "Ngaitj djen kwop wara",
+    "translation": "My foot is good/well bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 17,
+        "end": 21,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 12,
+        "end": 16,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 42,
+    "text": "kaat ngaitj wara, woort ngaitj moorditj",
+    "translation": "My head is bad/sick, my throat is strong/severe",
+    "entities": [
+      {
+        "start": 0,
+        "end": 4,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 16,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 43,
+    "text": "Ngaitj ngoorndiny kalyakal boola nyidiny",
+    "translation": "My ear is always tired cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 33,
+        "end": 40,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 18,
+        "end": 32,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 44,
+    "text": "Ngaitj kwop yoowart",
+    "translation": "I am no fever / not good health",
+    "entities": [
+      {
+        "start": 7,
+        "end": 19,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 45,
+    "text": "Ngaitj moorditj",
+    "translation": "I am strong/severe",
+    "entities": [
+      {
+        "start": 7,
+        "end": 15,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 46,
+    "text": "Ngaitj nyidiny",
+    "translation": "I am cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 47,
+    "text": "Ngaitj nyidiny",
+    "translation": "I am cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 48,
+    "text": "Ngaitj mooly kwop nyidiny",
+    "translation": "My nose is good/well cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 25,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 17,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 49,
+    "text": "Ngaitj woort yoowart kadak",
+    "translation": "My throat is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 26,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 50,
+    "text": "Ngaitj ngoorndiny kwop kalyakal",
+    "translation": "My ear is good/well tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 23,
+        "end": 31,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 18,
+        "end": 22,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 51,
+    "text": "Ngaitj mooly kadak",
+    "translation": "My nose is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 52,
+    "text": "Ngaitj woort kwop yoowart",
+    "translation": "My throat is not good / no illness",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 25,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 53,
+    "text": "Ngaitj ngoorndiny kalyakal boola wara",
+    "translation": "My ear is always tired bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 33,
+        "end": 37,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 18,
+        "end": 32,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 54,
+    "text": "Ngaitj moorditj",
+    "translation": "I am strong/severe",
+    "entities": [
+      {
+        "start": 7,
+        "end": 15,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 55,
+    "text": "Ngaitj djen boola nyidiny",
+    "translation": "My foot is very cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 25,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 12,
+        "end": 17,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 56,
+    "text": "Ngaitj waarngk wara",
+    "translation": "mouth is bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 19,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 57,
+    "text": "Ngaitj miyal kadak",
+    "translation": "My eye is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 58,
+    "text": "Ngaitj wara",
+    "translation": "I am bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 59,
+    "text": "Ngaitj kaat kadak",
+    "translation": "My head is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 17,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 60,
+    "text": "Ngaitj djen kwop kwop yoowart",
+    "translation": "My foot is good/well no fever / not good health",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 17,
+        "end": 29,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 12,
+        "end": 16,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 61,
+    "text": "waarngk ngaitj yoowart, waarngk ngaitj kwop yoowart",
+    "translation": "My mouth is fever, my mouth is no fever / not good health",
+    "entities": [
+      {
+        "start": 0,
+        "end": 7,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 22,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 62,
+    "text": "Ngaitj koort kadak",
+    "translation": "My heart is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 63,
+    "text": "Ngaitj boola kalyakal",
+    "translation": "I am very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 64,
+    "text": "Ngaitj boola kalyakal",
+    "translation": "I am very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 65,
+    "text": "miyal ngaitj boola kalyakal, mooly ngaitj moorditj",
+    "translation": "My eye is very tired, my nose is strong/severe",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 27,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 66,
+    "text": "Ngaitj koort yoowart kadak",
+    "translation": "My heart is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 26,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 67,
+    "text": "ngoorndiny ngaitj moorditj, djen ngaitj wara",
+    "translation": "My ear is strong/severe, my foot is bad/sick",
+    "entities": [
+      {
+        "start": 0,
+        "end": 10,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 26,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 68,
+    "text": "Ngaitj mooly moorditj kalyakal",
+    "translation": "My nose is strong tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 22,
+        "end": 30,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 69,
+    "text": "Ngaitj miyal moorditj",
+    "translation": "eye is strong/severe",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 70,
+    "text": "woort ngaitj moorn, ngoorndiny ngaitj moorditj",
+    "translation": "My throat is sick/unwell, my ear is strong/severe",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 71,
+    "text": "Ngaitj ngoorndiny yoowart kadak",
+    "translation": "My ear is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 31,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 72,
+    "text": "Ngaitj woort kadak",
+    "translation": "My throat is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 73,
+    "text": "Ngaitj koort kwop yoowart",
+    "translation": "My heart is not good / no illness",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 25,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 74,
+    "text": "miyal ngaitj wara, mooly ngaitj kalyakal",
+    "translation": "My eye is bad/sick, my nose is tired",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 17,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 75,
+    "text": "Ngaitj mooly moorditj",
+    "translation": "nose is strong/severe",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 76,
+    "text": "Ngaitj kaat kalyakal",
+    "translation": "head is tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 77,
+    "text": "mooly ngaitj wara, korbol ngaitj wara",
+    "translation": "My nose is bad/sick, my stomach is bad/sick",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 17,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 78,
+    "text": "djen ngaitj moorditj, mooly ngaitj boola kalyakal",
+    "translation": "My foot is strong/severe, my nose is very tired",
+    "entities": [
+      {
+        "start": 0,
+        "end": 4,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 79,
+    "text": "Ngaitj woort moorditj",
+    "translation": "throat is strong/severe",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 80,
+    "text": "Ngaitj miyal kwop kalyakal",
+    "translation": "My eye is good/well tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 26,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 17,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 81,
+    "text": "Ngaitj kaat kwop yoowart",
+    "translation": "My head is good/well fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 17,
+        "end": 24,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 12,
+        "end": 16,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 82,
+    "text": "waarngk ngaitj moorditj, woort ngaitj nyidiny",
+    "translation": "My mouth is strong/severe, my throat is cold",
+    "entities": [
+      {
+        "start": 0,
+        "end": 7,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 23,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 83,
+    "text": "Ngaitj nyidiny",
+    "translation": "I am cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 84,
+    "text": "Ngaitj kalyakal",
+    "translation": "I am tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 15,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 85,
+    "text": "Ngaitj moorditj",
+    "translation": "I am strong/severe",
+    "entities": [
+      {
+        "start": 7,
+        "end": 15,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 86,
+    "text": "Ngaitj ngoorndiny yoowart kadak",
+    "translation": "My ear is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 31,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 87,
+    "text": "Ngaitj wara",
+    "translation": "I am bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 88,
+    "text": "kaat ngaitj wara, kaat ngaitj kalyakal",
+    "translation": "My head is bad/sick, my head is tired",
+    "entities": [
+      {
+        "start": 0,
+        "end": 4,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 16,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 89,
+    "text": "Ngaitj mooly moorn",
+    "translation": "nose is sick/unwell",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 90,
+    "text": "Ngaitj waarngk yoowart kadak",
+    "translation": "My mouth is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 28,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 91,
+    "text": "Ngaitj kaat kwop yoowart",
+    "translation": "My head is not good / no illness",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 24,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 92,
+    "text": "Ngaitj waarngk kalyakal",
+    "translation": "mouth is tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 23,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 93,
+    "text": "Ngaitj koort kadak",
+    "translation": "My heart is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 94,
+    "text": "korbol ngaitj moorditj, kaat ngaitj moorditj",
+    "translation": "My stomach is strong/severe, my head is strong/severe",
+    "entities": [
+      {
+        "start": 0,
+        "end": 6,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 14,
+        "end": 22,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 95,
+    "text": "Ngaitj woort kadak",
+    "translation": "My throat is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 96,
+    "text": "Ngaitj boola kalyakal",
+    "translation": "I am very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 97,
+    "text": "koort ngaitj boola kalyakal, djen ngaitj moorn",
+    "translation": "My heart is very tired, my foot is sick/unwell",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 27,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 98,
+    "text": "Ngaitj yoowart",
+    "translation": "I am fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 99,
+    "text": "Ngaitj mooly kwop wara",
+    "translation": "My nose is good/well bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 22,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 17,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 100,
+    "text": "Ngaitj boola kalyakal",
+    "translation": "I am very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 101,
+    "text": "koort ngaitj boola kalyakal, djen ngaitj wara",
+    "translation": "My heart is very tired, my foot is bad/sick",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 27,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 102,
+    "text": "djen ngaitj kwop yoowart, kaat ngaitj nyidiny",
+    "translation": "My foot is no fever / not good health, my head is cold",
+    "entities": [
+      {
+        "start": 0,
+        "end": 4,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 24,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 103,
+    "text": "Ngaitj korbol kwop yoowart",
+    "translation": "My stomach is not good / no illness",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 14,
+        "end": 26,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 104,
+    "text": "Ngaitj miyal kadak",
+    "translation": "My eye is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 105,
+    "text": "Ngaitj kwop yoowart",
+    "translation": "I am no fever / not good health",
+    "entities": [
+      {
+        "start": 7,
+        "end": 19,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 106,
+    "text": "djen ngaitj kalyakal, waarngk ngaitj nyidiny",
+    "translation": "My foot is tired, my mouth is cold",
+    "entities": [
+      {
+        "start": 0,
+        "end": 4,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 107,
+    "text": "Ngaitj koort boola kalyakal",
+    "translation": "heart is very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 27,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 108,
+    "text": "Ngaitj korbol moorditj moorditj",
+    "translation": "My stomach is strong strong/severe",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 14,
+        "end": 22,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 14,
+        "end": 22,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 109,
+    "text": "Ngaitj moorditj",
+    "translation": "I am strong/severe",
+    "entities": [
+      {
+        "start": 7,
+        "end": 15,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 110,
+    "text": "Ngaitj ngoorndiny kwop yoowart",
+    "translation": "My ear is not good / no illness",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 30,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 111,
+    "text": "Ngaitj mooly kwop kalyakal",
+    "translation": "My nose is good/well tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 26,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 17,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 112,
+    "text": "Ngaitj kalyakal",
+    "translation": "I am tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 15,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 113,
+    "text": "Ngaitj miyal boola nyidiny",
+    "translation": "My eye is very cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 19,
+        "end": 26,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 114,
+    "text": "Ngaitj mooly kwop moorn",
+    "translation": "My nose is good/well sick/unwell",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 23,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 17,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 115,
+    "text": "Ngaitj nyidiny",
+    "translation": "I am cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 116,
+    "text": "Ngaitj koort boola kalyakal",
+    "translation": "heart is very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 27,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 117,
+    "text": "Ngaitj woort boola kalyakal",
+    "translation": "throat is very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 27,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 118,
+    "text": "Ngaitj kalyakal",
+    "translation": "I am tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 15,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 119,
+    "text": "Ngaitj kaat kwop yoowart",
+    "translation": "My head is not good / no illness",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 24,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 120,
+    "text": "kaat ngaitj kalyakal, ngoorndiny ngaitj moorn",
+    "translation": "My head is tired, my ear is sick/unwell",
+    "entities": [
+      {
+        "start": 0,
+        "end": 4,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 121,
+    "text": "Ngaitj waarngk moorditj",
+    "translation": "mouth is strong/severe",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 23,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 122,
+    "text": "Ngaitj djen kwop kwop yoowart",
+    "translation": "My foot is good/well no fever / not good health",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 17,
+        "end": 29,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 12,
+        "end": 16,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 123,
+    "text": "koort ngaitj moorditj, waarngk ngaitj moorn",
+    "translation": "My heart is strong/severe, my mouth is sick/unwell",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 124,
+    "text": "Ngaitj woort nyidiny",
+    "translation": "throat is cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 125,
+    "text": "Ngaitj boola kalyakal",
+    "translation": "I am very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 126,
+    "text": "Ngaitj koort kalyakal",
+    "translation": "heart is tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 127,
+    "text": "Ngaitj koort kadak",
+    "translation": "My heart is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 128,
+    "text": "ngoorndiny ngaitj kalyakal, waarngk ngaitj wara",
+    "translation": "My ear is tired, my mouth is bad/sick",
+    "entities": [
+      {
+        "start": 0,
+        "end": 10,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 26,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 129,
+    "text": "Ngaitj kalyakal",
+    "translation": "I am tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 15,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 130,
+    "text": "Ngaitj woort moorditj",
+    "translation": "throat is strong/severe",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 131,
+    "text": "Ngaitj korbol boola kalyakal",
+    "translation": "stomach is very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 14,
+        "end": 28,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 132,
+    "text": "Ngaitj kalyakal",
+    "translation": "I am tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 15,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 133,
+    "text": "waarngk ngaitj moorditj, korbol ngaitj wara",
+    "translation": "My mouth is strong/severe, my stomach is bad/sick",
+    "entities": [
+      {
+        "start": 0,
+        "end": 7,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 23,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 134,
+    "text": "Ngaitj korbol yoowart kadak",
+    "translation": "My stomach is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 14,
+        "end": 27,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 135,
+    "text": "mooly ngaitj nyidiny, woort ngaitj wara",
+    "translation": "My nose is cold, my throat is bad/sick",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 136,
+    "text": "Ngaitj mooly boola wara",
+    "translation": "My nose is very bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 19,
+        "end": 23,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 137,
+    "text": "Ngaitj woort kalyakal",
+    "translation": "throat is tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 138,
+    "text": "woort ngaitj boola kalyakal, miyal ngaitj kwop yoowart",
+    "translation": "My throat is very tired, my eye is no fever / not good health",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 27,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 139,
+    "text": "Ngaitj djen wara",
+    "translation": "foot is bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 16,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 140,
+    "text": "Ngaitj djen nyidiny",
+    "translation": "foot is cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 19,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 141,
+    "text": "Ngaitj korbol kwop kalyakal",
+    "translation": "My stomach is good/well tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 19,
+        "end": 27,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 14,
+        "end": 18,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 142,
+    "text": "Ngaitj koort moorn",
+    "translation": "heart is sick/unwell",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 143,
+    "text": "ngoorndiny ngaitj wara, kaat ngaitj kwop yoowart",
+    "translation": "My ear is bad/sick, my head is no fever / not good health",
+    "entities": [
+      {
+        "start": 0,
+        "end": 10,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 22,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 144,
+    "text": "Ngaitj woort moorditj",
+    "translation": "throat is strong/severe",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 145,
+    "text": "Ngaitj koort boola yoowart",
+    "translation": "My heart is very fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 19,
+        "end": 26,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 146,
+    "text": "Ngaitj woort boola kalyakal",
+    "translation": "throat is very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 27,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 147,
+    "text": "Ngaitj koort kalyakal boola boola kalyakal",
+    "translation": "My heart is always tired very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 28,
+        "end": 42,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 27,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 148,
+    "text": "Ngaitj waarngk yoowart kadak",
+    "translation": "My mouth is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 28,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 149,
+    "text": "Ngaitj miyal kalyakal boola moorn",
+    "translation": "My eye is always tired sick/unwell",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 28,
+        "end": 33,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 27,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 150,
+    "text": "Ngaitj kaat yoowart kadak",
+    "translation": "My head is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 25,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 151,
+    "text": "kaat ngaitj kwop yoowart, waarngk ngaitj nyidiny",
+    "translation": "My head is no fever / not good health, my mouth is cold",
+    "entities": [
+      {
+        "start": 0,
+        "end": 4,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 24,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 152,
+    "text": "Ngaitj waarngk kwop moorn",
+    "translation": "My mouth is good/well sick/unwell",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 20,
+        "end": 25,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 15,
+        "end": 19,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 153,
+    "text": "Ngaitj miyal kadak",
+    "translation": "My eye is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 154,
+    "text": "Ngaitj ngoorndiny kadak",
+    "translation": "My ear is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 23,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 155,
+    "text": "djen ngaitj wara, miyal ngaitj nyidiny",
+    "translation": "My foot is bad/sick, my eye is cold",
+    "entities": [
+      {
+        "start": 0,
+        "end": 4,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 16,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 156,
+    "text": "Ngaitj korbol kalyakal boola yoowart",
+    "translation": "My stomach is always tired fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 29,
+        "end": 36,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 14,
+        "end": 28,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 157,
+    "text": "Ngaitj wara",
+    "translation": "I am bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 158,
+    "text": "Ngaitj waarngk moorditj yoowart",
+    "translation": "My mouth is strong fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 24,
+        "end": 31,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 15,
+        "end": 23,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 159,
+    "text": "Ngaitj ngoorndiny kwop yoowart",
+    "translation": "My ear is not good / no illness",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 30,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 160,
+    "text": "Ngaitj miyal kwop yoowart",
+    "translation": "My eye is not good / no illness",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 25,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 161,
+    "text": "Ngaitj ngoorndiny kwop yoowart",
+    "translation": "My ear is not good / no illness",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 30,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 162,
+    "text": "Ngaitj kaat wara",
+    "translation": "head is bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 16,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 163,
+    "text": "Ngaitj miyal moorditj yoowart",
+    "translation": "My eye is strong fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 22,
+        "end": 29,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 164,
+    "text": "Ngaitj djen yoowart",
+    "translation": "foot is fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 19,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 165,
+    "text": "Ngaitj waarngk boola wara",
+    "translation": "My mouth is very bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 21,
+        "end": 25,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 15,
+        "end": 20,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 166,
+    "text": "waarngk ngaitj nyidiny, kaat ngaitj wara",
+    "translation": "My mouth is cold, my head is bad/sick",
+    "entities": [
+      {
+        "start": 0,
+        "end": 7,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 22,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 167,
+    "text": "Ngaitj kaat kwop wara",
+    "translation": "My head is good/well bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 17,
+        "end": 21,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 12,
+        "end": 16,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 168,
+    "text": "Ngaitj djen kwop yoowart",
+    "translation": "My foot is not good / no illness",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 24,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 169,
+    "text": "Ngaitj waarngk kwop yoowart",
+    "translation": "mouth is no fever / not good health",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 27,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 170,
+    "text": "Ngaitj kaat kadak",
+    "translation": "My head is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 17,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 171,
+    "text": "miyal ngaitj wara, mooly ngaitj kwop yoowart",
+    "translation": "My eye is bad/sick, my nose is no fever / not good health",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 17,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 172,
+    "text": "Ngaitj woort kwop wara",
+    "translation": "My throat is good/well bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 22,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 17,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 173,
+    "text": "ngoorndiny ngaitj yoowart, miyal ngaitj kalyakal",
+    "translation": "My ear is fever, my eye is tired",
+    "entities": [
+      {
+        "start": 0,
+        "end": 10,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 25,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 174,
+    "text": "Ngaitj mooly kwop yoowart",
+    "translation": "My nose is good/well fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 25,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 17,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 175,
+    "text": "Ngaitj djen kwop yoowart",
+    "translation": "foot is no fever / not good health",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 24,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 176,
+    "text": "Ngaitj boola kalyakal",
+    "translation": "I am very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 177,
+    "text": "Ngaitj waarngk kadak",
+    "translation": "My mouth is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 20,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 178,
+    "text": "Ngaitj korbol yoowart kadak",
+    "translation": "My stomach is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 14,
+        "end": 27,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 179,
+    "text": "Ngaitj moorditj",
+    "translation": "I am strong/severe",
+    "entities": [
+      {
+        "start": 7,
+        "end": 15,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 180,
+    "text": "Ngaitj miyal kwop yoowart",
+    "translation": "My eye is not good / no illness",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 25,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 181,
+    "text": "woort ngaitj nyidiny, korbol ngaitj kalyakal",
+    "translation": "My throat is cold, my stomach is tired",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 182,
+    "text": "Ngaitj woort kwop nyidiny",
+    "translation": "My throat is good/well cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 25,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 17,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 183,
+    "text": "Ngaitj waarngk yoowart kadak",
+    "translation": "My mouth is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 28,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 184,
+    "text": "Ngaitj woort kalyakal",
+    "translation": "throat is tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 185,
+    "text": "woort ngaitj moorn, waarngk ngaitj wara",
+    "translation": "My throat is sick/unwell, my mouth is bad/sick",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 186,
+    "text": "Ngaitj woort yoowart kadak",
+    "translation": "My throat is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 26,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 187,
+    "text": "Ngaitj mooly kwop yoowart",
+    "translation": "nose is no fever / not good health",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 25,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 188,
+    "text": "Ngaitj yoowart",
+    "translation": "I am fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 189,
+    "text": "Ngaitj djen kwop moorditj",
+    "translation": "My foot is good/well strong/severe",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 17,
+        "end": 25,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 12,
+        "end": 16,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 190,
+    "text": "Ngaitj nyidiny",
+    "translation": "I am cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 191,
+    "text": "Ngaitj djen moorditj",
+    "translation": "foot is strong/severe",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 192,
+    "text": "Ngaitj korbol yoowart kadak",
+    "translation": "My stomach is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 14,
+        "end": 27,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 193,
+    "text": "Ngaitj koort kadak",
+    "translation": "My heart is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 194,
+    "text": "Ngaitj yoowart",
+    "translation": "I am fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 195,
+    "text": "Ngaitj koort kadak",
+    "translation": "My heart is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 196,
+    "text": "Ngaitj korbol moorditj moorditj",
+    "translation": "My stomach is strong strong/severe",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 14,
+        "end": 22,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 14,
+        "end": 22,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 197,
+    "text": "Ngaitj kaat moorditj moorditj",
+    "translation": "My head is strong strong/severe",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 20,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 12,
+        "end": 20,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 198,
+    "text": "Ngaitj ngoorndiny moorditj boola kalyakal",
+    "translation": "My ear is strong very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 27,
+        "end": 41,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 18,
+        "end": 26,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 199,
+    "text": "Ngaitj waarngk yoowart",
+    "translation": "mouth is fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 22,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 200,
+    "text": "Ngaitj koort kadak",
+    "translation": "My heart is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 201,
+    "text": "Ngaitj korbol moorditj wara",
+    "translation": "My stomach is strong bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 23,
+        "end": 27,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 14,
+        "end": 22,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 202,
+    "text": "Ngaitj wara",
+    "translation": "I am bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 203,
+    "text": "Ngaitj kaat kwop yoowart",
+    "translation": "My head is good/well fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 17,
+        "end": 24,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 12,
+        "end": 16,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 204,
+    "text": "Ngaitj waarngk yoowart kadak",
+    "translation": "My mouth is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 28,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 205,
+    "text": "Ngaitj woort yoowart kadak",
+    "translation": "My throat is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 26,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 206,
+    "text": "Ngaitj waarngk yoowart kadak",
+    "translation": "My mouth is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 28,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 207,
+    "text": "Ngaitj koort kwop kalyakal",
+    "translation": "My heart is good/well tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 26,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 17,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 208,
+    "text": "Ngaitj moorditj",
+    "translation": "I am strong/severe",
+    "entities": [
+      {
+        "start": 7,
+        "end": 15,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 209,
+    "text": "Ngaitj djen boola kalyakal",
+    "translation": "foot is very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 26,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 210,
+    "text": "koort ngaitj yoowart, korbol ngaitj yoowart",
+    "translation": "My heart is fever, my stomach is fever",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 211,
+    "text": "Ngaitj korbol kwop yoowart",
+    "translation": "My stomach is not good / no illness",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 14,
+        "end": 26,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 212,
+    "text": "Ngaitj korbol moorditj kwop yoowart",
+    "translation": "My stomach is strong no fever / not good health",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 23,
+        "end": 35,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 14,
+        "end": 22,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 213,
+    "text": "ngoorndiny ngaitj kwop yoowart, woort ngaitj kalyakal",
+    "translation": "My ear is no fever / not good health, my throat is tired",
+    "entities": [
+      {
+        "start": 0,
+        "end": 10,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 30,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 214,
+    "text": "Ngaitj ngoorndiny boola yoowart",
+    "translation": "My ear is very fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 24,
+        "end": 31,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 18,
+        "end": 23,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 215,
+    "text": "Ngaitj waarngk kwop kwop yoowart",
+    "translation": "My mouth is good/well no fever / not good health",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 20,
+        "end": 32,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 15,
+        "end": 19,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 216,
+    "text": "Ngaitj mooly moorditj moorn",
+    "translation": "My nose is strong sick/unwell",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 22,
+        "end": 27,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 217,
+    "text": "Ngaitj djen boola kalyakal",
+    "translation": "My foot is very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 26,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 12,
+        "end": 17,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 218,
+    "text": "waarngk ngaitj nyidiny, kaat ngaitj boola kalyakal",
+    "translation": "My mouth is cold, my head is very tired",
+    "entities": [
+      {
+        "start": 0,
+        "end": 7,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 22,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 219,
+    "text": "Ngaitj korbol moorditj",
+    "translation": "stomach is strong/severe",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 14,
+        "end": 22,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 220,
+    "text": "koort ngaitj nyidiny, kaat ngaitj boola kalyakal",
+    "translation": "My heart is cold, my head is very tired",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 221,
+    "text": "Ngaitj boola kalyakal",
+    "translation": "I am very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 222,
+    "text": "Ngaitj ngoorndiny nyidiny",
+    "translation": "ear is cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 25,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 223,
+    "text": "Ngaitj boola kalyakal",
+    "translation": "I am very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 224,
+    "text": "Ngaitj korbol boola yoowart",
+    "translation": "My stomach is very fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 20,
+        "end": 27,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 14,
+        "end": 19,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 225,
+    "text": "Ngaitj korbol kalyakal boola wara",
+    "translation": "My stomach is always tired bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 29,
+        "end": 33,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 14,
+        "end": 28,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 226,
+    "text": "Ngaitj kwop yoowart",
+    "translation": "I am no fever / not good health",
+    "entities": [
+      {
+        "start": 7,
+        "end": 19,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 227,
+    "text": "Ngaitj wara",
+    "translation": "I am bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 228,
+    "text": "Ngaitj koort kwop wara",
+    "translation": "My heart is good/well bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 22,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 17,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 229,
+    "text": "Ngaitj ngoorndiny kwop nyidiny",
+    "translation": "My ear is good/well cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 23,
+        "end": 30,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 18,
+        "end": 22,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 230,
+    "text": "Ngaitj koort nyidiny",
+    "translation": "heart is cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 231,
+    "text": "Ngaitj woort kalyakal boola kwop yoowart",
+    "translation": "My throat is always tired no fever / not good health",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 28,
+        "end": 40,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 27,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 232,
+    "text": "Ngaitj mooly kalyakal",
+    "translation": "nose is tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 233,
+    "text": "Ngaitj boola kalyakal",
+    "translation": "I am very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 234,
+    "text": "Ngaitj koort yoowart kadak",
+    "translation": "My heart is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 26,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 235,
+    "text": "woort ngaitj yoowart, djen ngaitj moorditj",
+    "translation": "My throat is fever, my foot is strong/severe",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 236,
+    "text": "Ngaitj miyal yoowart",
+    "translation": "eye is fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 237,
+    "text": "djen ngaitj nyidiny, mooly ngaitj moorditj",
+    "translation": "My foot is cold, my nose is strong/severe",
+    "entities": [
+      {
+        "start": 0,
+        "end": 4,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 19,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 238,
+    "text": "Ngaitj moorditj",
+    "translation": "I am strong/severe",
+    "entities": [
+      {
+        "start": 7,
+        "end": 15,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 239,
+    "text": "waarngk ngaitj boola kalyakal, kaat ngaitj kalyakal",
+    "translation": "My mouth is very tired, my head is tired",
+    "entities": [
+      {
+        "start": 0,
+        "end": 7,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 29,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 240,
+    "text": "Ngaitj waarngk moorditj yoowart",
+    "translation": "My mouth is strong fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 24,
+        "end": 31,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 15,
+        "end": 23,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 241,
+    "text": "Ngaitj kaat kadak",
+    "translation": "My head is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 17,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 242,
+    "text": "Ngaitj mooly kwop wara",
+    "translation": "My nose is good/well bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 22,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 17,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 243,
+    "text": "Ngaitj kalyakal",
+    "translation": "I am tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 15,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 244,
+    "text": "kaat ngaitj yoowart, korbol ngaitj kwop yoowart",
+    "translation": "My head is fever, my stomach is no fever / not good health",
+    "entities": [
+      {
+        "start": 0,
+        "end": 4,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 19,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 245,
+    "text": "Ngaitj korbol boola wara",
+    "translation": "My stomach is very bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 20,
+        "end": 24,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 14,
+        "end": 19,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 246,
+    "text": "Ngaitj kwop yoowart",
+    "translation": "I am no fever / not good health",
+    "entities": [
+      {
+        "start": 7,
+        "end": 19,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 247,
+    "text": "Ngaitj yoowart",
+    "translation": "I am fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 248,
+    "text": "Ngaitj nyidiny",
+    "translation": "I am cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 249,
+    "text": "Ngaitj kwop yoowart",
+    "translation": "I am no fever / not good health",
+    "entities": [
+      {
+        "start": 7,
+        "end": 19,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 250,
+    "text": "Ngaitj kalyakal",
+    "translation": "I am tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 15,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 251,
+    "text": "Ngaitj miyal kwop wara",
+    "translation": "My eye is good/well bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 22,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 17,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 252,
+    "text": "Ngaitj nyidiny",
+    "translation": "I am cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 253,
+    "text": "Ngaitj ngoorndiny kalyakal boola yoowart",
+    "translation": "My ear is always tired fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 33,
+        "end": 40,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 18,
+        "end": 32,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 254,
+    "text": "korbol ngaitj kalyakal, koort ngaitj boola kalyakal",
+    "translation": "My stomach is tired, my heart is very tired",
+    "entities": [
+      {
+        "start": 0,
+        "end": 6,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 14,
+        "end": 22,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 255,
+    "text": "Ngaitj wara",
+    "translation": "I am bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 256,
+    "text": "Ngaitj boola kalyakal",
+    "translation": "I am very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 257,
+    "text": "miyal ngaitj moorn, woort ngaitj nyidiny",
+    "translation": "My eye is sick/unwell, my throat is cold",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 258,
+    "text": "Ngaitj boola kalyakal",
+    "translation": "I am very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 259,
+    "text": "Ngaitj mooly wara",
+    "translation": "nose is bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 17,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 260,
+    "text": "Ngaitj koort yoowart kadak",
+    "translation": "My heart is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 26,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 261,
+    "text": "Ngaitj djen boola kalyakal",
+    "translation": "foot is very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 26,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 262,
+    "text": "Ngaitj ngoorndiny moorditj wara",
+    "translation": "My ear is strong bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 27,
+        "end": 31,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 18,
+        "end": 26,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 263,
+    "text": "Ngaitj miyal nyidiny",
+    "translation": "eye is cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 264,
+    "text": "Ngaitj woort kwop yoowart",
+    "translation": "throat is no fever / not good health",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 25,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 265,
+    "text": "Ngaitj miyal moorditj kalyakal",
+    "translation": "My eye is strong tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 22,
+        "end": 30,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 266,
+    "text": "Ngaitj kaat yoowart kadak",
+    "translation": "My head is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 25,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 267,
+    "text": "mooly ngaitj nyidiny, koort ngaitj wara",
+    "translation": "My nose is cold, my heart is bad/sick",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 268,
+    "text": "mooly ngaitj moorn, ngoorndiny ngaitj kalyakal",
+    "translation": "My nose is sick/unwell, my ear is tired",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 269,
+    "text": "Ngaitj ngoorndiny yoowart kadak",
+    "translation": "My ear is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 31,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 270,
+    "text": "miyal ngaitj kalyakal, waarngk ngaitj moorn",
+    "translation": "My eye is tired, my mouth is sick/unwell",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 271,
+    "text": "Ngaitj miyal boola kalyakal",
+    "translation": "eye is very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 27,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 272,
+    "text": "miyal ngaitj kwop yoowart, miyal ngaitj wara",
+    "translation": "My eye is no fever / not good health, my eye is bad/sick",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 25,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 273,
+    "text": "Ngaitj korbol kadak",
+    "translation": "My stomach is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 14,
+        "end": 19,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 274,
+    "text": "Ngaitj waarngk wara",
+    "translation": "mouth is bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 19,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 275,
+    "text": "koort ngaitj kwop yoowart, waarngk ngaitj kwop yoowart",
+    "translation": "My heart is no fever / not good health, my mouth is no fever / not good health",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 25,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 276,
+    "text": "Ngaitj moorn",
+    "translation": "I am sick/unwell",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 277,
+    "text": "Ngaitj moorditj",
+    "translation": "I am strong/severe",
+    "entities": [
+      {
+        "start": 7,
+        "end": 15,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 278,
+    "text": "Ngaitj ngoorndiny moorditj yoowart",
+    "translation": "My ear is strong fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 27,
+        "end": 34,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 18,
+        "end": 26,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 279,
+    "text": "Ngaitj djen kadak",
+    "translation": "My foot is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 17,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 280,
+    "text": "Ngaitj wara",
+    "translation": "I am bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 281,
+    "text": "Ngaitj woort kalyakal",
+    "translation": "throat is tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 282,
+    "text": "Ngaitj koort boola kalyakal",
+    "translation": "My heart is very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 19,
+        "end": 27,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 283,
+    "text": "woort ngaitj moorn, waarngk ngaitj wara",
+    "translation": "My throat is sick/unwell, my mouth is bad/sick",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 284,
+    "text": "mooly ngaitj boola kalyakal, mooly ngaitj wara",
+    "translation": "My nose is very tired, my nose is bad/sick",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 27,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 285,
+    "text": "koort ngaitj moorditj, miyal ngaitj kwop yoowart",
+    "translation": "My heart is strong/severe, my eye is no fever / not good health",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 286,
+    "text": "djen ngaitj kwop yoowart, waarngk ngaitj yoowart",
+    "translation": "My foot is no fever / not good health, my mouth is fever",
+    "entities": [
+      {
+        "start": 0,
+        "end": 4,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 24,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 287,
+    "text": "Ngaitj miyal moorn",
+    "translation": "eye is sick/unwell",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 288,
+    "text": "Ngaitj kalyakal",
+    "translation": "I am tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 15,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 289,
+    "text": "Ngaitj djen kadak",
+    "translation": "My foot is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 17,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 290,
+    "text": "Ngaitj mooly kalyakal",
+    "translation": "nose is tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 291,
+    "text": "Ngaitj woort yoowart kadak",
+    "translation": "My throat is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 26,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 292,
+    "text": "Ngaitj moorn",
+    "translation": "I am sick/unwell",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 293,
+    "text": "Ngaitj korbol kadak",
+    "translation": "My stomach is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 14,
+        "end": 19,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 294,
+    "text": "Ngaitj woort yoowart kadak",
+    "translation": "My throat is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 26,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 295,
+    "text": "Ngaitj korbol kwop nyidiny",
+    "translation": "My stomach is good/well cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 19,
+        "end": 26,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 14,
+        "end": 18,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 296,
+    "text": "koort ngaitj boola kalyakal, ngoorndiny ngaitj boola kalyakal",
+    "translation": "My heart is very tired, my ear is very tired",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 27,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 297,
+    "text": "Ngaitj ngoorndiny kadak",
+    "translation": "My ear is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 23,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 298,
+    "text": "Ngaitj miyal kwop nyidiny",
+    "translation": "My eye is good/well cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 25,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 17,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 299,
+    "text": "Ngaitj miyal boola wara",
+    "translation": "My eye is very bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 19,
+        "end": 23,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 300,
+    "text": "ngoorndiny ngaitj boola kalyakal, kaat ngaitj kalyakal",
+    "translation": "My ear is very tired, my head is tired",
+    "entities": [
+      {
+        "start": 0,
+        "end": 10,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 32,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 301,
+    "text": "Ngaitj boola kalyakal",
+    "translation": "I am very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 302,
+    "text": "Ngaitj waarngk yoowart kadak",
+    "translation": "My mouth is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 28,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 303,
+    "text": "Ngaitj yoowart",
+    "translation": "I am fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 304,
+    "text": "Ngaitj woort kwop yoowart",
+    "translation": "My throat is not good / no illness",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 25,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 305,
+    "text": "Ngaitj korbol kalyakal boola nyidiny",
+    "translation": "My stomach is always tired cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 29,
+        "end": 36,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 14,
+        "end": 28,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 306,
+    "text": "Ngaitj koort kalyakal boola moorn",
+    "translation": "My heart is always tired sick/unwell",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 28,
+        "end": 33,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 27,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 307,
+    "text": "Ngaitj korbol kwop yoowart",
+    "translation": "stomach is no fever / not good health",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 14,
+        "end": 26,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 308,
+    "text": "ngoorndiny ngaitj kalyakal, koort ngaitj yoowart",
+    "translation": "My ear is tired, my heart is fever",
+    "entities": [
+      {
+        "start": 0,
+        "end": 10,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 26,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 309,
+    "text": "Ngaitj wara",
+    "translation": "I am bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 310,
+    "text": "miyal ngaitj wara, mooly ngaitj wara",
+    "translation": "My eye is bad/sick, my nose is bad/sick",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 17,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 311,
+    "text": "Ngaitj yoowart",
+    "translation": "I am fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 312,
+    "text": "Ngaitj korbol yoowart kadak",
+    "translation": "My stomach is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 14,
+        "end": 27,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 313,
+    "text": "Ngaitj mooly kadak",
+    "translation": "My nose is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 314,
+    "text": "djen ngaitj kalyakal, koort ngaitj yoowart",
+    "translation": "My foot is tired, my heart is fever",
+    "entities": [
+      {
+        "start": 0,
+        "end": 4,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 315,
+    "text": "Ngaitj wara",
+    "translation": "I am bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 316,
+    "text": "Ngaitj ngoorndiny boola kalyakal",
+    "translation": "ear is very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 32,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 317,
+    "text": "Ngaitj moorn",
+    "translation": "I am sick/unwell",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 318,
+    "text": "Ngaitj ngoorndiny kwop nyidiny",
+    "translation": "My ear is good/well cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 23,
+        "end": 30,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 18,
+        "end": 22,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 319,
+    "text": "waarngk ngaitj moorn, djen ngaitj moorn",
+    "translation": "My mouth is sick/unwell, my foot is sick/unwell",
+    "entities": [
+      {
+        "start": 0,
+        "end": 7,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 320,
+    "text": "Ngaitj kalyakal",
+    "translation": "I am tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 15,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 321,
+    "text": "Ngaitj waarngk yoowart kadak",
+    "translation": "My mouth is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 28,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 322,
+    "text": "Ngaitj koort yoowart kadak",
+    "translation": "My heart is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 26,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 323,
+    "text": "Ngaitj yoowart",
+    "translation": "I am fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 324,
+    "text": "Ngaitj mooly wara",
+    "translation": "nose is bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 17,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 325,
+    "text": "Ngaitj mooly kalyakal boola moorn",
+    "translation": "My nose is always tired sick/unwell",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 28,
+        "end": 33,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 27,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 326,
+    "text": "Ngaitj kalyakal",
+    "translation": "I am tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 15,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 327,
+    "text": "Ngaitj waarngk kadak",
+    "translation": "My mouth is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 20,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 328,
+    "text": "Ngaitj waarngk yoowart kadak",
+    "translation": "My mouth is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 28,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 329,
+    "text": "miyal ngaitj kwop yoowart, mooly ngaitj moorn",
+    "translation": "My eye is no fever / not good health, my nose is sick/unwell",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 25,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 330,
+    "text": "woort ngaitj yoowart, koort ngaitj moorditj",
+    "translation": "My throat is fever, my heart is strong/severe",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 331,
+    "text": "Ngaitj moorditj",
+    "translation": "I am strong/severe",
+    "entities": [
+      {
+        "start": 7,
+        "end": 15,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 332,
+    "text": "Ngaitj miyal kalyakal boola kwop yoowart",
+    "translation": "My eye is always tired no fever / not good health",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 28,
+        "end": 40,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 27,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 333,
+    "text": "Ngaitj koort kwop yoowart",
+    "translation": "My heart is not good / no illness",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 25,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 334,
+    "text": "Ngaitj miyal boola kalyakal",
+    "translation": "eye is very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 27,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 335,
+    "text": "Ngaitj waarngk boola wara",
+    "translation": "My mouth is very bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 21,
+        "end": 25,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 15,
+        "end": 20,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 336,
+    "text": "Ngaitj koort kwop yoowart",
+    "translation": "My heart is not good / no illness",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 25,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 337,
+    "text": "waarngk ngaitj kwop yoowart, koort ngaitj boola kalyakal",
+    "translation": "My mouth is no fever / not good health, my heart is very tired",
+    "entities": [
+      {
+        "start": 0,
+        "end": 7,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 27,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 338,
+    "text": "Ngaitj nyidiny",
+    "translation": "I am cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 339,
+    "text": "Ngaitj kalyakal",
+    "translation": "I am tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 15,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 340,
+    "text": "Ngaitj kaat kwop yoowart",
+    "translation": "My head is not good / no illness",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 24,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 341,
+    "text": "Ngaitj wara",
+    "translation": "I am bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 342,
+    "text": "Ngaitj miyal kadak",
+    "translation": "My eye is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 343,
+    "text": "koort ngaitj moorditj, waarngk ngaitj moorditj",
+    "translation": "My heart is strong/severe, my mouth is strong/severe",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 344,
+    "text": "miyal ngaitj nyidiny, djen ngaitj nyidiny",
+    "translation": "My eye is cold, my foot is cold",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 345,
+    "text": "Ngaitj ngoorndiny kwop yoowart",
+    "translation": "My ear is not good / no illness",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 30,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 346,
+    "text": "Ngaitj nyidiny",
+    "translation": "I am cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 347,
+    "text": "Ngaitj woort boola moorn",
+    "translation": "My throat is very sick/unwell",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 19,
+        "end": 24,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 348,
+    "text": "Ngaitj woort kwop yoowart",
+    "translation": "My throat is not good / no illness",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 25,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 349,
+    "text": "Ngaitj ngoorndiny kwop yoowart",
+    "translation": "ear is no fever / not good health",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 30,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 350,
+    "text": "Ngaitj ngoorndiny moorditj",
+    "translation": "ear is strong/severe",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 26,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 351,
+    "text": "Ngaitj korbol kadak",
+    "translation": "My stomach is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 14,
+        "end": 19,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 352,
+    "text": "Ngaitj ngoorndiny kalyakal boola wara",
+    "translation": "My ear is always tired bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 33,
+        "end": 37,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 18,
+        "end": 32,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 353,
+    "text": "Ngaitj mooly yoowart kadak",
+    "translation": "My nose is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 26,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 354,
+    "text": "Ngaitj mooly kwop yoowart",
+    "translation": "nose is no fever / not good health",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 25,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 355,
+    "text": "Ngaitj wara",
+    "translation": "I am bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 356,
+    "text": "waarngk ngaitj nyidiny, mooly ngaitj kwop yoowart",
+    "translation": "My mouth is cold, my nose is no fever / not good health",
+    "entities": [
+      {
+        "start": 0,
+        "end": 7,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 22,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 357,
+    "text": "Ngaitj waarngk kadak",
+    "translation": "My mouth is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 20,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 358,
+    "text": "Ngaitj koort moorditj moorn",
+    "translation": "My heart is strong sick/unwell",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 22,
+        "end": 27,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 359,
+    "text": "Ngaitj korbol wara",
+    "translation": "stomach is bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 14,
+        "end": 18,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 360,
+    "text": "Ngaitj ngoorndiny moorditj moorditj",
+    "translation": "My ear is strong strong/severe",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 26,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 18,
+        "end": 26,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 361,
+    "text": "Ngaitj nyidiny",
+    "translation": "I am cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 362,
+    "text": "Ngaitj korbol yoowart kadak",
+    "translation": "My stomach is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 14,
+        "end": 27,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 363,
+    "text": "Ngaitj kwop yoowart",
+    "translation": "I am no fever / not good health",
+    "entities": [
+      {
+        "start": 7,
+        "end": 19,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 364,
+    "text": "Ngaitj djen kwop yoowart",
+    "translation": "My foot is not good / no illness",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 24,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 365,
+    "text": "woort ngaitj wara, mooly ngaitj nyidiny",
+    "translation": "My throat is bad/sick, my nose is cold",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 17,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 366,
+    "text": "Ngaitj moorn",
+    "translation": "I am sick/unwell",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 367,
+    "text": "Ngaitj yoowart",
+    "translation": "I am fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 368,
+    "text": "Ngaitj woort kalyakal boola kalyakal",
+    "translation": "My throat is always tired tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 27,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 369,
+    "text": "Ngaitj ngoorndiny boola kalyakal",
+    "translation": "ear is very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 32,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 370,
+    "text": "Ngaitj boola kalyakal",
+    "translation": "I am very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 371,
+    "text": "Ngaitj woort wara",
+    "translation": "throat is bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 17,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 372,
+    "text": "Ngaitj djen kalyakal",
+    "translation": "foot is tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 373,
+    "text": "Ngaitj mooly moorn",
+    "translation": "nose is sick/unwell",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 374,
+    "text": "Ngaitj miyal kalyakal",
+    "translation": "eye is tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 375,
+    "text": "Ngaitj kalyakal",
+    "translation": "I am tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 15,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 376,
+    "text": "Ngaitj wara",
+    "translation": "I am bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 377,
+    "text": "Ngaitj woort yoowart kadak",
+    "translation": "My throat is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 26,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 378,
+    "text": "mooly ngaitj moorn, ngoorndiny ngaitj kalyakal",
+    "translation": "My nose is sick/unwell, my ear is tired",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 379,
+    "text": "Ngaitj mooly kwop boola kalyakal",
+    "translation": "My nose is good/well very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 32,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 17,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 380,
+    "text": "Ngaitj kalyakal",
+    "translation": "I am tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 15,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 381,
+    "text": "waarngk ngaitj moorditj, ngoorndiny ngaitj moorditj",
+    "translation": "My mouth is strong/severe, my ear is strong/severe",
+    "entities": [
+      {
+        "start": 0,
+        "end": 7,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 23,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 382,
+    "text": "Ngaitj boola kalyakal",
+    "translation": "I am very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 383,
+    "text": "korbol ngaitj nyidiny, mooly ngaitj boola kalyakal",
+    "translation": "My stomach is cold, my nose is very tired",
+    "entities": [
+      {
+        "start": 0,
+        "end": 6,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 14,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 384,
+    "text": "Ngaitj miyal kwop yoowart",
+    "translation": "My eye is not good / no illness",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 25,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 385,
+    "text": "Ngaitj ngoorndiny yoowart",
+    "translation": "ear is fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 25,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 386,
+    "text": "Ngaitj mooly kadak",
+    "translation": "My nose is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 387,
+    "text": "Ngaitj yoowart",
+    "translation": "I am fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 388,
+    "text": "Ngaitj ngoorndiny moorditj moorditj",
+    "translation": "My ear is strong strong/severe",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 26,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 18,
+        "end": 26,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 389,
+    "text": "Ngaitj mooly kwop yoowart",
+    "translation": "nose is no fever / not good health",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 25,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 390,
+    "text": "Ngaitj woort kadak",
+    "translation": "My throat is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 391,
+    "text": "Ngaitj djen nyidiny",
+    "translation": "foot is cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 19,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 392,
+    "text": "Ngaitj koort yoowart kadak",
+    "translation": "My heart is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 26,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 393,
+    "text": "Ngaitj kaat moorditj moorn",
+    "translation": "My head is strong sick/unwell",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 21,
+        "end": 26,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 12,
+        "end": 20,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 394,
+    "text": "Ngaitj waarngk kalyakal",
+    "translation": "mouth is tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 23,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 395,
+    "text": "Ngaitj nyidiny",
+    "translation": "I am cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 396,
+    "text": "woort ngaitj nyidiny, woort ngaitj yoowart",
+    "translation": "My throat is cold, my throat is fever",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 397,
+    "text": "Ngaitj ngoorndiny nyidiny",
+    "translation": "ear is cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 25,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 398,
+    "text": "Ngaitj kwop yoowart",
+    "translation": "I am no fever / not good health",
+    "entities": [
+      {
+        "start": 7,
+        "end": 19,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 399,
+    "text": "korbol ngaitj wara, djen ngaitj moorditj",
+    "translation": "My stomach is bad/sick, my foot is strong/severe",
+    "entities": [
+      {
+        "start": 0,
+        "end": 6,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 14,
+        "end": 18,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 400,
+    "text": "Ngaitj moorn",
+    "translation": "I am sick/unwell",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 401,
+    "text": "koort ngaitj nyidiny, djen ngaitj boola kalyakal",
+    "translation": "My heart is cold, my foot is very tired",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 402,
+    "text": "Ngaitj woort moorditj yoowart",
+    "translation": "My throat is strong fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 22,
+        "end": 29,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 403,
+    "text": "koort ngaitj moorn, miyal ngaitj boola kalyakal",
+    "translation": "My heart is sick/unwell, my eye is very tired",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 404,
+    "text": "Ngaitj korbol yoowart kadak",
+    "translation": "My stomach is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 14,
+        "end": 27,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 405,
+    "text": "Ngaitj kaat boola kalyakal",
+    "translation": "head is very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 26,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 406,
+    "text": "Ngaitj miyal boola kalyakal",
+    "translation": "eye is very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 27,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 407,
+    "text": "Ngaitj korbol kadak",
+    "translation": "My stomach is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 14,
+        "end": 19,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 408,
+    "text": "Ngaitj djen kadak",
+    "translation": "My foot is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 17,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 409,
+    "text": "Ngaitj kaat moorditj moorn",
+    "translation": "My head is strong sick/unwell",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 21,
+        "end": 26,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 12,
+        "end": 20,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 410,
+    "text": "Ngaitj kaat kwop boola kalyakal",
+    "translation": "My head is good/well very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 17,
+        "end": 31,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 12,
+        "end": 16,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 411,
+    "text": "mooly ngaitj kalyakal, koort ngaitj boola kalyakal",
+    "translation": "My nose is tired, my heart is very tired",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 412,
+    "text": "waarngk ngaitj kwop yoowart, koort ngaitj wara",
+    "translation": "My mouth is no fever / not good health, my heart is bad/sick",
+    "entities": [
+      {
+        "start": 0,
+        "end": 7,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 27,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 413,
+    "text": "Ngaitj mooly kwop yoowart",
+    "translation": "My nose is not good / no illness",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 25,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 414,
+    "text": "Ngaitj djen boola kalyakal",
+    "translation": "foot is very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 26,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 415,
+    "text": "Ngaitj woort yoowart",
+    "translation": "throat is fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 416,
+    "text": "Ngaitj kaat kwop yoowart",
+    "translation": "My head is not good / no illness",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 24,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 417,
+    "text": "Ngaitj ngoorndiny kalyakal",
+    "translation": "ear is tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 26,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 418,
+    "text": "Ngaitj djen kadak",
+    "translation": "My foot is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 17,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 419,
+    "text": "kaat ngaitj nyidiny, mooly ngaitj moorditj",
+    "translation": "My head is cold, my nose is strong/severe",
+    "entities": [
+      {
+        "start": 0,
+        "end": 4,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 19,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 420,
+    "text": "Ngaitj miyal kalyakal boola moorditj",
+    "translation": "My eye is always tired strong/severe",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 28,
+        "end": 36,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 27,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 421,
+    "text": "Ngaitj korbol kalyakal",
+    "translation": "stomach is tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 14,
+        "end": 22,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 422,
+    "text": "Ngaitj waarngk yoowart kadak",
+    "translation": "My mouth is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 28,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 423,
+    "text": "Ngaitj nyidiny",
+    "translation": "I am cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 424,
+    "text": "Ngaitj moorn",
+    "translation": "I am sick/unwell",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 425,
+    "text": "kaat ngaitj kalyakal, mooly ngaitj moorn",
+    "translation": "My head is tired, my nose is sick/unwell",
+    "entities": [
+      {
+        "start": 0,
+        "end": 4,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 426,
+    "text": "Ngaitj korbol kalyakal boola yoowart",
+    "translation": "My stomach is always tired fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 29,
+        "end": 36,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 14,
+        "end": 28,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 427,
+    "text": "Ngaitj woort kalyakal boola kalyakal",
+    "translation": "My throat is always tired tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 27,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 428,
+    "text": "woort ngaitj wara, miyal ngaitj kalyakal",
+    "translation": "My throat is bad/sick, my eye is tired",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 17,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 429,
+    "text": "kaat ngaitj nyidiny, kaat ngaitj kwop yoowart",
+    "translation": "My head is cold, my head is no fever / not good health",
+    "entities": [
+      {
+        "start": 0,
+        "end": 4,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 19,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 430,
+    "text": "Ngaitj nyidiny",
+    "translation": "I am cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 431,
+    "text": "mooly ngaitj moorditj, miyal ngaitj nyidiny",
+    "translation": "My nose is strong/severe, my eye is cold",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 432,
+    "text": "koort ngaitj yoowart, woort ngaitj moorn",
+    "translation": "My heart is fever, my throat is sick/unwell",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 433,
+    "text": "Ngaitj woort kwop moorn",
+    "translation": "My throat is good/well sick/unwell",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 23,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 17,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 434,
+    "text": "Ngaitj moorn",
+    "translation": "I am sick/unwell",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 435,
+    "text": "Ngaitj kaat nyidiny",
+    "translation": "head is cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 19,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 436,
+    "text": "Ngaitj miyal kwop yoowart",
+    "translation": "My eye is not good / no illness",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 25,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 437,
+    "text": "Ngaitj mooly kwop yoowart",
+    "translation": "nose is no fever / not good health",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 25,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 438,
+    "text": "ngoorndiny ngaitj kwop yoowart, koort ngaitj nyidiny",
+    "translation": "My ear is no fever / not good health, my heart is cold",
+    "entities": [
+      {
+        "start": 0,
+        "end": 10,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 30,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 439,
+    "text": "waarngk ngaitj boola kalyakal, ngoorndiny ngaitj wara",
+    "translation": "My mouth is very tired, my ear is bad/sick",
+    "entities": [
+      {
+        "start": 0,
+        "end": 7,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 29,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 440,
+    "text": "Ngaitj yoowart",
+    "translation": "I am fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 441,
+    "text": "mooly ngaitj yoowart, kaat ngaitj moorn",
+    "translation": "My nose is fever, my head is sick/unwell",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 442,
+    "text": "Ngaitj djen yoowart kadak",
+    "translation": "My foot is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 25,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 443,
+    "text": "Ngaitj mooly kwop yoowart",
+    "translation": "My nose is not good / no illness",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 25,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 444,
+    "text": "Ngaitj waarngk kwop moorn",
+    "translation": "My mouth is good/well sick/unwell",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 20,
+        "end": 25,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 15,
+        "end": 19,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 445,
+    "text": "Ngaitj ngoorndiny moorditj kwop yoowart",
+    "translation": "My ear is strong no fever / not good health",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 27,
+        "end": 39,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 18,
+        "end": 26,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 446,
+    "text": "Ngaitj moorn",
+    "translation": "I am sick/unwell",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 447,
+    "text": "waarngk ngaitj kwop yoowart, ngoorndiny ngaitj wara",
+    "translation": "My mouth is no fever / not good health, my ear is bad/sick",
+    "entities": [
+      {
+        "start": 0,
+        "end": 7,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 27,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 448,
+    "text": "ngoorndiny ngaitj kalyakal, djen ngaitj wara",
+    "translation": "My ear is tired, my foot is bad/sick",
+    "entities": [
+      {
+        "start": 0,
+        "end": 10,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 26,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 449,
+    "text": "Ngaitj ngoorndiny boola kalyakal",
+    "translation": "ear is very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 32,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 450,
+    "text": "woort ngaitj nyidiny, ngoorndiny ngaitj moorditj",
+    "translation": "My throat is cold, my ear is strong/severe",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 451,
+    "text": "Ngaitj yoowart",
+    "translation": "I am fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 452,
+    "text": "Ngaitj woort yoowart",
+    "translation": "throat is fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 453,
+    "text": "Ngaitj miyal moorditj",
+    "translation": "eye is strong/severe",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 454,
+    "text": "Ngaitj miyal kalyakal boola yoowart",
+    "translation": "My eye is always tired fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 28,
+        "end": 35,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 27,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 455,
+    "text": "Ngaitj koort kwop yoowart",
+    "translation": "My heart is good/well fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 25,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 17,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 456,
+    "text": "Ngaitj moorditj",
+    "translation": "I am strong/severe",
+    "entities": [
+      {
+        "start": 7,
+        "end": 15,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 457,
+    "text": "Ngaitj ngoorndiny kwop nyidiny",
+    "translation": "My ear is good/well cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 17,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 23,
+        "end": 30,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 18,
+        "end": 22,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 458,
+    "text": "ngoorndiny ngaitj nyidiny, korbol ngaitj yoowart",
+    "translation": "My ear is cold, my stomach is fever",
+    "entities": [
+      {
+        "start": 0,
+        "end": 10,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 25,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 459,
+    "text": "Ngaitj woort kwop yoowart",
+    "translation": "My throat is not good / no illness",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 25,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 460,
+    "text": "Ngaitj wara",
+    "translation": "I am bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 461,
+    "text": "Ngaitj kaat kwop yoowart",
+    "translation": "head is no fever / not good health",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 24,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 462,
+    "text": "Ngaitj korbol moorn",
+    "translation": "stomach is sick/unwell",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 14,
+        "end": 19,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 463,
+    "text": "ngoorndiny ngaitj moorditj, koort ngaitj boola kalyakal",
+    "translation": "My ear is strong/severe, my heart is very tired",
+    "entities": [
+      {
+        "start": 0,
+        "end": 10,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 18,
+        "end": 26,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 464,
+    "text": "Ngaitj koort moorn",
+    "translation": "heart is sick/unwell",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 465,
+    "text": "Ngaitj korbol kalyakal boola nyidiny",
+    "translation": "My stomach is always tired cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 29,
+        "end": 36,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 14,
+        "end": 28,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 466,
+    "text": "Ngaitj djen nyidiny",
+    "translation": "foot is cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 19,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 467,
+    "text": "Ngaitj korbol kalyakal boola kwop yoowart",
+    "translation": "My stomach is always tired no fever / not good health",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 29,
+        "end": 41,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 14,
+        "end": 28,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 468,
+    "text": "koort ngaitj moorn, korbol ngaitj kalyakal",
+    "translation": "My heart is sick/unwell, my stomach is tired",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 469,
+    "text": "Ngaitj woort boola kwop yoowart",
+    "translation": "My throat is very no fever / not good health",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 19,
+        "end": 31,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 470,
+    "text": "Ngaitj waarngk nyidiny",
+    "translation": "mouth is cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 22,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 471,
+    "text": "Ngaitj moorn",
+    "translation": "I am sick/unwell",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 472,
+    "text": "koort ngaitj nyidiny, miyal ngaitj kalyakal",
+    "translation": "My heart is cold, my eye is tired",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 473,
+    "text": "waarngk ngaitj kwop yoowart, miyal ngaitj kalyakal",
+    "translation": "My mouth is no fever / not good health, my eye is tired",
+    "entities": [
+      {
+        "start": 0,
+        "end": 7,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 27,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 474,
+    "text": "Ngaitj yoowart",
+    "translation": "I am fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 475,
+    "text": "Ngaitj yoowart",
+    "translation": "I am fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 476,
+    "text": "Ngaitj koort moorn",
+    "translation": "heart is sick/unwell",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 477,
+    "text": "Ngaitj wara",
+    "translation": "I am bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 478,
+    "text": "Ngaitj yoowart",
+    "translation": "I am fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 479,
+    "text": "woort ngaitj yoowart, ngoorndiny ngaitj yoowart",
+    "translation": "My throat is fever, my ear is fever",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 480,
+    "text": "miyal ngaitj moorn, miyal ngaitj kalyakal",
+    "translation": "My eye is sick/unwell, my eye is tired",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 481,
+    "text": "Ngaitj woort moorn",
+    "translation": "throat is sick/unwell",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 482,
+    "text": "Ngaitj miyal nyidiny",
+    "translation": "eye is cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 20,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 483,
+    "text": "Ngaitj moorn",
+    "translation": "I am sick/unwell",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 484,
+    "text": "Ngaitj kaat kadak",
+    "translation": "My head is no/not",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 17,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 485,
+    "text": "Ngaitj korbol kwop yoowart",
+    "translation": "My stomach is not good / no illness",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 14,
+        "end": 26,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 486,
+    "text": "Ngaitj woort boola wara",
+    "translation": "My throat is very bad/sick",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 19,
+        "end": 23,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 18,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 487,
+    "text": "woort ngaitj kwop yoowart, mooly ngaitj kalyakal",
+    "translation": "My throat is no fever / not good health, my nose is tired",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 25,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 488,
+    "text": "woort ngaitj kwop yoowart, miyal ngaitj kwop yoowart",
+    "translation": "My throat is no fever / not good health, my eye is no fever / not good health",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 25,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 489,
+    "text": "Ngaitj moorditj",
+    "translation": "I am strong/severe",
+    "entities": [
+      {
+        "start": 7,
+        "end": 15,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 490,
+    "text": "Ngaitj djen yoowart kadak",
+    "translation": "My foot is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 25,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 491,
+    "text": "Ngaitj woort moorditj yoowart",
+    "translation": "My throat is strong fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 22,
+        "end": 29,
+        "label": "SYMPTOM"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "label": "QUALITY"
+      }
+    ]
+  },
+  {
+    "id": 492,
+    "text": "Ngaitj woort kwop yoowart",
+    "translation": "My throat is not good / no illness",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 25,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 493,
+    "text": "Ngaitj miyal kwop yoowart",
+    "translation": "eye is no fever / not good health",
+    "entities": [
+      {
+        "start": 7,
+        "end": 12,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 13,
+        "end": 25,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 494,
+    "text": "Ngaitj yoowart",
+    "translation": "I am fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 495,
+    "text": "Ngaitj waarngk yoowart kadak",
+    "translation": "My mouth is without fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 28,
+        "label": "NEGATION"
+      }
+    ]
+  },
+  {
+    "id": 496,
+    "text": "Ngaitj nyidiny",
+    "translation": "I am cold",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 497,
+    "text": "Ngaitj korbol yoowart",
+    "translation": "stomach is fever",
+    "entities": [
+      {
+        "start": 7,
+        "end": 13,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 14,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 498,
+    "text": "waarngk ngaitj yoowart, kaat ngaitj moorn",
+    "translation": "My mouth is fever, my head is sick/unwell",
+    "entities": [
+      {
+        "start": 0,
+        "end": 7,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 15,
+        "end": 22,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 499,
+    "text": "djen ngaitj boola kalyakal, korbol ngaitj yoowart",
+    "translation": "My foot is very tired, my stomach is fever",
+    "entities": [
+      {
+        "start": 0,
+        "end": 4,
+        "label": "BODY_PART"
+      },
+      {
+        "start": 12,
+        "end": 26,
+        "label": "SYMPTOM"
+      }
+    ]
+  },
+  {
+    "id": 500,
+    "text": "Ngaitj boola kalyakal",
+    "translation": "I am very tired",
+    "entities": [
+      {
+        "start": 7,
+        "end": 21,
+        "label": "SYMPTOM"
+      }
+    ]
+  }
+]
