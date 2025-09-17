@@ -8,12 +8,20 @@ services:
     volumes:
       - ./apps/nlpService:/app
 
+  mlservice1:
+    build: ./apps/MLService1
+    ports:
+      - "8101:8101"
+    volumes:
+      - ./apps/MLService1:/app
+
   backend:
     build: ./apps/backend
     ports:
       - "8000:8000"
     depends_on:
       - nlpservice
+      - mlservice1
     volumes:
       - ./apps/backend:/app
 
