@@ -1,0 +1,24 @@
+{
+  "label2id": {
+    "O": 0,
+    "B-SYMPTOM": 1,
+    "I-SYMPTOM": 2,
+    "B-BODY_PART": 3,
+    "I-BODY_PART": 4,
+    "B-NEGATION": 5,
+    "I-NEGATION": 6,
+    "B-QUALITY": 7,
+    "I-QUALITY": 8
+  },
+  "id2label": {
+    "0": "O",
+    "1": "B-SYMPTOM",
+    "2": "I-SYMPTOM",
+    "3": "B-BODY_PART",
+    "4": "I-BODY_PART",
+    "5": "B-NEGATION",
+    "6": "I-NEGATION",
+    "7": "B-QUALITY",
+    "8": "I-QUALITY"
+  }
+}
