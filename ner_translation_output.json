@@ -1,0 +1,68 @@
+[
+  {
+    "input": "Ngaitj koort kalyakal boola",
+    "entities_detected": [
+      {
+        "word": "Ngaitj",
+        "label": "BODY_PART",
+        "score": 0.6664193868637085
+      },
+      {
+        "word": "koort",
+        "label": "BODY_PART",
+        "score": 0.9985482096672058
+      },
+      {
+        "word": "kalyakal",
+        "label": "SYMPTOM",
+        "score": 0.7685973246892294
+      },
+      {
+        "word": "boola",
+        "label": "QUALITY",
+        "score": 0.7152797877788544
+      }
+    ],
+    "translation": "My heart is tired very.",
+    "clinical_translation": "Patient reports tired very in the heart.",
+    "confidence": 0.7872111772497495,
+    "notes": "Translation inferred from NER and vocabulary."
+  },
+  {
+    "input": "Ngaitj mooly yoowart kadak",
+    "entities_detected": [],
+    "translation": "My nose is without fever",
+    "clinical_translation": "Patient reports nose is without fever.",
+    "confidence": 1.0,
+    "notes": "Exact match found in dataset."
+  },
+  {
+    "input": "Ngaitj djen wara boola",
+    "entities_detected": [
+      {
+        "word": "Ngaitj",
+        "label": "BODY_PART",
+        "score": 0.6664334932963053
+      },
+      {
+        "word": "djen",
+        "label": "BODY_PART",
+        "score": 0.9996201992034912
+      },
+      {
+        "word": "wara",
+        "label": "SYMPTOM",
+        "score": 0.9498250484466553
+      },
+      {
+        "word": "boola",
+        "label": "QUALITY",
+        "score": 0.7915370762348175
+      }
+    ],
+    "translation": "My foot is bad/sick very.",
+    "clinical_translation": "Patient reports bad/sick very in the foot.",
+    "confidence": 0.8518539542953173,
+    "notes": "Translation inferred from NER and vocabulary."
+  }
+]
