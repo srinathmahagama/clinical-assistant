@@ -3,24 +3,30 @@
 Train the Noongar Clinical NER Model
 """
 
-from transformers import (
-    AutoTokenizer, 
-    AutoModelForTokenClassification, 
-    TrainingArguments, 
-    Trainer,
-    DataCollatorForTokenClassification
-)
-from datasets import load_from_disk
-import json
-import numpy as np
-from seqeval.metrics import classification_report, f1_score
-from pathlib import Path
-import torch
+try:
+    from transformers import (
+        AutoTokenizer, 
+        AutoModelForTokenClassification, 
+        TrainingArguments, 
+        Trainer,
+        DataCollatorForTokenClassification
+    )
+    from datasets import load_from_disk
+    import json
+    import numpy as np
+    from seqeval.metrics import classification_report, f1_score
+    from pathlib import Path
+    import torch
+    
+    print("✅ All imports successful!")
+    
+except ImportError as e:
+    print(f"❌ Missing dependency: {e}")
+    print("Please install required packages:")
+    print("pip install torch torchvision torchaudio transformers datasets seqeval accelerate")
+    exit(1)
 
-# Check if PyTorch is available
-print("PyTorch available:", torch.__version__ if torch else "No")
-
-# Define paths - FIXED PATHS
+# Define paths
 BASE_DIR = Path(__file__).resolve().parent.parent.parent  # apps/nlpService/
 DATA_DIR = BASE_DIR / "data"
 PROCESSED_DATA_PATH = DATA_DIR / "processed" / "noongar_hf_dataset_corrected"
@@ -40,16 +46,16 @@ MAX_LENGTH = 128
 def train_model():
     """Train the Noongar clinical NER model"""
     
-    # Load corrected dataset and label mappings
+    # Load dataset
     print("📦 Loading dataset...")
     try:
         dataset = load_from_disk(str(PROCESSED_DATA_PATH))
         print("✅ Dataset loaded successfully!")
     except Exception as e:
         print(f"❌ Error loading dataset: {e}")
-        print("Please make sure the dataset exists at:", PROCESSED_DATA_PATH)
         return
     
+    # Load label mappings
     try:
         with open(LABEL_MAPPINGS_PATH, "r") as f:
             label_mappings = json.load(f)
@@ -67,38 +73,58 @@ def train_model():
 
     # Initialize tokenizer and model
     print("🔄 Initializing model...")
-    try:
-        tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
-        print("✅ Tokenizer loaded successfully!")
-    except Exception as e:
-        print(f"❌ Error loading tokenizer: {e}")
-        return
-
-    try:
-        model = AutoModelForTokenClassification.from_pretrained(
-            MODEL_NAME,
-            num_labels=len(label2id),
-            id2label=id2label,
-            label2id=label2id
-        )
-        print("✅ Model loaded successfully!")
-    except Exception as e:
-        print(f"❌ Error loading model: {e}")
-        print("You may need to install PyTorch: pip install torch torchvision torchaudio")
-        return
-
-    # Data collator for dynamic padding
-    data_collator = DataCollatorForTokenClassification(
-        tokenizer=tokenizer,
-        padding=True
+    tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
+    model = AutoModelForTokenClassification.from_pretrained(
+        MODEL_NAME,
+        num_labels=len(label2id),
+        id2label=id2label,
+        label2id=label2id
     )
+    print("✅ Model and tokenizer loaded successfully!")
 
-    # Compute metrics function
+    # Tokenize and align labels
+    def tokenize_and_align_labels(examples):
+        tokenized_inputs = tokenizer(
+            examples["tokens"],  # make sure your dataset has "tokens" field
+            truncation=True,
+            padding="max_length",
+            max_length=MAX_LENGTH,
+            is_split_into_words=True
+        )
+
+        labels = []
+        for i, label in enumerate(examples["ner_tags"]):
+            word_ids = tokenized_inputs.word_ids(batch_index=i)
+            previous_word_idx = None
+            label_ids = []
+            for word_idx in word_ids:
+                if word_idx is None:
+                    label_ids.append(-100)  # ignore special tokens
+                elif word_idx != previous_word_idx:
+                    label_ids.append(label[word_idx])
+                else:
+                    label_ids.append(-100)  # ignore subword tokens
+                previous_word_idx = word_idx
+            labels.append(label_ids)
+        tokenized_inputs["labels"] = labels
+        return tokenized_inputs
+
+    print("📦 Tokenizing dataset...")
+    tokenized_dataset = dataset.map(
+        tokenize_and_align_labels,
+        batched=True,
+        remove_columns=dataset["train"].column_names
+    )
+    print("✅ Dataset tokenized successfully!")
+
+    # Data collator
+    data_collator = DataCollatorForTokenClassification(tokenizer=tokenizer)
+
+    # Compute metrics
     def compute_metrics(p):
         predictions, labels = p
         predictions = np.argmax(predictions, axis=2)
 
-        # Remove ignored index (special tokens)
         true_predictions = [
             [id2label[p] for (p, l) in zip(prediction, label) if l != -100]
             for prediction, label in zip(predictions, labels)
@@ -120,55 +146,44 @@ def train_model():
         learning_rate=2e-5,
         per_device_train_batch_size=BATCH_SIZE,
         per_device_eval_batch_size=BATCH_SIZE,
-        num_train_epochs=3,  # Reduced for testing
+        num_train_epochs=3,
         weight_decay=0.01,
-        evaluation_strategy="epoch",
+        eval_strategy="epoch",
         save_strategy="epoch",
         load_best_model_at_end=True,
         logging_dir=str(BASE_DIR / "logs"),
         logging_steps=50,
         report_to="none",
+        remove_unused_columns=False,
+        dataloader_pin_memory=False
     )
 
-    # Initialize trainer
+    # Trainer
     trainer = Trainer(
         model=model,
         args=training_args,
-        train_dataset=dataset["train"],
-        eval_dataset=dataset["test"],
+        train_dataset=tokenized_dataset["train"],
+        eval_dataset=tokenized_dataset["test"],
         tokenizer=tokenizer,
         data_collator=data_collator,
-        compute_metrics=compute_metrics,
+        compute_metrics=compute_metrics
     )
 
     print("🚀 Starting training...")
-    try:
-        trainer.train()
-        print("✅ Training completed successfully!")
-    except Exception as e:
-        print(f"❌ Training failed: {e}")
-        return
+    trainer.train()
+    print("✅ Training completed successfully!")
 
-    # Save the final model
-    try:
-        MODEL_CHECKPOINTS_PATH.mkdir(parents=True, exist_ok=True)
-        FINAL_MODEL_PATH.mkdir(parents=True, exist_ok=True)
-        
-        trainer.save_model(str(FINAL_MODEL_PATH))
-        print(f"✅ Model saved to '{FINAL_MODEL_PATH}'")
-    except Exception as e:
-        print(f"❌ Error saving model: {e}")
-        return
-    
+    # Save model
+    FINAL_MODEL_PATH.mkdir(parents=True, exist_ok=True)
+    trainer.save_model(str(FINAL_MODEL_PATH))
+    print(f"✅ Model saved to '{FINAL_MODEL_PATH}'")
+
     # Evaluate final model
     print("📈 Final evaluation:")
-    try:
-        eval_results = trainer.evaluate()
-        print(f"F1 Score: {eval_results['eval_f1']:.4f}")
-        print(f"Precision: {eval_results['eval_precision']:.4f}")
-        print(f"Recall: {eval_results['eval_recall']:.4f}")
-    except Exception as e:
-        print(f"❌ Error during evaluation: {e}")
+    eval_results = trainer.evaluate()
+    print(f"F1 Score: {eval_results['eval_f1']:.4f}")
+    print(f"Precision: {eval_results['eval_precision']:.4f}")
+    print(f"Recall: {eval_results['eval_recall']:.4f}")
 
 if __name__ == "__main__":
     train_model()

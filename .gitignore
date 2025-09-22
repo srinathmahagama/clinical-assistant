@@ -1,0 +1,60 @@
+# ------------------------
+# Python cache
+# ------------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# ------------------------
+# Virtual environment
+# ------------------------
+.venv/
+
+# ------------------------
+# HuggingFace / Torch models
+# ------------------------
+*.bin
+*.pt
+*.ckpt
+*.h5
+
+# Model directories
+apps/nlpService/models/
+apps/nlpService/noongar_ner_final/
+
+# Datasets / checkpoints
+apps/nlpService/noongar_hf_dataset/
+datasets/
+
+# Ignore HuggingFace datasets + caches
+*.arrow
+
+# Large JSON datasets
+apps/nlpService/data_generating_script/noongar_clinical_dataset_500*.json
+*.json filter=lfs diff=lfs merge=lfs -text
+
+# Ignore intermediate models/checkpoints
+apps/nlpService/models/checkpoints/
+apps/nlpService/models/tmp/
+
+# Keep final model folder (but not training junk)
+!apps/nlpService/models/final_model/
+
+# Large files / outputs
+apps/nlpService/ml_output.json
+apps/nlpService/data_generating_script/noongar_clinical_dataset_500.json
+bigobjects.txt
+
+# IDE / editor configs (optional)
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs
+*.log
+
+# OS-specific
+.DS_Store
+Thumbs.db
