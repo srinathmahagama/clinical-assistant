@@ -1,7 +1,8 @@
+from app.schemas.symptom_input import SymptomInput
+from app.services.predictor import make_prediction
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
-import httpx, os
 
 
 app = FastAPI(title="ML Service 1")
@@ -26,3 +27,7 @@ app.add_middleware(
 async def testMLService1():
     msg = "ML Service 1 tested sucessfully ..."
     return msg
+
+@app.post("/predict")
+def predict(input_data: SymptomInput):
+    return make_prediction(input_data)
