@@ -1,34 +1,41 @@
 version: '3.8'
 services:
-
   nlpservice:
     build: ./apps/nlpService
     ports:
-      - "8100:8100"
+      - '8100:8100'
     volumes:
       - ./apps/nlpService:/app
 
   mlservice1:
     build: ./apps/MLService1
     ports:
-      - "8101:8101"
+      - '8101:8101'
     volumes:
       - ./apps/MLService1:/app
+
+  mlservice2:
+    build: ./apps/MLService2
+    ports:
+      - '8102:8102'
+    volumes:
+      - ./apps/MLService2:/app
 
   backend:
     build: ./apps/backend
     ports:
-      - "8000:8000"
+      - '8000:8000'
     depends_on:
       - nlpservice
       - mlservice1
+      - mlservice2
     volumes:
       - ./apps/backend:/app
 
   frontend:
     build: ./apps/frontend
     ports:
-      - "3000:3000"
+      - '3000:3000'
     depends_on:
       - backend
     volumes:
