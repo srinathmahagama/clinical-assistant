@@ -9,32 +9,27 @@ label_encoder = joblib.load("app/models/label_encoder.pkl")
 feature_names = joblib.load("app/models/features.pkl")
 
 def make_prediction(input_data: SymptomInput):
-    # Ensure input matches features
-    x = [input_data.symptoms.get(feat, 0) for feat in feature_names]
-    x = np.array(x).reshape(1, -1)
+    # Build feature vector, assign 0 for missing symptoms
+    feature_vector = [input_data.symptoms.get(feat, 0) for feat in feature_names]
+    feature_vector = np.array(feature_vector).reshape(1, -1)
 
     # Predict probabilities
-    proba = model.predict_proba(x)[0]
+    probabilities = model.predict_proba(feature_vector)[0]
+    top_indices = np.argsort(probabilities)[::-1][:3]
 
-    # Get top 3 predictions
-    top_indices = np.argsort(proba)[::-1][:3]
-    top_diseases = [
+    top_predictions = [
         {
             "disease": label_encoder.inverse_transform([i])[0],
-            "confidence": f"{round(proba[i]*100, 2)}%"
+            "confidence": f"{round(probabilities[i] * 100, 2)}%"
         }
         for i in top_indices
     ]
 
-    # Best prediction
-    best_pred = top_diseases[0]["disease"]
-    best_conf = top_diseases[0]["confidence"]
-
-    # Severity
+    best_prediction = top_predictions[0]
     severity = get_severity(input_data.symptoms)
 
     return {
-        "best_prediction": {"disease": best_pred, "confidence": best_conf},
-        "top_3_predictions": top_diseases,
+        "best_prediction": best_prediction,
+        "top_3_predictions": top_predictions,
         "severity": severity
     }
