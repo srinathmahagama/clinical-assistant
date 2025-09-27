@@ -1,28 +1,30 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi import FastAPI
 from pydantic import BaseModel
-from fastapi.middleware.cors import CORSMiddleware
-import httpx, os
+from typing import List
+from .production_processor import NoongarClinicalProcessor
 
-# ML_URL = os.getenv("ML_SERVICE_URL","http://ml:8100")
-app = FastAPI(title="API Gateway")
+app = FastAPI()
+processor = NoongarClinicalProcessor()
 
-# Allow requests from your Next.js frontend
-origins = [
-    "http://localhost:3000",  # Next.js dev
-    "http://127.0.0.1:3000",
-]
+class AnalyzeRequest(BaseModel):
+    text: str
+    language: str
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,   # or ["*"] to allow all
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+@app.post("/analyze")
+def analyze_text(request: AnalyzeRequest):
+    try:
+        result = processor.process(request.text)
+        return result
+    except Exception as e:
+        return {"detail": f"Processing error: {str(e)}"}
 
-
-
-@app.get("/hit-NLP-service")
-async def testNLPService():
-    msg = "NLP Service tested sucessfully ..."
-    return msg
+@app.post("/analyze-batch")
+def analyze_batch(requests: List[AnalyzeRequest]):
+    results = []
+    for req in requests:
+        try:
+            res = processor.process(req.text)
+            results.append(res)
+        except Exception as e:
+            results.append({"text": req.text, "error": str(e)})
+    return results
