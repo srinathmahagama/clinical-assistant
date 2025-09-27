@@ -1,16 +1,18 @@
 FROM python:3.11-slim
+
 WORKDIR /app
 
-# Install dependencies
+# Copy requirements and install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy source
-COPY . .
+# Copy application code
+COPY app/ ./app/
+COPY models/ ./models/
+COPY data/ ./data/
 
-# Expose dev port
-EXPOSE 8100
-ENV ENV=development
+# Expose port
+EXPOSE 8000
 
-# Start FastAPI with reload
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8100", "--reload"]
+# Start the application
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
