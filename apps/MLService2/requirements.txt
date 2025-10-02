@@ -8,3 +8,4 @@ xgboost
 transformers
 pyreadr
 joblib
+optuna>=3.6.0

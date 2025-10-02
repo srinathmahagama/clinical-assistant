@@ -200,3 +200,55 @@ cc_woundinfection
 cc_woundre-evaluation
 cc_wristinjury
 cc_wristpain
+gender_Female
+gender_Male
+arrivalmode_Car
+arrivalmode_Other
+arrivalmode_Police
+arrivalmode_Public Transportation
+arrivalmode_Walk-in
+arrivalmode_Wheelchair
+arrivalmode___missing__
+arrivalmode_ambulance
+arrivalhour_bin_03-06
+arrivalhour_bin_07-10
+arrivalhour_bin_11-14
+arrivalhour_bin_15-18
+arrivalhour_bin_19-22
+arrivalhour_bin_23-02
+previousdispo_AMA
+previousdispo_Admit
+previousdispo_Discharge
+previousdispo_Eloped
+previousdispo_LWBS after Triage
+previousdispo_LWBS before Triage
+previousdispo_No previous dispo
+previousdispo_Observation
+previousdispo_Send to L&D
+previousdispo_Transfer to Another Facility
+insurance_status_Commercial
+insurance_status_Medicaid
+insurance_status_Medicare
+insurance_status_Other
+insurance_status_Self pay
+employstatus_Disabled
+employstatus_Full Time
+employstatus_Not Employed
+employstatus_On Active Military Duty
+employstatus_Part Time
+employstatus_Retired
+employstatus_Self Employed
+employstatus_Student - Full Time
+employstatus_Student - Part Time
+employstatus_Unknown
+maritalstatus_Civil Union
+maritalstatus_Divorced
+maritalstatus_Legally Separated
+maritalstatus_Life Partner
+maritalstatus_Married
+maritalstatus_Other
+maritalstatus_Significant Other
+maritalstatus_Single
+maritalstatus_Unknown
+maritalstatus_Widowed
+age75_flag
