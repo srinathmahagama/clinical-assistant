@@ -1,5 +1,6 @@
 from app.schemas.symptom_input import SymptomInput
 from app.services.predictor import make_prediction
+from app.utils.semantic_mapper import interpretation_to_symptoms
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
@@ -28,6 +29,11 @@ async def testMLService1():
     msg = "ML Service 1 tested sucessfully ..."
     return msg
 
+
+class PredictInput(BaseModel):
+    input_data: str
+
 @app.post("/predict")
-def predict(input_data: SymptomInput):
-    return make_prediction(input_data)
+def predict(input: PredictInput):
+    semanticMappings = interpretation_to_symptoms(input.input_data)
+    return make_prediction(semanticMappings)

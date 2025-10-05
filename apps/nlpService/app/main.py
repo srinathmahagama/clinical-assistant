@@ -4,7 +4,7 @@ from pydantic import BaseModel
 from typing import List, Dict, Any
 from pathlib import Path
 import os
-import sys
+import httpx
 
 app = FastAPI(
     title="Noongar Clinical NER API",
@@ -189,13 +189,36 @@ def read_root():
         "model_loaded": processor.ner_pipeline is not None,
         "endpoints": ["/analyze", "/analyze-batch", "/docs", "/health"]
     }
+    
+ML_SERVICE_URL = "http://localhost:8101/predict"  # where MLService1 is running
 
 @app.post("/analyze", response_model=AnalyzeResponse)
-def analyze_text(request: AnalyzeRequest):
+async def analyze_text(request: AnalyzeRequest):
     """Analyze Noongar clinical text"""
     try:
+        # Step 1: Local text analysis
         result = processor.process(request.text)
-        return result
+
+        # Step 2: Call MLService1
+        async with httpx.AsyncClient() as client:
+            nlpInterprestation = result['english_interpretation']
+            mlService1Response = await client.post(
+                ML_SERVICE_URL,
+                json=nlpInterprestation 
+            )
+
+        if mlService1Response.status_code != 200:
+            raise HTTPException(status_code=mlService1Response.status_code,
+                                detail=f"MLService1 error: {mlService1Response.text}")
+
+        ml_result = mlService1Response.json()
+
+        # Step 3: Merge both results
+        return AnalyzeResponse(
+            text_analysis=result,
+            ml_prediction=ml_result
+        )
+
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Processing error: {str(e)}")
 
