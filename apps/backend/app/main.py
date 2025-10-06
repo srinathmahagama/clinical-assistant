@@ -2,9 +2,15 @@ from fastapi import FastAPI, UploadFile, File, HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 import httpx, os
+from integration import router as integration_router
+
+
 
 NLP_SERVICE_URL = os.getenv("NLP_SERVICE_URL","http://nlpService:8100")
 app = FastAPI(title="API Gateway")
+
+#integration
+app.include_router(integration_router)
 
 # Allow requests from your Next.js frontend
 origins = [
