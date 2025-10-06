@@ -230,6 +230,10 @@ def read_root():
     
 ML_SERVICE_URL = "http://localhost:8101/predict"  # where MLService1 is running
 
+class AnalyzeResponse(BaseModel):
+    text_analysis: dict
+    ml_prediction: dict = None
+
 @app.post("/analyze", response_model=AnalyzeResponse)
 async def analyze_text(request: AnalyzeRequest):
     """Analyze Noongar clinical text"""
@@ -239,10 +243,13 @@ async def analyze_text(request: AnalyzeRequest):
 
         # Step 2: Call MLService1
         async with httpx.AsyncClient() as client:
-            nlpInterprestation = result['english_interpretation']
+            nlpInterpretation = result['english_translation']
+            print('Sending to ML Service:', nlpInterpretation)
+            
             mlService1Response = await client.post(
                 ML_SERVICE_URL,
-                json=nlpInterprestation 
+                json={"input_data": nlpInterpretation},
+                timeout=30.0 
             )
 
         if mlService1Response.status_code != 200:
@@ -251,15 +258,14 @@ async def analyze_text(request: AnalyzeRequest):
 
         ml_result = mlService1Response.json()
 
-        # Step 3: Merge both results
-        return AnalyzeResponse(
-            text_analysis=result,
-            ml_prediction=ml_result
-        )
+        # Step 3: Return with simple structure
+        return {
+            "text_analysis": result,
+            "ml_prediction": ml_result
+        }
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Processing error: {str(e)}")
-
 @app.post("/analyze-batch")
 def analyze_batch(requests: List[AnalyzeRequest]):
     """Analyze multiple Noongar texts in batch"""
