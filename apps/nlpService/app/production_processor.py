@@ -7,6 +7,76 @@ import os
 class NoongarClinicalProcessor:
     def __init__(self):
         self.ner_pipeline = None
+        
+        # Noongar dictionary for entity analysis
+        self.noongar_dictionary = {
+            "ngaitj": {"entity": "POSSESSIVE", "translation": "my"},
+            "kadak": {"entity": "NEGATION", "translation": "no"},
+            "boola": {"entity": "QUALITY", "translation": "very"},
+            "kwop": {"entity": "QUALITY", "translation": "well"},
+            "koort": {"entity": "BODY_PART", "translation": "heart"},
+            "miyal": {"entity": "BODY_PART", "translation": "eye"},
+            "kaat": {"entity": "BODY_PART", "translation": "head"},
+            "korbol": {"entity": "BODY_PART", "translation": "stomach"},
+            "kalyakal": {"entity": "SYMPTOM", "translation": "tired"},
+            "wara": {"entity": "SYMPTOM", "translation": "sick"},
+            "yoowart": {"entity": "SYMPTOM", "translation": "fever"},
+            "moorditj": {"entity": "SYMPTOM", "translation": "severe"},
+            "ngoorndiny": {"entity": "BODY_PART", "translation": "ear"},
+            "woort": {"entity": "BODY_PART", "translation": "throat"},
+            "nyidiny": {"entity": "SYMPTOM", "translation": "cold"}
+        }
+        
+        # Try to load the model
+        self.load_model()
+
+    def generate_english_translation(self, text: str, entities: List[Dict]) -> str:
+        """Generate a clean English-only translation of the Noongar text"""
+        if not text.strip():
+            return ""
+            
+        words = text.split()
+        english_words = []
+        
+        for word in words:
+            word_lower = word.lower()
+            if word_lower in self.noongar_dictionary:
+                english_words.append(self.noongar_dictionary[word_lower]["translation"])
+            else:
+                # Keep unknown words as-is
+                english_words.append(word)
+        
+        # Join into a proper English sentence
+        english_sentence = " ".join(english_words)
+        
+        # Basic sentence capitalization
+        if english_sentence:
+            english_sentence = english_sentence[0].upper() + english_sentence[1:]
+            
+        return english_sentence
+
+    def process(self, text: str) -> Dict[str, Any]:
+        """Process Noongar text using dictionary analysis"""
+        print(f"🔍 Processing: '{text}'")
+        
+        # Use dictionary-based analysis
+        entities = self.dictionary_based_analysis(text)
+        clinical_summary = self.create_clinical_summary(entities)
+        english_interpretation = self.generate_english_interpretation(entities)
+        english_translation = self.generate_english_translation(text, entities)
+        
+        return {
+            'text': text,
+            'entities': entities,
+            'clinical_summary': clinical_summary,
+            'english_interpretation': english_interpretation,
+            'english_translation': english_translation,  # NEW FIELD
+            'entity_count': len(entities),
+            'success': True,
+            'method_used': 'dictionary'
+        }
+    def __init__(self):
+        self.ner_pipeline = None
         self.tokenizer = None
         self.load_model()
         

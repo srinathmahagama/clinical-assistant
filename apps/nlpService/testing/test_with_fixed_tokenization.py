@@ -1,122 +1,94 @@
-# production_test.py
+# apps/nlpService/testing/test_api_json.py
+
 import requests
 import json
 
-BASE_URL = "http://127.0.0.1:8000"
+BASE_URL = "http://127.0.0.1:8000"  # Your FastAPI server URL
 
-def test_production_scenarios():
-    print("🏥 PRODUCTION SCENARIOS - NOONGAR CLINICAL NER")
-    print("=" * 60)
+def test_single_text():
+    print("=== Testing Single Text ===")
+    payload = {
+        "text": "Ngaitj koort kalyakal",
+        "language": "noongar"
+    }
+    print("Single Text Request:", json.dumps(payload, indent=2))
     
-    # Common clinical scenarios in Noongar
-    clinical_cases = [
-        {
-            "name": "Cardiac fatigue",
-            "text": "Ngaitj koort kalyakal",
-            "expected_entities": ["POSSESSIVE", "BODY_PART", "SYMPTOM"]
-        },
-        {
-            "name": "Ocular fever with negation", 
-            "text": "Ngaitj miyal yoowart kadak",
-            "expected_entities": ["POSSESSIVE", "BODY_PART", "SYMPTOM", "NEGATION"]
-        },
-        {
-            "name": "Cephalic illness",
-            "text": "Ngaitj kaat wara", 
-            "expected_entities": ["POSSESSIVE", "BODY_PART", "SYMPTOM"]
-        },
-        {
-            "name": "Gastric fatigue with severity",
-            "text": "Ngaitj korbol boola kalyakal",
-            "expected_entities": ["POSSESSIVE", "BODY_PART", "QUALITY", "SYMPTOM"]
-        },
-        {
-            "name": "Negated cardiac symptoms",
-            "text": "Kadak ngaitj koort kalyakal",
-            "expected_entities": ["NEGATION", "POSSESSIVE", "BODY_PART", "SYMPTOM"]
-        }
-    ]
-    
-    print("\n📋 CLINICAL CASE ANALYSIS:")
-    print("-" * 40)
-    
-    all_passed = True
-    
-    for case in clinical_cases:
-        print(f"\n🔬 Case: {case['name']}")
-        print(f"   Noongar: '{case['text']}'")
-        
-        payload = {"text": case["text"], "language": "noongar"}
-        response = requests.post(f"{BASE_URL}/analyze", json=payload)
-        
-        if response.status_code == 200:
-            data = response.json()
-            
-            # Extract actual entities found
-            actual_entities = [entity["entity"] for entity in data["entities"]]
-            
-            # Check if all expected entities are found
-            missing_entities = set(case["expected_entities"]) - set(actual_entities)
-            extra_entities = set(actual_entities) - set(case["expected_entities"])
-            
-            if not missing_entities and not extra_entities:
-                print(f"   ✅ PASS - All entities correctly identified")
-                print(f"   📊 Entities: {', '.join(actual_entities)}")
-            else:
-                print(f"   ⚠️  PARTIAL - Entity mismatch")
-                if missing_entities:
-                    print(f"      Missing: {', '.join(missing_entities)}")
-                if extra_entities:
-                    print(f"      Extra: {', '.join(extra_entities)}")
-                all_passed = False
-            
-            # Show clinical interpretation
-            print(f"   🏥 Interpretation: {data['english_interpretation']}")
-            print(f"   📈 Stats: {data['clinical_summary']['symptom_count']} symptoms, "
-                  f"{data['clinical_summary']['body_part_count']} body parts, "
-                  f"negation: {data['clinical_summary']['has_negation']}")
-                  
-        else:
-            print(f"   ❌ FAIL - API error: {response.status_code}")
-            all_passed = False
-    
-    print("\n" + "=" * 60)
-    if all_passed:
-        print("🎉 EXCELLENT! All clinical cases processed successfully!")
-        print("🚀 API is ready for production use!")
-    else:
-        print("⚠️  Some issues detected. Review the results above.")
-
-def generate_clinical_report():
-    """Generate a sample clinical report"""
-    print("\n📄 SAMPLE CLINICAL REPORT GENERATION:")
-    print("-" * 40)
-    
-    patient_text = "Ngaitj koort kalyakal miyal yoowart boola"
-    
-    payload = {"text": patient_text, "language": "noongar"}
     response = requests.post(f"{BASE_URL}/analyze", json=payload)
+    print("Status Code:", response.status_code)
     
-    if response.status_code == 200:
+    try:
         data = response.json()
+        print("Response:", json.dumps(data, indent=2))
         
-        print(f"Patient complaint: {patient_text}")
-        print(f"Clinical analysis: {data['english_interpretation']}")
-        print("\nCLINICAL FINDINGS:")
-        print(f"- Affected body parts: {len(data['clinical_summary']['body_parts'])}")
-        for bp in data['clinical_summary']['body_parts']:
-            print(f"  • {bp['word']} ({bp['translation']})")
+        # Print readable summary
+        print("\n--- Clinical Summary ---")
+        print(f"Text: {data['text']}")
+        print(f"Entities Found: {data['entity_count']}")
+        print(f"English Interpretation: {data['english_interpretation']}")
+        print(f"Has Negation: {data['clinical_summary']['has_negation']}")
+        print(f"Symptoms: {len(data['clinical_summary']['symptoms'])}")
+        print(f"Body Parts: {len(data['clinical_summary']['body_parts'])}")
         
-        print(f"- Symptoms reported: {len(data['clinical_summary']['symptoms'])}")
-        for symptom in data['clinical_summary']['symptoms']:
-            print(f"  • {symptom['word']} ({symptom['translation']})")
+    except Exception as e:
+        print("Error parsing response:", e)
+
+def test_batch_texts():
+    print("\n=== Testing Batch Texts ===")
+    payload = [
+        {"text": "Ngaitj koort kalyakal", "language": "noongar"},
+        {"text": "Ngaitj miyal yoowart kadak", "language": "noongar"},
+        {"text": "Ngaitj kaat wara", "language": "noongar"}
+    ]
+    print("Batch Request:", json.dumps(payload, indent=2))
+    
+    response = requests.post(f"{BASE_URL}/analyze-batch", json=payload)
+    print("Status Code:", response.status_code)
+    
+    try:
+        data = response.json()
+        print("Batch Response Summary:")
         
-        print(f"- Severity qualifiers: {len(data['clinical_summary']['qualifiers'])}")
-        for qual in data['clinical_summary']['qualifiers']:
-            print(f"  • {qual['word']} ({qual['translation']})")
-        
-        print(f"- Negation present: {data['clinical_summary']['has_negation']}")
+        # Print readable summaries for each batch item
+        for idx, item in enumerate(data.get("results", []), 1):
+            print(f"\n--- Result {idx} ---")
+            print(f"Original Text: {item['text']}")
+            print(f"Success: {item['success']}")
+            print(f"Entities Found: {item['entity_count']}")
+            print(f"Method Used: {item.get('method_used', 'N/A')}")
+            print(f"English Interpretation: {item['english_interpretation']}")
+            
+            # Print entities in readable format
+            print("Entities:")
+            for ent in item["entities"]:
+                english = ent.get('english_translation', '')
+                english_text = f" ({english})" if english else ""
+                print(f"  📍 {ent['word']} -> {ent['entity']}{english_text} (confidence: {ent['confidence']:.2f})")
+            
+            # Print clinical summary
+            cs = item["clinical_summary"]
+            print(f"Clinical Summary:")
+            print(f"  • Body Parts: {[bp['word'] for bp in cs['body_parts']]}")
+            print(f"  • Symptoms: {[s['word'] for s in cs['symptoms']]}")
+            print(f"  • Negations: {[n['word'] for n in cs['negations']]}")
+            print(f"  • Has Negation: {cs['has_negation']}")
+                
+    except Exception as e:
+        print("Error parsing response:", e)
+
+def test_health():
+    print("\n=== Testing Health Endpoint ===")
+    response = requests.get(f"{BASE_URL}/health")
+    print("Status Code:", response.status_code)
+    print("Response:", json.dumps(response.json(), indent=2))
+
+def test_root():
+    print("\n=== Testing Root Endpoint ===")
+    response = requests.get(f"{BASE_URL}/")
+    print("Status Code:", response.status_code)
+    print("Response:", json.dumps(response.json(), indent=2))
 
 if __name__ == "__main__":
-    test_production_scenarios()
-    generate_clinical_report()
+    test_health()
+    test_root()
+    test_single_text()
+    test_batch_texts()

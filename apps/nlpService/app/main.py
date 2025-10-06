@@ -29,6 +29,7 @@ class AnalyzeResponse(BaseModel):
     entities: List[EntityResponse]
     clinical_summary: dict
     english_interpretation: str
+    english_translation: str  # NEW FIELD
     entity_count: int
     success: bool
 
@@ -63,19 +64,29 @@ class NoongarClinicalProcessor:
         try:
             from transformers import pipeline
             
-            # Use relative path
-            MODEL_PATH = "./models/noongar-clinical-ner-model-finetuned"
+            # FIXED: Go up one level from app/ to find models/
+            current_dir = Path(__file__).parent
+            MODEL_PATH = current_dir.parent / "models" / "noongar-clinical-ner-model-finetuned"
             
-            if not os.path.exists(MODEL_PATH):
+            print(f"🔍 Looking for model at: {MODEL_PATH}")
+            print(f"🔍 Path exists: {MODEL_PATH.exists()}")
+            
+            if not MODEL_PATH.exists():
                 print(f"❌ Model path not found: {MODEL_PATH}")
+                # List what's actually in the models directory
+                models_dir = current_dir.parent / "models"
+                if models_dir.exists():
+                    print(f"📁 Contents of models directory: {list(models_dir.iterdir())}")
+                else:
+                    print(f"❌ Models directory doesn't exist: {models_dir}")
                 return
                 
             print(f"🔄 Loading model from: {MODEL_PATH}")
             
             self.ner_pipeline = pipeline(
                 "ner",
-                model=MODEL_PATH,
-                tokenizer=MODEL_PATH,
+                model=str(MODEL_PATH),
+                tokenizer=str(MODEL_PATH),
                 aggregation_strategy="simple",
                 device=-1
             )
@@ -86,6 +97,31 @@ class NoongarClinicalProcessor:
             print(f"❌ Error loading NER model: {e}")
             print("🔄 Using dictionary-based analysis only")
 
+    def generate_english_translation(self, text: str) -> str:
+        """Generate a clean English-only translation of the Noongar text"""
+        if not text.strip():
+            return ""
+            
+        words = text.split()
+        english_words = []
+        
+        for word in words:
+            word_lower = word.lower()
+            if word_lower in self.noongar_dictionary:
+                english_words.append(self.noongar_dictionary[word_lower]["translation"])
+            else:
+                # Keep unknown words as-is
+                english_words.append(word)
+        
+        # Join into a proper English sentence
+        english_sentence = " ".join(english_words)
+        
+        # Basic sentence capitalization
+        if english_sentence:
+            english_sentence = english_sentence[0].upper() + english_sentence[1:]
+            
+        return english_sentence
+
     def process(self, text: str) -> Dict[str, Any]:
         """Process Noongar text using dictionary analysis"""
         print(f"🔍 Processing: '{text}'")
@@ -94,12 +130,14 @@ class NoongarClinicalProcessor:
         entities = self.dictionary_based_analysis(text)
         clinical_summary = self.create_clinical_summary(entities)
         english_interpretation = self.generate_english_interpretation(entities)
+        english_translation = self.generate_english_translation(text)  # NEW: Add English translation
         
         return {
             'text': text,
             'entities': entities,
             'clinical_summary': clinical_summary,
             'english_interpretation': english_interpretation,
+            'english_translation': english_translation,  # NEW FIELD
             'entity_count': len(entities),
             'success': True,
             'method_used': 'dictionary'
@@ -226,5 +264,5 @@ def health_check():
     }
 
 if __name__ == "__main__":
-    import uvicorn
+    import uvicorn 
     uvicorn.run(app, host="127.0.0.1", port=8000)
