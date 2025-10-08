@@ -6,6 +6,7 @@ export interface User {
   createdAt?: string;
   updatedAt?: string;
   isEmailVerified?: boolean;
+  isGuest?: boolean;
 }
 
 export interface Assessment {
@@ -42,14 +43,26 @@ export interface Message {
   isUser: boolean;
   timestamp: string; // Format: H:MM a.m/p.m
   createdAt: string;
+  type?: 'text' | 'voice' | 'file';
+  audioUrl?: string;
+  duration?: number;
+  transcript?: string;
+  isTranscribed?: boolean;
+  fileUrl?: string;
+  fileName?: string;
+  fileType?: string;
+  fileSize?: number;
 }
 
 export interface ChatSession {
   id: string;
   userId: string;
+  title: string;
   messages: Message[];
   createdAt: string;
   updatedAt: string;
+  isActive?: boolean;
+  language?: string; // Language for this specific chat session
 }
 
 // Future API endpoints structure

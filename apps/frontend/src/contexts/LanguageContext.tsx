@@ -5,6 +5,10 @@ interface LanguageContextType {
   language: Language;
   setLanguage: (language: Language) => void;
   t: (key: TranslationKey) => string;
+  // Chat session language management
+  getChatSessionLanguage: (sessionId?: string) => Language;
+  setChatSessionLanguage: (sessionId: string, language: Language) => void;
+  getCurrentChatLanguage: () => Language;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -36,6 +40,27 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     return translations[language][key] || translations.en[key] || key;
   };
 
+  // Chat session language management
+  const getChatSessionLanguage = (sessionId?: string): Language => {
+    if (!sessionId) return language;
+    
+    const sessionLanguage = localStorage.getItem(`caremate-chat-language-${sessionId}`);
+    if (sessionLanguage && sessionLanguage in translations) {
+      return sessionLanguage as Language;
+    }
+    return language;
+  };
+
+  const setChatSessionLanguage = (sessionId: string, newLanguage: Language) => {
+    localStorage.setItem(`caremate-chat-language-${sessionId}`, newLanguage);
+  };
+
+  const getCurrentChatLanguage = (): Language => {
+    // This will be used by components to get the current chat session language
+    // For now, return the global language, but this can be enhanced to track current session
+    return language;
+  };
+
   // Load saved language on mount
   useEffect(() => {
     const savedLanguage = getSavedLanguage();
@@ -46,6 +71,9 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     language,
     setLanguage,
     t,
+    getChatSessionLanguage,
+    setChatSessionLanguage,
+    getCurrentChatLanguage,
   };
 
   return (

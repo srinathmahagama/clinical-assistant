@@ -1,135 +1,883 @@
-import React, { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Send, Mic, MicOff, Bot } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { Send, Bot, Paperclip, Menu, Image } from 'lucide-react';
 import Layout from '../components/Layout/Layout';
 import Header from '../components/Header/Header';
 import BackButton from '../components/BackButton/BackButton';
+import VoiceMessage from '../components/VoiceMessage/VoiceMessage';
+import VoiceRecorder from '../components/VoiceRecorder/VoiceRecorder';
+import FileMessage from '../components/FileMessage/FileMessage';
+import FileUpload from '../components/FileUpload/FileUpload';
+import ChatSidebar from '../components/ChatSidebar/ChatSidebar';
+import Avatar from '../components/Avatar/Avatar';
+import MessageOptions from '../components/MessageOptions/MessageOptions';
+// import TextToSpeech from '../components/TextToSpeech/TextToSpeech';
+import SymptomSelector from '../components/SymptomSelector/SymptomSelector';
 import { useLanguage } from '../contexts/LanguageContext';
-
-interface Message {
-  id: string;
-  text: string;
-  isUser: boolean;
-  timestamp: string;
-}
+import { useTheme } from '../contexts/ThemeContext';
+import { chatService } from '../services/api';
+import { Message, ChatSession } from '../types';
+import chatSessionManager from '../services/chatSessionManager';
 
 interface AssistantPageProps {
   onNavigate: (page: string) => void;
   onLogout: () => void;
+  user?: {
+    id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+  };
+  isGuest?: boolean;
+  onSignIn?: () => void;
 }
 
-const AssistantPage: React.FC<AssistantPageProps> = ({ onNavigate, onLogout }) => {
-  const navigate = useNavigate();
-  const { language } = useLanguage();
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: '1',
-      text: "Hello! I'm your health assistant. I can help you understand your symptoms, explain your assessment results, or answer health questions. How can I help you today?",
-      isUser: false,
-      timestamp: '10:00 p.m'
-    }
-  ]);
+const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, onSignIn }) => {
+  const [searchParams] = useSearchParams();
+  const { language, t, setChatSessionLanguage } = useLanguage();
+  const { theme } = useTheme();
+  
+  // Chat session management
+  const [sessions, setSessions] = useState<ChatSession[]>([]);
+  const [currentSession, setCurrentSession] = useState<ChatSession | null>(null);
+  const [showSidebar, setShowSidebar] = useState(false); // Always hide sidebar by default
+  
+  // Message state
+  const [messages, setMessages] = useState<Message[]>([]);
   const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
-  const [recordingError, setRecordingError] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
-  
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-  const audioChunksRef = useRef<Blob[]>([]);
-  const streamRef = useRef<MediaStream | null>(null);
+  const [showFileUpload, setShowFileUpload] = useState(false);
+  const [showSymptomSelector, setShowSymptomSelector] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Auto-scroll to bottom when messages change
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, isLoading]);
+
+  // Initialize chat sessions on component mount
+  useEffect(() => {
+    const initializeSessions = async () => {
+      const sessionId = searchParams.get('sessionId');
+      
+      if (isGuest) {
+        // For guest users, create a temporary session that won't be saved
+        const initialMessages = {
+          en: "Hello! I'm your health assistant. I can help you understand your symptoms, explain your assessment results, or answer health questions. How can I help you today?",
+          noongar: "Kaya! Ngany mooditj moort. Ngany mooditj wangkiny, ngany mooditj koora, ngany mooditj wangkiny. Ngany mooditj?"
+        };
+
+        const tempSession: ChatSession = {
+          id: 'guest-session',
+          userId: 'guest',
+          title: language === 'noongar' ? 'Mooditj Koora' : 'Guest Chat',
+          messages: [
+            {
+              id: '1',
+              text: initialMessages[language as keyof typeof initialMessages] || initialMessages.en,
+              isUser: false,
+              timestamp: new Date().toLocaleTimeString('en-US', { 
+                hour: 'numeric', 
+                minute: '2-digit',
+                hour12: true 
+              }),
+              createdAt: new Date().toISOString()
+            }
+          ],
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+          language: language
+        };
+        setCurrentSession(tempSession);
+        setMessages(tempSession.messages);
+        setSessions([]);
+      } else {
+        // For logged-in users, load sessions from backend
+        try {
+          // Load all sessions from backend
+          const sessionsResponse = await chatService.getChatSessions();
+          if (sessionsResponse.success && sessionsResponse.data) {
+            setSessions(sessionsResponse.data);
+            
+            // Check if we need to load a specific session from URL
+            if (sessionId) {
+              const specificSession = sessionsResponse.data.find(s => s.id === sessionId);
+              if (specificSession) {
+                // Load messages for the specific session
+                const messagesResponse = await chatService.getChatMessages(sessionId);
+                if (messagesResponse.success && messagesResponse.data) {
+                  const sessionWithMessages = { ...specificSession, messages: messagesResponse.data };
+                  setCurrentSession(sessionWithMessages);
+                  setMessages(messagesResponse.data);
+                  if (specificSession.language) {
+                    setChatSessionLanguage(specificSession.id, specificSession.language as 'en' | 'noongar');
+                  }
+                } else {
+                  setCurrentSession(specificSession);
+                  setMessages(specificSession.messages);
+                }
+              } else {
+                // Session not found, create a new one
+                const newSessionResponse = await chatService.createChatSession('New Chat', language);
+                if (newSessionResponse.success && newSessionResponse.data) {
+                  setCurrentSession(newSessionResponse.data);
+                  setMessages(newSessionResponse.data.messages);
+                  // Refresh sessions list
+                  const updatedSessionsResponse = await chatService.getChatSessions();
+                  if (updatedSessionsResponse.success && updatedSessionsResponse.data) {
+                    setSessions(updatedSessionsResponse.data);
+                  }
+                }
+              }
+            } else {
+              // No specific session requested, use the most recent session or create new one
+              if (sessionsResponse.data.length > 0) {
+                const mostRecentSession = sessionsResponse.data[0]; // Sessions are sorted by updatedAt desc
+                // Load messages for the most recent session
+                const messagesResponse = await chatService.getChatMessages(mostRecentSession.id);
+                if (messagesResponse.success && messagesResponse.data) {
+                  const sessionWithMessages = { ...mostRecentSession, messages: messagesResponse.data };
+                  setCurrentSession(sessionWithMessages);
+                  setMessages(messagesResponse.data);
+                  if (mostRecentSession.language) {
+                    setChatSessionLanguage(mostRecentSession.id, mostRecentSession.language as 'en' | 'noongar');
+                  }
+                } else {
+                  setCurrentSession(mostRecentSession);
+                  setMessages(mostRecentSession.messages);
+                }
+              } else {
+                // No sessions exist, create a new one
+                const newSessionResponse = await chatService.createChatSession('New Chat', language);
+                if (newSessionResponse.success && newSessionResponse.data) {
+                  setCurrentSession(newSessionResponse.data);
+                  setMessages(newSessionResponse.data.messages);
+                  setSessions([newSessionResponse.data]);
+                }
+              }
+            }
+          } else {
+            // Failed to load sessions, create a new one
+            const newSessionResponse = await chatService.createChatSession('New Chat', language);
+            if (newSessionResponse.success && newSessionResponse.data) {
+              setCurrentSession(newSessionResponse.data);
+              setMessages(newSessionResponse.data.messages);
+              setSessions([newSessionResponse.data]);
+            }
+          }
+        } catch (error) {
+          console.error('Failed to initialize chat sessions:', error);
+          // Fallback to local session manager
+          try {
+            await chatSessionManager.initialize();
+            const allSessions = chatSessionManager.getAllSessions();
+            setSessions(allSessions);
+            
+            const activeSession = chatSessionManager.getCurrentSession();
+            if (activeSession) {
+              setCurrentSession(activeSession);
+              setMessages(activeSession.messages);
+            } else {
+              const newSession = await chatSessionManager.createNewSession(language);
+              setCurrentSession(newSession);
+              setMessages(newSession.messages);
+            }
+          } catch (fallbackError) {
+            console.error('Fallback initialization also failed:', fallbackError);
+            // Create a minimal session as last resort
+            const initialMessages = {
+              en: "Hello! I'm your health assistant. I can help you understand your symptoms, explain your assessment results, or answer health questions. How can I help you today?",
+              noongar: "Kaya! Ngany mooditj moort. Ngany mooditj wangkiny, ngany mooditj koora, ngany mooditj wangkiny. Ngany mooditj?"
+            };
+
+            const fallbackSession: ChatSession = {
+              id: `fallback-session-${Date.now()}`,
+              userId: user?.id || '1',
+              title: 'New Chat',
+              messages: [
+                {
+                  id: '1',
+                  text: initialMessages[language as keyof typeof initialMessages] || initialMessages.en,
+                  isUser: false,
+                  timestamp: new Date().toLocaleTimeString('en-US', { 
+                    hour: 'numeric', 
+                    minute: '2-digit',
+                    hour12: true 
+                  }),
+                  createdAt: new Date().toISOString()
+                }
+              ],
+              createdAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString(),
+              language: language
+            };
+            setCurrentSession(fallbackSession);
+            setMessages(fallbackSession.messages);
+            setSessions([]);
+          }
+        }
+      }
+    };
+
+    initializeSessions();
+  }, [isGuest, language, setChatSessionLanguage, searchParams, user]);
+
+  // Update messages when current session changes
+  useEffect(() => {
+    if (currentSession) {
+      setMessages(currentSession.messages);
+    }
+  }, [currentSession]);
+
+  // Chat session management functions
+  const handleNewChat = async () => {
+    if (isGuest) {
+      // For guest users, create a local session
+      const initialMessages = {
+        en: "Hello! I'm your health assistant. I can help you understand your symptoms, explain your assessment results, or answer health questions. How can I help you today?",
+        noongar: "Kaya! Ngany mooditj moort. Ngany mooditj wangkiny, ngany mooditj koora, ngany mooditj wangkiny. Ngany mooditj?"
+      };
+
+      const tempSession: ChatSession = {
+        id: `guest-session-${Date.now()}`,
+        userId: 'guest',
+        title: language === 'noongar' ? 'Mooditj Koora' : 'New Chat',
+        messages: [
+          {
+            id: '1',
+            text: initialMessages[language as keyof typeof initialMessages] || initialMessages.en,
+            isUser: false,
+            timestamp: new Date().toLocaleTimeString('en-US', { 
+              hour: 'numeric', 
+              minute: '2-digit',
+              hour12: true 
+            }),
+            createdAt: new Date().toISOString()
+          }
+        ],
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        language: language
+      };
+      setCurrentSession(tempSession);
+      setMessages(tempSession.messages);
+      setSessions([]);
+      return;
+    }
+
+    try {
+      const response = await chatService.createChatSession('New Chat', language);
+      if (response.success && response.data) {
+        setCurrentSession(response.data);
+        setMessages(response.data.messages);
+        // Refresh sessions list
+        const sessionsResponse = await chatService.getChatSessions();
+        if (sessionsResponse.success && sessionsResponse.data) {
+          setSessions(sessionsResponse.data);
+        }
+      }
+    } catch (error) {
+      console.error('Failed to create new chat session:', error);
+      // Fallback to local session manager
+      const newSession = await chatSessionManager.createNewSession(language);
+      setCurrentSession(newSession);
+      setMessages(newSession.messages);
+      setSessions(chatSessionManager.getAllSessions());
+    }
+  };
+
+  const handleSelectSession = async (sessionId: string) => {
+    if (isGuest) {
+      // For guest users, just switch locally
+      const session = chatSessionManager.switchToSession(sessionId);
+      if (session) {
+        setCurrentSession(session);
+        setMessages(session.messages);
+        if (session.language) {
+          setChatSessionLanguage(sessionId, session.language as 'en' | 'noongar');
+        }
+      }
+      return;
+    }
+
+    try {
+      // Get session messages from backend
+      const response = await chatService.getChatMessages(sessionId);
+      if (response.success && response.data) {
+        // Find the session in our current sessions list
+        const session = sessions.find(s => s.id === sessionId);
+        if (session) {
+          const updatedSession = { ...session, messages: response.data };
+          setCurrentSession(updatedSession);
+          setMessages(response.data);
+          // Set the chat session language if it exists
+          if (session.language) {
+            setChatSessionLanguage(sessionId, session.language as 'en' | 'noongar');
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Failed to load session messages:', error);
+      // Fallback to local session manager
+      const session = chatSessionManager.switchToSession(sessionId);
+      if (session) {
+        setCurrentSession(session);
+        setMessages(session.messages);
+        if (session.language) {
+          setChatSessionLanguage(sessionId, session.language as 'en' | 'noongar');
+        }
+      }
+    }
+  };
+
+  const handleDeleteSession = async (sessionId: string) => {
+    if (isGuest) {
+      // For guest users, handle locally
+      if (sessions.length <= 1) {
+        // Don't delete the last session, just clear its messages
+        const session = chatSessionManager.getSessionById(sessionId);
+        if (session) {
+          const initialMessages = {
+            en: "Hello! I'm your health assistant. I can help you understand your symptoms, explain your assessment results, or answer health questions. How can I help you today?",
+            noongar: "Kaya! Ngany mooditj moort. Ngany mooditj wangkiny, ngany mooditj koora, ngany mooditj wangkiny. Ngany mooditj?"
+          };
+
+          session.messages = [
+            {
+              id: '1',
+              text: initialMessages[session.language as keyof typeof initialMessages] || initialMessages.en,
+              isUser: false,
+              timestamp: new Date().toLocaleTimeString('en-US', { 
+                hour: 'numeric', 
+                minute: '2-digit',
+                hour12: true 
+              }),
+              createdAt: new Date().toISOString()
+            }
+          ];
+          session.title = session.language === 'noongar' ? 'Mooditj Koora' : 'New Chat';
+          session.updatedAt = new Date().toISOString();
+          chatSessionManager['saveSessions']();
+          setMessages(session.messages);
+        }
+      } else {
+        chatSessionManager.deleteSession(sessionId);
+        const updatedSessions = chatSessionManager.getAllSessions();
+        setSessions(updatedSessions);
+        
+        const newActiveSession = chatSessionManager.getCurrentSession();
+        if (newActiveSession) {
+          setCurrentSession(newActiveSession);
+          setMessages(newActiveSession.messages);
+        }
+      }
+      return;
+    }
+
+    try {
+      const response = await chatService.deleteChatSession(sessionId);
+      if (response.success) {
+        // Remove from local state
+        const updatedSessions = sessions.filter(s => s.id !== sessionId);
+        setSessions(updatedSessions);
+        
+        // If we deleted the current session, switch to another one
+        if (currentSession?.id === sessionId) {
+          if (updatedSessions.length > 0) {
+            // Switch to the first available session
+            await handleSelectSession(updatedSessions[0].id);
+          } else {
+            // Create a new session if no sessions left
+            await handleNewChat();
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Failed to delete session:', error);
+      // Fallback to local session manager
+      if (sessions.length <= 1) {
+        const session = chatSessionManager.getSessionById(sessionId);
+        if (session) {
+          const initialMessages = {
+            en: "Hello! I'm your health assistant. I can help you understand your symptoms, explain your assessment results, or answer health questions. How can I help you today?",
+            noongar: "Kaya! Ngany mooditj moort. Ngany mooditj wangkiny, ngany mooditj koora, ngany mooditj wangkiny. Ngany mooditj?"
+          };
+
+          session.messages = [
+            {
+              id: '1',
+              text: initialMessages[session.language as keyof typeof initialMessages] || initialMessages.en,
+              isUser: false,
+              timestamp: new Date().toLocaleTimeString('en-US', { 
+                hour: 'numeric', 
+                minute: '2-digit',
+                hour12: true 
+              }),
+              createdAt: new Date().toISOString()
+            }
+          ];
+          session.title = session.language === 'noongar' ? 'Mooditj Koora' : 'New Chat';
+          session.updatedAt = new Date().toISOString();
+          chatSessionManager['saveSessions']();
+          setMessages(session.messages);
+        }
+      } else {
+        chatSessionManager.deleteSession(sessionId);
+        const updatedSessions = chatSessionManager.getAllSessions();
+        setSessions(updatedSessions);
+        
+        const newActiveSession = chatSessionManager.getCurrentSession();
+        if (newActiveSession) {
+          setCurrentSession(newActiveSession);
+          setMessages(newActiveSession.messages);
+        }
+      }
+    }
+  };
+
+  const handleRenameSession = async (sessionId: string, newTitle: string) => {
+    if (isGuest) {
+      // For guest users, handle locally
+      chatSessionManager.renameSession(sessionId, newTitle);
+      setSessions(chatSessionManager.getAllSessions());
+      return;
+    }
+
+    try {
+      const response = await chatService.updateChatSession(sessionId, { title: newTitle });
+      if (response.success && response.data) {
+        // Update local state
+        const updatedSessions = sessions.map(s => 
+          s.id === sessionId ? { ...s, title: newTitle, updatedAt: response.data?.updatedAt || new Date().toISOString() } : s
+        );
+        setSessions(updatedSessions);
+        
+        // Update current session if it's the one being renamed
+        if (currentSession?.id === sessionId && response.data) {
+          setCurrentSession({ ...currentSession, title: newTitle, updatedAt: response.data.updatedAt });
+        }
+      }
+    } catch (error) {
+      console.error('Failed to rename session:', error);
+      // Fallback to local session manager
+      chatSessionManager.renameSession(sessionId, newTitle);
+      setSessions(chatSessionManager.getAllSessions());
+    }
+  };
 
   const sendMessage = async () => {
     if (!inputText.trim()) return;
 
-    // Stop microphone if currently recording
-    if (isRecording && mediaRecorderRef.current) {
-      mediaRecorderRef.current.stop();
-      setIsRecording(false);
-    }
-
-    const userMessage: Message = {
-      id: Date.now().toString(),
-      text: inputText,
-      isUser: true,
-      timestamp: new Date().toLocaleTimeString('en-US', { 
-        hour: 'numeric', 
-        minute: '2-digit',
-        hour12: true 
-      })
-    };
-
-    setMessages(prev => [...prev, userMessage]);
     const messageText = inputText;
     setInputText('');
     setIsLoading(true);
 
     try {
-      // Send message to Flask backend
-      const response = await fetch('http://localhost:5000/chat/message', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: messageText })
-      });
+      // Send message to backend
+      const response = await chatService.sendMessage(
+        currentSession?.id || 'guest-session', 
+        messageText
+      );
       
-      if (response.ok) {
-        const data = await response.json();
-        const aiMessage: Message = {
-          id: data.response.id,
-          text: data.response.text,
-          isUser: false,
-          timestamp: data.response.timestamp,
-          createdAt: data.response.createdAt
-        };
+      if (response.success && response.data) {
+        // The backend response includes both user and AI messages
+        const { userMessage, response: aiResponse } = response.data;
         
-        setMessages(prev => [...prev, aiMessage]);
+        // Add both messages to the current session
+        if (!isGuest) {
+          // For logged-in users, refresh the session data from backend to ensure consistency
+          if (currentSession) {
+            // First add messages to local state for immediate UI update
+            const updatedMessages = [...currentSession.messages, userMessage, aiResponse];
+            const updatedSession = { ...currentSession, messages: updatedMessages, updatedAt: new Date().toISOString() };
+            setCurrentSession(updatedSession);
+            setMessages(updatedMessages);
+            
+            // Update sessions list to reflect the updated session
+            const updatedSessions = sessions.map(s => 
+              s.id === currentSession.id ? updatedSession : s
+            );
+            setSessions(updatedSessions);
+            
+            // Refresh session data from backend to ensure consistency
+            try {
+              const messagesResponse = await chatService.getChatMessages(currentSession.id);
+              if (messagesResponse.success && messagesResponse.data) {
+                const sessionWithMessages = { ...currentSession, messages: messagesResponse.data };
+                setCurrentSession(sessionWithMessages);
+                setMessages(messagesResponse.data);
+              }
+            } catch (error) {
+              console.error('Failed to refresh session data:', error);
+            }
+          }
+        } else {
+          // For guest users, just add to local state
+          setMessages(prev => [...prev, userMessage, aiResponse]);
+        }
       } else {
-        // Fallback to mock response if backend fails
-        const responses = [
-          "Based on your symptoms, I recommend monitoring them closely. If they persist or worsen, please consult with a healthcare provider.",
-          "That's a good question about your health. While I can provide general guidance, it's always best to discuss specific concerns with your doctor.",
-          "I understand your concern. Let me help you understand what these symptoms might indicate and when you should seek medical attention.",
-          "Thank you for sharing that information. Based on what you've told me, here are some general recommendations..."
-        ];
+        // Fallback response if backend fails
+        const userMessage: Message = {
+          id: Date.now().toString(),
+          text: messageText,
+          isUser: true,
+          timestamp: new Date().toLocaleTimeString('en-US', { 
+            hour: 'numeric', 
+            minute: '2-digit',
+            hour12: true 
+          }),
+          createdAt: new Date().toISOString(),
+          type: 'text'
+        };
 
-        const aiMessage: Message = {
+        const fallbackMessage: Message = {
           id: (Date.now() + 1).toString(),
-          text: responses[Math.floor(Math.random() * responses.length)],
+          text: "I'm here to help with your health concerns. Please try again.",
           isUser: false,
           timestamp: new Date().toLocaleTimeString('en-US', { 
             hour: 'numeric', 
             minute: '2-digit',
             hour12: true 
-          })
+          }),
+          createdAt: new Date().toISOString(),
+          type: 'text'
         };
 
-        setMessages(prev => [...prev, aiMessage]);
+        if (!isGuest) {
+          // Fallback to local session manager
+          chatSessionManager.addMessage(userMessage);
+          chatSessionManager.addMessage(fallbackMessage);
+          const updatedMessages = chatSessionManager.getCurrentSession()?.messages || [];
+          setMessages(updatedMessages);
+          setSessions(chatSessionManager.getAllSessions());
+        } else {
+          setMessages(prev => [...prev, userMessage, fallbackMessage]);
+        }
       }
     } catch (error) {
       console.error('Chat message failed:', error);
-      // Fallback to mock response if backend fails
-      const responses = [
-        "Based on your symptoms, I recommend monitoring them closely. If they persist or worsen, please consult with a healthcare provider.",
-        "That's a good question about your health. While I can provide general guidance, it's always best to discuss specific concerns with your doctor.",
-        "I understand your concern. Let me help you understand what these symptoms might indicate and when you should seek medical attention.",
-        "Thank you for sharing that information. Based on what you've told me, here are some general recommendations..."
-      ];
+      
+      // Create user message for error case
+      const userMessage: Message = {
+        id: Date.now().toString(),
+        text: messageText,
+        isUser: true,
+        timestamp: new Date().toLocaleTimeString('en-US', { 
+          hour: 'numeric', 
+          minute: '2-digit',
+          hour12: true 
+        }),
+        createdAt: new Date().toISOString(),
+        type: 'text'
+      };
 
-      const aiMessage: Message = {
+      // Fallback response
+      const fallbackMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: responses[Math.floor(Math.random() * responses.length)],
+        text: "I'm here to help with your health concerns. Please try again.",
         isUser: false,
         timestamp: new Date().toLocaleTimeString('en-US', { 
           hour: 'numeric', 
           minute: '2-digit',
           hour12: true 
-        })
+        }),
+        createdAt: new Date().toISOString(),
+        type: 'text'
       };
 
-      setMessages(prev => [...prev, aiMessage]);
+      if (!isGuest) {
+        // Fallback to local session manager
+        chatSessionManager.addMessage(userMessage);
+        chatSessionManager.addMessage(fallbackMessage);
+        const updatedMessages = chatSessionManager.getCurrentSession()?.messages || [];
+        setMessages(updatedMessages);
+        setSessions(chatSessionManager.getAllSessions());
+      } else {
+        setMessages(prev => [...prev, userMessage, fallbackMessage]);
+      }
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleSendVoiceMessage = async (audioBlob: Blob, duration: number) => {
+    console.log('Received voice message:', audioBlob, 'duration:', duration);
+    setIsProcessing(true);
+    setIsRecording(false); // Reset recording state
+    
+    try {
+      // Create audio URL for playback
+      const audioUrl = URL.createObjectURL(audioBlob);
+      console.log('Created audio URL:', audioUrl);
+      
+      // Don't add user message immediately - wait for backend response
+      // This prevents duplicate user messages
+      // The backend will create the user message with proper transcript
+      
+      // Show processing state
+      setIsLoading(true);
+      
+      // Send voice message to backend
+      const response = await chatService.sendVoiceMessage(
+        currentSession?.id || 'guest-session',
+        audioBlob,
+        duration
+      );
+      
+      if (response.success && response.data) {
+        // The backend response includes both user and AI messages
+        const { userMessage: backendUserMessage, response: aiResponse } = response.data;
+        
+        // Add both messages to the current session
+        if (!isGuest) {
+          // For logged-in users, update the current session with both messages
+          if (currentSession) {
+            // First add messages to local state for immediate UI update
+            const updatedMessages = [...currentSession.messages, backendUserMessage, aiResponse];
+            const updatedSession = { ...currentSession, messages: updatedMessages, updatedAt: new Date().toISOString() };
+            setCurrentSession(updatedSession);
+            setMessages(updatedMessages);
+            
+            // Update sessions list to reflect the updated session
+            const updatedSessions = sessions.map(s => 
+              s.id === currentSession.id ? updatedSession : s
+            );
+            setSessions(updatedSessions);
+            
+            // Refresh session data from backend to ensure consistency
+            try {
+              const messagesResponse = await chatService.getChatMessages(currentSession.id);
+              if (messagesResponse.success && messagesResponse.data) {
+                const sessionWithMessages = { ...currentSession, messages: messagesResponse.data };
+                setCurrentSession(sessionWithMessages);
+                setMessages(messagesResponse.data);
+              }
+            } catch (error) {
+              console.error('Failed to refresh session data:', error);
+            }
+          }
+        } else {
+          // For guest users, just add to local state
+          setMessages(prev => [...prev, backendUserMessage, aiResponse]);
+        }
+
+        // Auto-play assistant voice response if it's a voice message
+        if (aiResponse && aiResponse.type === 'voice' && aiResponse.audioUrl) {
+          setTimeout(() => {
+            const audioUrl = aiResponse.audioUrl!.startsWith('http') ? aiResponse.audioUrl! : `http://localhost:5000${aiResponse.audioUrl!}`;
+            const audio = new Audio(audioUrl);
+            audio.play().catch(error => {
+              console.log('Auto-play failed (user interaction required):', error);
+            });
+          }, 500); // Small delay to ensure UI is updated
+        }
+      } else {
+        // Fallback response if backend fails
+        const fallbackMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          text: "I'm here to help with your health concerns. Please try again.",
+          isUser: false,
+          timestamp: new Date().toLocaleTimeString('en-US', { 
+            hour: 'numeric', 
+            minute: '2-digit',
+            hour12: true 
+          }),
+          createdAt: new Date().toISOString(),
+          type: 'text'
+        };
+
+        if (!isGuest) {
+          // For logged-in users, update the current session with the fallback message
+          if (currentSession) {
+            const updatedMessages = [...currentSession.messages, fallbackMessage];
+            const updatedSession = { ...currentSession, messages: updatedMessages, updatedAt: new Date().toISOString() };
+            setCurrentSession(updatedSession);
+            setMessages(updatedMessages);
+            
+            // Update sessions list to reflect the updated session
+            const updatedSessions = sessions.map(s => 
+              s.id === currentSession.id ? updatedSession : s
+            );
+            setSessions(updatedSessions);
+          }
+        } else {
+          setMessages(prev => [...prev, fallbackMessage]);
+        }
+      }
+    } catch (error) {
+      console.error('Voice message failed:', error);
+      // Fallback response
+      const fallbackMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        text: "I'm here to help with your health concerns. Please try again.",
+        isUser: false,
+        timestamp: new Date().toLocaleTimeString('en-US', { 
+          hour: 'numeric', 
+          minute: '2-digit',
+          hour12: true 
+        }),
+        createdAt: new Date().toISOString(),
+        type: 'text'
+      };
+
+      if (!isGuest) {
+        // For logged-in users, update the current session with the error message
+        if (currentSession) {
+          const updatedMessages = [...currentSession.messages, fallbackMessage];
+          const updatedSession = { ...currentSession, messages: updatedMessages, updatedAt: new Date().toISOString() };
+          setCurrentSession(updatedSession);
+          setMessages(updatedMessages);
+          
+          // Update sessions list to reflect the updated session
+          const updatedSessions = sessions.map(s => 
+            s.id === currentSession.id ? updatedSession : s
+          );
+          setSessions(updatedSessions);
+        }
+      } else {
+        setMessages(prev => [...prev, fallbackMessage]);
+      }
+    } finally {
+      setIsProcessing(false);
+      setIsLoading(false);
+    }
+  };
+
+  const handleFileSelect = async (file: File) => {
+    setIsLoading(true);
+    
+    try {
+      // Upload file to chat backend and get AI response
+      const response = await chatService.uploadFile(currentSession?.id || 'guest-session', file);
+      
+      if (response.success && response.data) {
+        // Add AI response to messages
+        if (!isGuest) {
+          chatSessionManager.addMessage(response.data);
+          const updatedMessages = chatSessionManager.getCurrentSession()?.messages || [];
+          setMessages(updatedMessages);
+          setSessions(chatSessionManager.getAllSessions());
+        } else {
+          setMessages(prev => [...prev, response.data!]);
+        }
+      } else {
+        console.error('File upload failed:', response.message);
+        // Fallback response
+        const fallbackMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          text: `I've received your file: ${file.name}. I'm here to help analyze it for you. Please try again.`,
+          isUser: false,
+          timestamp: new Date().toLocaleTimeString('en-US', { 
+            hour: 'numeric', 
+            minute: '2-digit',
+            hour12: true 
+          }),
+          createdAt: new Date().toISOString(),
+          type: 'text'
+        };
+
+        if (!isGuest) {
+          chatSessionManager.addMessage(fallbackMessage);
+          const updatedMessages = chatSessionManager.getCurrentSession()?.messages || [];
+          setMessages(updatedMessages);
+        } else {
+          setMessages(prev => [...prev, fallbackMessage]);
+        }
+      }
+    } catch (error) {
+      console.error('File handling failed:', error);
+      // Fallback: still show the file message
+      const fileMessage: Message = {
+        id: Date.now().toString(),
+        text: `Shared ${file.type.startsWith('image/') ? 'image' : file.type.startsWith('video/') ? 'video' : 'document'}: ${file.name}`,
+        isUser: true,
+        timestamp: new Date().toLocaleTimeString('en-US', { 
+          hour: 'numeric', 
+          minute: '2-digit',
+          hour12: true 
+        }),
+        createdAt: new Date().toISOString(),
+        type: 'file',
+        fileUrl: URL.createObjectURL(file),
+        fileName: file.name,
+        fileType: file.type,
+        fileSize: file.size
+      };
+
+      if (!isGuest) {
+        chatSessionManager.addMessage(fileMessage);
+        const updatedMessages = chatSessionManager.getCurrentSession()?.messages || [];
+        setMessages(updatedMessages);
+      } else {
+        setMessages(prev => [...prev, fileMessage]);
+      }
+    } finally {
+      setIsLoading(false);
+      setShowFileUpload(false);
+    }
+  };
+
+  const handleDeleteMessage = async (messageId: string) => {
+    try {
+      // Delete from backend if not guest
+      if (!isGuest && currentSession) {
+        const response = await chatService.deleteMessage(currentSession.id, messageId);
+        if (!response.success) {
+          console.error('Failed to delete message from backend:', response.message);
+        }
+      }
+      
+      // Update local state
+      if (currentSession) {
+        const updatedMessages = currentSession.messages.filter(msg => msg.id !== messageId);
+        currentSession.messages = updatedMessages;
+        currentSession.updatedAt = new Date().toISOString();
+        
+        if (!isGuest) {
+          chatSessionManager['saveSessions']();
+        }
+        setMessages(updatedMessages);
+      }
+    } catch (error) {
+      console.error('Error deleting message:', error);
+      // Still update local state even if backend fails
+      if (currentSession) {
+        const updatedMessages = currentSession.messages.filter(msg => msg.id !== messageId);
+        currentSession.messages = updatedMessages;
+        setMessages(updatedMessages);
+      }
+    }
+  };
+
+  const handleTranscribe = async (messageId: string) => {
+    // Mock transcription for demo
+    const message = messages.find(msg => msg.id === messageId);
+    if (message && message.type === 'voice' && !message.isTranscribed) {
+      const mockTranscript = "This is a mock transcription of the voice message.";
+      
+      // Update the message with transcript
+      if (currentSession) {
+        const messageIndex = currentSession.messages.findIndex(msg => msg.id === messageId);
+        if (messageIndex !== -1) {
+          currentSession.messages[messageIndex].transcript = mockTranscript;
+          currentSession.messages[messageIndex].isTranscribed = true;
+          currentSession.updatedAt = new Date().toISOString();
+          chatSessionManager['saveSessions']();
+          setMessages([...currentSession.messages]);
+        }
+      }
+    }
+  };
+
+  const handleCancelVoiceRecording = () => {
+    setIsRecording(false);
+    setIsProcessing(false);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -139,231 +887,460 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onNavigate, onLogout }) =
     }
   };
 
-  const startVoiceRecording = async () => {
+  const sendMessageToAssistant = async (_messageText: string, symptoms: { name: string; tags: string[] }[]) => {
+    setIsLoading(true);
+    
     try {
-      setRecordingError('');
+      // Extract symptom names for backend processing
+      const symptomNames = symptoms.map(symptom => symptom.name);
       
-      // Request microphone access
-      const stream = await navigator.mediaDevices.getUserMedia({ 
-        audio: {
-          echoCancellation: true,
-          noiseSuppression: true,
-          sampleRate: 44100
-        } 
-      });
+      // Send symptoms directly to chat API (no user message needed)
+      const response = await chatService.sendSymptoms(currentSession?.id || 'guest-session', symptomNames);
       
-      streamRef.current = stream;
-      
-      // Create MediaRecorder
-      const mediaRecorder = new MediaRecorder(stream, {
-        mimeType: 'audio/webm;codecs=opus'
-      });
-      
-      mediaRecorderRef.current = mediaRecorder;
-      audioChunksRef.current = [];
-      
-      // Handle data available
-      mediaRecorder.ondataavailable = (event) => {
-        if (event.data.size > 0) {
-          audioChunksRef.current.push(event.data);
+      if (response.success && response.data) {
+        // Add AI response to messages
+        if (!isGuest) {
+          // For logged-in users, update the current session with the AI response
+          if (currentSession) {
+            // First add messages to local state for immediate UI update
+            const updatedMessages = [...currentSession.messages, response.data];
+            const updatedSession = { ...currentSession, messages: updatedMessages, updatedAt: new Date().toISOString() };
+            setCurrentSession(updatedSession);
+            setMessages(updatedMessages);
+            
+            // Update sessions list to reflect the updated session
+            const updatedSessions = sessions.map(s => 
+              s.id === currentSession.id ? updatedSession : s
+            );
+            setSessions(updatedSessions);
+            
+            // Refresh session data from backend to ensure consistency
+            try {
+              const messagesResponse = await chatService.getChatMessages(currentSession.id);
+              if (messagesResponse.success && messagesResponse.data) {
+                const sessionWithMessages = { ...currentSession, messages: messagesResponse.data };
+                setCurrentSession(sessionWithMessages);
+                setMessages(messagesResponse.data);
+              }
+            } catch (error) {
+              console.error('Failed to refresh session data:', error);
+            }
+          }
+        } else {
+          setMessages(prev => [...prev, response.data!]);
         }
-      };
-      
-      // Handle recording stop
-      mediaRecorder.onstop = async () => {
-        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
-        await processAudio(audioBlob);
-      };
-      
-      // Start recording
-      mediaRecorder.start(1000); // Collect data every second
-      setIsRecording(true);
-      
-    } catch (error) {
-      console.error('Recording failed:', error);
-      setRecordingError('Failed to access microphone. Please check your permissions and try again.');
-      setIsRecording(false);
-    }
-  };
-
-  const stopVoiceRecording = () => {
-    if (mediaRecorderRef.current && isRecording) {
-      mediaRecorderRef.current.stop();
-    }
-    
-    // Stop all tracks
-    if (streamRef.current) {
-      streamRef.current.getTracks().forEach(track => track.stop());
-      streamRef.current = null;
-    }
-    
-    setIsRecording(false);
-  };
-
-  const processAudio = async (audioBlob: Blob) => {
-    setIsProcessing(true);
-    
-    try {
-      // Send audio to Flask backend for detection only
-      const formData = new FormData();
-      formData.append('audio', audioBlob, 'recording.webm');
-      
-      const response = await fetch('http://localhost:5000/detect-audio', {
-        method: 'POST',
-        body: formData
-      });
-      
-      if (response.ok) {
-        const data = await response.json();
-        const transcript = data.transcript || 'Audio processed successfully';
-        // Add transcript to input field (don't send automatically)
-        setInputText(prev => prev + transcript + ' ');
       } else {
-        throw new Error('Failed to process audio');
+        // Fallback response if backend fails
+        const fallbackMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          text: "Thank you for sharing your symptoms. I understand you're experiencing: " + symptomNames.join(', ') + ". Based on this information, I recommend monitoring your symptoms and consulting with a healthcare provider if they persist or worsen.",
+          isUser: false,
+          timestamp: new Date().toLocaleTimeString('en-US', { 
+            hour: 'numeric', 
+            minute: '2-digit',
+            hour12: true 
+          }),
+          createdAt: new Date().toISOString(),
+          type: 'text'
+        };
+
+        if (!isGuest) {
+          // For logged-in users, update the current session with the fallback message
+          if (currentSession) {
+            const updatedMessages = [...currentSession.messages, fallbackMessage];
+            const updatedSession = { ...currentSession, messages: updatedMessages, updatedAt: new Date().toISOString() };
+            setCurrentSession(updatedSession);
+            setMessages(updatedMessages);
+            
+            // Update sessions list to reflect the updated session
+            const updatedSessions = sessions.map(s => 
+              s.id === currentSession.id ? updatedSession : s
+            );
+            setSessions(updatedSessions);
+          }
+        } else {
+          setMessages(prev => [...prev, fallbackMessage]);
+        }
       }
     } catch (error) {
-      console.error('Audio processing failed:', error);
-      setRecordingError('Failed to process audio. Please try again.');
+      console.error('Failed to send symptoms to assistant:', error);
+      
+      // Error fallback response
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        text: "I've received your symptom information. While I'm having trouble processing it right now, I recommend keeping track of your symptoms and consulting with a healthcare provider for proper evaluation.",
+        isUser: false,
+        timestamp: new Date().toLocaleTimeString('en-US', { 
+          hour: 'numeric', 
+          minute: '2-digit',
+          hour12: true 
+        }),
+        createdAt: new Date().toISOString(),
+        type: 'text'
+      };
+
+      if (!isGuest) {
+        // For logged-in users, update the current session with the error message
+        if (currentSession) {
+          const updatedMessages = [...currentSession.messages, errorMessage];
+          const updatedSession = { ...currentSession, messages: updatedMessages, updatedAt: new Date().toISOString() };
+          setCurrentSession(updatedSession);
+          setMessages(updatedMessages);
+          
+          // Update sessions list to reflect the updated session
+          const updatedSessions = sessions.map(s => 
+            s.id === currentSession.id ? updatedSession : s
+          );
+          setSessions(updatedSessions);
+        }
+      } else {
+        setMessages(prev => [...prev, errorMessage]);
+      }
     } finally {
-      setIsProcessing(false);
+      setIsLoading(false);
     }
+  };
+
+  const handleSymptomSelection = (symptoms: { name: string; tags: string[] }[]) => {
+    if (symptoms.length === 0) return;
+    
+    const symptomText = symptoms.map(symptom => 
+      `${symptom.name} (${symptom.tags.join(', ')})`
+    ).join(', ');
+    
+    const messageText = `I'm experiencing these symptoms: ${symptomText}`;
+    
+    // Create user message
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      text: messageText,
+      isUser: true,
+      timestamp: new Date().toLocaleTimeString('en-US', { 
+        hour: 'numeric', 
+        minute: '2-digit',
+        hour12: true 
+      }),
+      createdAt: new Date().toISOString(),
+      type: 'text'
+    };
+
+    // Add user message to current session and update messages
+    if (!isGuest) {
+      chatSessionManager.addMessage(userMessage);
+      const updatedMessages = chatSessionManager.getCurrentSession()?.messages || [];
+      setMessages(updatedMessages);
+    } else {
+      setMessages(prev => [...prev, userMessage]);
+    }
+
+    // Close popup after 0.3s delay
+    setTimeout(() => {
+      setShowSymptomSelector(false);
+    }, 300);
+
+    // Send to assistant
+    sendMessageToAssistant(messageText, symptoms);
   };
 
   return (
     <Layout showLanguageButton={false}>
-      <Header onLogout={onLogout} showLanguage={false} />
-      <div className="min-h-screen p-4 pt-20">
-        <div className="max-w-4xl mx-auto">
-          <BackButton to="/dashboard" text="Home" />
-          <div className="flex items-center justify-center">
-        {/* Chat Container */}
-        <div className="w-full max-w-2xl bg-white rounded-lg shadow-lg overflow-hidden" style={{ height: '600px' }}>
-          {/* Chat Header */}
-          <div className="bg-gray-200 p-4 border-b border-gray-300">
-            <div className="flex items-center">
-              <div className="w-8 h-8 bg-[#183172] rounded-full flex items-center justify-center mr-3">
-                <Bot className="w-5 h-5 text-white" />
-              </div>
-              <h2 className="text-lg font-bold text-gray-800">Health Assistant</h2>
-            </div>
+      <Header onLogout={onLogout} showLanguage={false} user={user} isGuest={isGuest} onSignIn={onSignIn} />
+      <div className="h-screen p-4 pt-20 overflow-hidden">
+        <div className="max-w-7xl mx-auto h-full">
+          <div className={`transition-all duration-300 ${showSymptomSelector ? 'blur-sm' : ''}`}>
+            <BackButton to="/dashboard" />
           </div>
-
-          {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4" style={{ height: '400px' }}>
-            <div className="space-y-2">
-              {messages.map((message) => (
-                <div
-                  key={message.id}
-                  className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
-                >
-                  <div className={`max-w-xs px-3 py-2 rounded-lg ${
-                    message.isUser
-                      ? 'bg-[#183172] text-white'
-                      : 'bg-gray-200 text-gray-800'
-                  }`}>
-                    {!message.isUser && (
-                      <div className="flex items-center mb-2">
-                        <div className="w-6 h-6 bg-[#183172] rounded-full flex items-center justify-center mr-2">
-                          <Bot className="w-4 h-4 text-white" />
-                        </div>
-                        <span className="text-xs text-gray-500">{message.timestamp}</span>
-                      </div>
-                    )}
-                    <p className="text-sm">{message.text}</p>
-                    {message.isUser && (
-                      <div className="text-xs text-blue-100 mt-1 text-right">
-                        {message.timestamp}
-                      </div>
-                    )}
+          
+          <div className={`flex h-[calc(110vh-180px)] rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 my-6 mx-2 ${
+            theme === 'dark' ? 'bg-slate-800' : 'bg-white'
+          } ${showSymptomSelector ? 'blur-sm' : ''}`}>
+            {/* Sidebar */}
+            {showSidebar && (
+              <ChatSidebar
+                sessions={sessions}
+                currentSessionId={currentSession?.id || null}
+                onNewChat={handleNewChat}
+                onSelectSession={handleSelectSession}
+                onDeleteSession={handleDeleteSession}
+                onRenameSession={handleRenameSession}
+              />
+            )}
+            
+            {/* Main Chat Area */}
+            <div className="flex-1 flex flex-col">
+              {/* Chat Header */}
+              <div className={`p-4 flex items-center justify-between border-b transition-colors duration-300 ${
+                theme === 'dark' 
+                  ? 'bg-gradient-to-r from-slate-700 to-slate-600 border-slate-600' 
+                  : 'bg-gradient-to-r from-blue-500 to-purple-600 border-gray-200'
+              }`}>
+                <div className="flex items-center space-x-3">
+                  {!isGuest && (
+                    <button
+                      onClick={() => setShowSidebar(!showSidebar)}
+                      className={`p-2 rounded-lg transition-colors ${
+                        theme === 'dark' 
+                          ? 'text-white hover:bg-slate-600' 
+                          : 'text-white hover:bg-white/20'
+                      }`}
+                      title="Toggle chat history"
+                    >
+                      <Menu className="w-5 h-5" />
+                    </button>
+                  )}
+                  <div>
+                    <h2 className={`font-semibold text-lg ${
+                      theme === 'dark' ? 'text-white' : 'text-white'
+                    }`}>
+                      {currentSession?.title || t('healthAssistant')}
+                    </h2>
+                    <p className={`text-sm ${
+                      theme === 'dark' ? 'text-slate-300' : 'text-white/80'
+                    }`}>
+                      {t('available247')} • {t('voiceTextSupport')}
+                      {isGuest && (
+                        <span className={`ml-2 ${
+                          theme === 'dark' ? 'text-yellow-400' : 'text-yellow-300'
+                        }`}>{t('guestUser')}</span>
+                      )}
+                    </p>
                   </div>
                 </div>
-              ))}
+                <div className="flex items-center space-x-2">
+                  {isGuest && (
+                    <button
+                      onClick={onSignIn}
+                      className={`px-3 py-1 rounded-lg text-sm transition-colors ${
+                        theme === 'dark'
+                          ? 'bg-yellow-500/20 text-yellow-300 hover:bg-yellow-500/30'
+                          : 'bg-yellow-500/20 text-yellow-200 hover:bg-yellow-500/30'
+                      }`}
+                    >
+                      {t('signInToSave')}
+                    </button>
+                  )}
+                  <Bot className={`w-6 h-6 ${theme === 'dark' ? 'text-white' : 'text-white'}`} />
+                </div>
+              </div>
+
+              {/* Messages Area */}
+              <div className={`flex-1 overflow-y-auto p-6 space-y-4 transition-colors duration-300 ${
+                theme === 'dark' ? 'bg-slate-900' : 'bg-gray-50'
+              }`}>
+              {messages.map((message) => (
+                  <div key={message.id} className={`flex items-start space-x-3 ${message.isUser ? 'flex-row-reverse space-x-reverse' : ''}`}>
+                    {/* Avatar */}
+                    <Avatar 
+                      type={message.isUser ? 'user' : 'assistant'}
+                      userName={message.isUser ? user?.firstName : undefined}
+                      isGuest={message.isUser ? isGuest : false}
+                      size="md"
+                    />
+                    
+                    {/* Message Content */}
+                    <div className={`flex flex-col ${message.isUser ? 'items-end' : 'items-start'} max-w-[70%]`}>
+                      {/* User/Assistant Name */}
+                      <div className={`text-xs mb-1 px-2 ${
+                        theme === 'dark' ? 'text-slate-400' : 'text-gray-500'
+                      }`}>
+                        {message.isUser 
+                          ? (isGuest ? 'Guest User' : user?.firstName || 'User')
+                          : 'CareMate Assistant'
+                        }
+                      </div>
+                      
+                      {/* Message Bubble */}
+                      {message.type === 'voice' ? (
+                        <VoiceMessage
+                          audioUrl={message.audioUrl!.startsWith('http') ? message.audioUrl! : `http://localhost:5000${message.audioUrl!}`}
+                          duration={message.duration!}
+                          isUser={message.isUser}
+                          timestamp={message.timestamp}
+                          transcript={message.transcript}
+                          isTranscribed={message.isTranscribed}
+                          onTranscribe={() => handleTranscribe(message.id)}
+                          onDelete={() => handleDeleteMessage(message.id)}
+                        />
+                      ) : message.type === 'file' ? (
+                        <FileMessage
+                          fileUrl={message.fileUrl!}
+                          fileName={message.fileName!}
+                          fileType={message.fileType!}
+                          fileSize={message.fileSize!}
+                          timestamp={message.timestamp}
+                          isUser={message.isUser}
+                          onDelete={() => handleDeleteMessage(message.id)}
+                        />
+                      ) : (
+                        <div className={`max-w-md px-4 py-3 rounded-lg relative group transition-colors duration-300 ${
+                          message.isUser 
+                            ? theme === 'dark' 
+                              ? 'bg-blue-900/45 text-white' 
+                              : 'bg-blue-800/45 text-white'
+                            : theme === 'dark'
+                              ? 'bg-slate-700 text-slate-100'
+                              : 'bg-gray-200 text-gray-800'
+                        }`}>
+                          <p className="text-sm break-words whitespace-pre-wrap">{message.text}</p>
+                          <div className="flex items-center justify-between mt-1">
+                            <div className={`text-xs ${
+                              message.isUser 
+                                ? 'text-blue-100' 
+                                : theme === 'dark' 
+                                  ? 'text-slate-400' 
+                                  : 'text-gray-500'
+                            }`}>{message.timestamp}</div>
+                            <div className="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                              {/* <TextToSpeech
+                                text={message.text}
+                                isUser={message.isUser}
+                                messageId={message.id}
+                              />
+                              <MessageOptions 
+                                onDelete={() => handleDeleteMessage(message.id)}
+                                isUser={message.isUser}
+                              /> */}
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
               
               {isLoading && (
-                <div className="flex justify-start">
-                  <div className="bg-gray-200 text-gray-800 px-4 py-3 rounded-lg">
-                    <div className="flex items-center">
-                      <div className="w-6 h-6 bg-[#183172] rounded-full flex items-center justify-center mr-2">
-                        <Bot className="w-4 h-4 text-white" />
-                      </div>
-                      <div className="flex space-x-1">
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                <div className="flex items-start space-x-3">
+                  {/* Assistant Avatar */}
+                  <Avatar 
+                    type="assistant"
+                    size="md"
+                  />
+                  
+                  {/* Loading Message */}
+                  <div className="flex flex-col items-start max-w-[70%]">
+                    <div className={`text-xs mb-1 px-2 ${
+                      theme === 'dark' ? 'text-slate-400' : 'text-gray-500'
+                    }`}>
+                      CareMate Assistant
+                    </div>
+                    <div className={`max-w-md px-4 py-3 rounded-lg transition-colors duration-300 ${
+                      theme === 'dark' 
+                        ? 'bg-slate-700 text-slate-100' 
+                        : 'bg-gray-200 text-gray-800'
+                    }`}>
+                      <div className="flex items-center space-x-2">
+                        <div className={`animate-spin rounded-full h-4 w-4 border-b-2 ${
+                          theme === 'dark' ? 'border-slate-300' : 'border-gray-600'
+                        }`}></div>
+                        <span className="text-sm">Assistant is typing...</span>
                       </div>
                     </div>
                   </div>
                 </div>
               )}
-            </div>
+              
+              {/* Auto-scroll anchor */}
+              <div ref={messagesEndRef} />
           </div>
 
-          {/* Input */}
-          <div className="bg-gray-200 p-3 border-t border-gray-300" style={{ height: '80px' }}>
-            {/* Error Message */}
-            {recordingError && (
-              <div className="mb-3 p-3 bg-red-50 border border-red-200 rounded-lg">
-                <p className="text-red-600 text-sm">{recordingError}</p>
-              </div>
-            )}
+              {/* Input Area */}
+              <div className={`p-4 border-t transition-colors duration-300 ${
+                theme === 'dark' 
+                  ? 'bg-slate-800 border-slate-600' 
+                  : 'bg-white border-gray-200'
+              }`}>
+                <div className="flex items-center space-x-3">
+                 
+
+                  {/* File Upload Button - WhatsApp Style
+                  <button
+                    onClick={() => setShowFileUpload(true)}
+                    className={`p-3 rounded-full text-white transition-all transform hover:scale-105 shadow-lg ${
+                      theme === 'dark' 
+                        ? 'bg-slate-600 hover:bg-slate-500' 
+                        : 'bg-gray-500 hover:bg-gray-600'
+                    }`}
+                    title="Attach file"
+                  >
+                    <Paperclip className="w-5 h-5" />
+                  </button> */}
+
+                  {/* Text Input */}
+                  <div className="flex-1 relative">
+                    <input
+                      type="text"
+                      value={inputText}
+                      onChange={(e) => setInputText(e.target.value)}
+                      onKeyPress={handleKeyPress}
+                      placeholder={t('typeYourHealthQuestion')}
+                      className={`w-full px-4 py-3 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-300 ${
+                        theme === 'dark'
+                          ? 'bg-slate-700 border-slate-600 text-white placeholder-slate-400'
+                          : 'bg-white border border-gray-300 text-gray-900 placeholder-gray-500'
+                      }`}
+                      disabled={isLoading || isProcessing}
+                    />
+                  </div>
+
+                  {/* Voice Message Button */}
+                  <VoiceRecorder
+                    onSendVoiceMessage={handleSendVoiceMessage}
+                    onCancel={handleCancelVoiceRecording}
+                    isRecording={isRecording}
+                    onStartRecording={() => setIsRecording(true)}
+                    onStopRecording={() => setIsRecording(false)}
+                  />
+
+
+ {/* Symptom Selector Button */}
+                  <button
+                    onClick={() => setShowSymptomSelector(true)}
+                    className={`p-3 rounded-full text-white transition-all transform hover:scale-105 shadow-lg ${
+                      theme === 'dark' 
+                        ? 'bg-blue-600 hover:bg-blue-500' 
+                        : 'bg-blue-500 hover:bg-blue-600'
+                    }`}
+                    title="Select symptoms"
+                  >
+                    <Image className="w-5 h-5" />
+                  </button>
+
+                  {/* Send Button */}
+                  <button
+                    onClick={sendMessage}
+                    disabled={!inputText.trim() || isLoading || isProcessing}
+                    className="p-3 rounded-full bg-blue-500 text-white hover:bg-blue-600 transition-all transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                    title={t('sendMessage')}
+                  >
+                    <Send className="w-5 h-5" />
+                  </button>
+
+                </div>
             
-            <div className="flex items-center space-x-2">
-              <div className="flex-1 relative">
-                <input
-                  type="text"
-                  value={inputText}
-                  onChange={(e) => setInputText(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  placeholder="Ask about your health............"
-                  className="w-full px-3 py-2 bg-gray-100 border-0 rounded-lg focus:ring-2 focus:ring-blue-500 focus:bg-white transition-colors pr-12 text-sm"
-                />
-                <button 
-                  onClick={isRecording ? stopVoiceRecording : startVoiceRecording}
-                  disabled={isProcessing}
-                  className={`absolute right-3 top-1/2 transform -translate-y-1/2 transition-colors ${
-                    isRecording 
-                      ? 'text-red-500 hover:text-red-700' 
-                      : isProcessing
-                        ? 'text-yellow-500 cursor-not-allowed'
-                        : 'text-gray-500 hover:text-gray-700'
-                  }`}
-                >
-                  {isProcessing ? (
-                    <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin"></div>
-                  ) : isRecording ? (
-                    <Mic className="w-4 h-4" />
-                  ) : (
-                    <MicOff className="w-4 h-4" />
-                  )}
-                </button>
-              </div>
-              <button
-                onClick={sendMessage}
-                disabled={!inputText.trim() || isLoading}
-                className="bg-gray-400 text-white p-2 rounded-lg hover:bg-gray-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <Send className="w-4 h-4" />
-              </button>
-            </div>
-            
-            {/* Recording Status */}
-            {isRecording && (
-              <div className="mt-2 text-center">
-                <p className="text-red-600 text-sm font-medium">Recording... Speak clearly</p>
-              </div>
-            )}
-            
-            {isProcessing && (
-              <div className="mt-2 text-center">
-                <p className="text-yellow-600 text-sm font-medium">Processing audio...</p>
-              </div>
-            )}
-            
+
+                {/* File Upload Modal */}
+                {/* {showFileUpload && (
+                  <FileUpload
+                    onFileSelect={handleFileSelect}
+                    onClose={() => setShowFileUpload(false)}
+                  />
+                )} */}
           </div>
         </div>
           </div>
         </div>
       </div>
+
+      {/* Symptom Selector Modal */}
+      <SymptomSelector
+        isOpen={showSymptomSelector}
+        onClose={() => {
+          console.log('Closing symptom selector...');
+          setShowSymptomSelector(false);
+        }}
+        onSelectSymptoms={handleSymptomSelection}
+        isLoading={isLoading}
+      />
     </Layout>
   );
 };

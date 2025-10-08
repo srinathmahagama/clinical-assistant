@@ -1,5 +1,5 @@
 import React from 'react';
-import Footer from '../Footer/Footer';
+import { useTheme } from '../../contexts/ThemeContext';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -8,9 +8,11 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children, showLanguageButton = true, backgroundType = 'dashboard' }) => {
+  const { theme } = useTheme();
+  
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      {/* Background Image */}
+    <div className="min-h-screen relative overflow-hidden bg-theme-primary transition-colors duration-300">
+      {/* Background Image - show in both themes */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
@@ -19,11 +21,15 @@ const Layout: React.FC<LayoutProps> = ({ children, showLanguageButton = true, ba
             : `url('https://images.pexels.com/photos/4386466/pexels-photo-4386466.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')`
         }}
       >
-        {/* Gradient Overlay */}
+        {/* Gradient Overlay - different for light and dark themes */}
         <div className={`absolute inset-0 ${
-          backgroundType === 'auth' 
-            ? 'bg-gradient-to-br from-blue-500/70 via-indigo-600/70 to-purple-700/70'
-            : 'bg-gradient-to-br from-blue-400/80 via-purple-500/80 to-pink-400/80'
+          theme === 'light' 
+            ? (backgroundType === 'auth' 
+                ? 'bg-gradient-to-br from-blue-500/70 via-indigo-600/70 to-purple-700/70'
+                : 'bg-gradient-to-br from-blue-400/80 via-purple-500/80 to-pink-400/80')
+            : (backgroundType === 'auth'
+                ? 'bg-gradient-to-br from-slate-900/95 via-slate-800/98 to-slate-900/95'
+                : 'bg-gradient-to-br from-slate-900/90 via-slate-800/95 to-slate-900/90')
         }`}></div>
       </div>
 
@@ -37,11 +43,8 @@ const Layout: React.FC<LayoutProps> = ({ children, showLanguageButton = true, ba
       )}
 
       {/* Content */}
-      <div className="relative z-10 min-h-screen flex flex-col">
-        <div className="flex-1">
-          {children}
-        </div>
-        <Footer />
+      <div className="relative z-10 min-h-screen">
+        {children}
       </div>
     </div>
   );

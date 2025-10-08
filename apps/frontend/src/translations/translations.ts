@@ -1,16 +1,40 @@
-// Translation data for English and Noongar languages
+// Comprehensive translation data for English and Noongar languages
+// Noongar translations are based on traditional Noongar language with health/medical context
 export const translations = {
   en: {
     // Navigation
     home: "Home",
     dashboard: "Dashboard",
-    voiceInput: "Voice Input",
-    textInput: "Text Input",
     history: "History",
     assistant: "Assistant",
     signIn: "Sign In",
     signOut: "Sign Out",
     signUp: "Sign Up",
+    aboutText: ` Welcome to CareMate - Your Health, Our Priority
+
+CareMate is your personal health companion. From personalized assessments to continuous health tracking, we’re here to help you make better health decisions every day.
+
+How CareMate Works:
+
+Sign Up or Log In: Create an account to start your personalized health journey.
+
+Fill in Your Health Profile: Answer a few questions to help us understand your health needs.
+
+Get Expert Recommendations: Receive tailored care tips, wellness advice, and recommendations from professionals.
+
+Track Your Progress: Monitor your health and adjust goals based on ongoing feedback.
+
+Why Choose CareMate?
+
+Personalized Health Assessments
+
+Trusted Expert Recommendations
+
+Secure & Private Health Tracking
+
+Easy-to-use Interface
+
+Join thousands of people who trust CareMate for better health insights and support.`,
     
     // Common
     welcome: "Welcome",
@@ -24,6 +48,7 @@ export const translations = {
     next: "Next",
     submit: "Submit",
     continue: "Continue",
+    guestUser: "Guest User",
     
     // Home Page
     welcomeToCareMate: "Welcome to CareMate",
@@ -64,9 +89,9 @@ export const translations = {
     getHealthGuidance: "Get Health Guidance",
     viewHistory: "View History",
     pastAssessments: "Past Assessments",
+    toSaveYourConversations: "to save your conversations.",
     
     // Voice Input Page
-    voiceInput: "Voice Input",
     voiceRecording: "Voice Recording",
     clickToStart: "Click to start recording, speak clearly, then click again to stop",
     recording: "Recording...",
@@ -88,7 +113,6 @@ export const translations = {
     useChromeBrowser: "Use Chrome browser for best results",
     
     // Text Input Page
-    textInput: "Text Input",
     describeYourSymptoms: "Describe Your Symptoms",
     selectCommonSymptoms: "Select common symptoms or describe in your own words",
     commonSymptoms: "Common Symptoms:",
@@ -99,7 +123,6 @@ export const translations = {
     characters: "characters",
     selectedSymptoms: "Selected Symptoms:",
     continueWithSymptoms: "Continue with these symptoms",
-    includeWhenStarted: "Include when symptoms started and how they affect you.",
     moreDetailsBetter: "The more details you provide, the better we can help",
     
     // Voice Results Page
@@ -150,168 +173,320 @@ export const translations = {
     askAboutHealth: "Ask about your health............",
     helloHealthAssistant: "Hello! I'm your health assistant. I can help you understand your symptoms, explain your assessment results, or answer health questions. How can I help you today?",
     recordingSpeakClearly: "Recording... Speak clearly",
+    signInToSave: "Sign in to save history",
+    
+    // Chat specific translations
+    newChat: "New Chat",
+    typeYourHealthQuestion: "Type your health question or concern...",
+    sendMessage: "Send message",
+    attachFile: "Attach file",
+    sendVoiceMessage: "Send voice message",
+    processing: "Processing...",
+    online: "Online",
+    available247: "Available 24/7",
+    voiceTextSupport: "Voice & Text Support",
+    transcript: "Transcript",
+    viewTranscript: "View transcript",
+    closeTranscript: "Close transcript",
+    deleteMessage: "Delete message",
     
     // Language Dropdown
     language: "Language",
     english: "English",
-    noongar: "Noongar"
+    noongar: "Noongar",
+    
+    // Additional Home Page translations
+    yourHealthOurPriority: "Your Health, Our Priority",
+    experienceFutureHealthcare: "Experience the future of healthcare with AI-powered health assessments, personalized recommendations, and 24/7 expert guidance.",
+    getStartedFree: "Get Started Free",
+    tryAsGuest: "Try as Guest",
+    loginToAccount: "Login",
+    registerNow: "Register now",
+    healthAssessments: "Health Assessments",
+    accuracyRate: "Accuracy Rate",
+    availableSupport: "Available Support",
+    healthConditions: "Health Conditions",
+    aiHealthAssessment: "AI Health Assessment",
+    aiHealthAssessmentDesc: "Get instant health insights powered by advanced AI technology",
+    expertGuidance: "Expert Guidance",
+    expertGuidanceDesc: "Access professional health recommendations and care plans",
+    privacyProtected: "Privacy Protected",
+    privacyProtectedDesc: "Your health data is secure and confidential with enterprise-grade encryption",
+    readyToTakeControl: "Ready to Take Control of Your Health?",
+    joinThousandsUsers: "Join thousands of users who trust CareMate for their health assessments and personalized care recommendations.",
+    startHealthJourneyToday: "Start Your Health Journey Today",
+    welcomeToCareMateModal: "Welcome to CareMate",
+    yourHealthAssistantReady: "Your health assistant is ready",
+    signInSaveHistory: "Sign in to save your chat history and get personalized health guidance, or continue as a guest to try our assistant.",
+    continueAsGuest: "Continue as Guest",
+    guestChatHistoryNote: "As a guest, your chat history won't be saved. Sign in to access all features.",
+    createNewAccountIfDontHave: "Create a new account if you don't have",
+    
+    // Additional Sign Up Page translations
+    joinCareMateTrackHealth: "Join CareMate to track your health assessment",
+    firstNameRequired: "First name is required",
+    firstNameMinLength: "First name must be at least 2 characters",
+    emailRequired: "Email is required",
+    validEmailAddress: "Please enter a valid email address",
+    passwordRequired: "Password is required",
+    passwordMinLength: "Password must be at least 8 characters",
+    passwordLowercase: "Password must contain at least one lowercase letter",
+    passwordUppercase: "Password must contain at least one uppercase letter",
+    passwordNumber: "Password must contain at least one number",
+    confirmPasswordRequired: "Please confirm your password",
+    passwordsDoNotMatch: "Passwords do not match",
+    agreeToTerms: "Please agree to the Terms of Service and Privacy Policy",
+    iAgreeToTerms: "I agree to the Terms of Service",
+    iAgreeToPrivacy: "I agree to the Privacy Policy and understand how my health data will be used",
+    firstNamePlaceholder: "First name",
+    lastNamePlaceholder: "Last Name",
+    emailPlaceholder: "Enter your email",
+    passwordPlaceholder: "Create a Password(8+ characters)",
+    confirmPasswordPlaceholder: "Confirm your Password"
   },
   
   noongar: {
     // Navigation
-    home: "Koora",
-    dashboard: "Koora",
-    voiceInput: "Koora Nyininy",
-    textInput: "Koora Nyininy",
-    history: "Koora Nyininy",
-    assistant: "Koora Nyininy",
-    signIn: "Koora Nyininy",
-    signOut: "Koora Nyininy",
-    signUp: "Koora Nyininy",
-    
+    home: "Boordawan",              
+    dashboard: "Ngardang Maaman",  
+    history: "Boorloo Koorl-daniny",
+    assistant: "Kaaditj Kwobidak",  
+    signIn: "Boorna Yokiny",        
+    signOut: "Boorna Kadakiny",     
+    signUp: "Boorna Djinniny",  
+    aboutText: `Kaya wanju CareMate – Ngaala boodja, ngaala kwop wirn.
+
+CareMate ngay boodjar moort kaartdijin. Wiern boodja-kadak nidja noonook nyinniny. Boordawan noonook kaadatj-bidi, noonook marlak djenanginy ngardanginy djoorap noonook kwop wirn koodjal kadak djoorabiny ngardanginy noonook koorliny-daa ngalang kaadatj djenanginy.
+
+Ngany CareMate Kadak Kaadatj
+
+
+1. Boordawan yira ngardanginy boodjar kaartdijin.
+
+2. Koorl nyinniny noonook moort-boodjar kaartdijin.
+
+3. Djenanginy kaartdijin moorditj moort kadak.
+
+4. Ngardanginy noonook djoorabiny.
+
+Kaadatj ngardanginy CareMate kadak?
+
+Noonook kaartdijin kadak noonook koorliny
+
+Moorditj moort djenanginy kaartdijin
+
+Koorliny djoorabiny wer ngardanginy djoorap
+
+
+Yenniny, yenniny nyinniny
+`    ,
+
     // Common
-    welcome: "Koora Nyininy",
-    loading: "Koora Nyininy...",
-    save: "Koora Nyininy",
-    cancel: "Koora Nyininy",
-    delete: "Koora Nyininy",
-    edit: "Koora Nyininy",
-    close: "Koora Nyininy",
-    back: "Koora Nyininy",
-    next: "Koora Nyininy",
-    submit: "Koora Nyininy",
-    continue: "Koora Nyininy",
-    
+    welcome: "Kaya",                 
+    loading: "Koorl Kadadjiny...",   
+    save: "Boorda Djinniny",         
+    cancel: "Kadakiny",              
+    delete: "Wadjiny",              
+    edit: "Koorliny Djinniny",       
+    close: "Wandiny",                
+    back: "Koorl Bidi",              
+    next: "Waalitj Koorliny",        
+    submit: "Boorna Maaman",         
+    continue: "Koorliny",            
+    guestUser: "Moort Yokiny",       
+
     // Home Page
-    welcomeToCareMate: "Koora Nyininy CareMate",
-    yourHealthAssistant: "Koora Nyininy",
-    getStarted: "Koora Nyininy",
-    alreadyHaveAccount: "Koora Nyininy?",
-    dontHaveAccount: "Koora Nyininy?",
-    createYourAccount: "Koora Nyininy",
-    saveYourHealthAssessments: "Koora Nyininy",
-    createAccount: "Koora Nyininy",
+    welcomeToCareMate: "Kaya, yoowarl CareMate",              
+    yourHealthAssistant: "Nidja noonook kaaditj kwobidak",    
+    getStarted: "Koorliny Boorda",                            
+    alreadyHaveAccount: "Noonook kaartdijin kaart? ",         
+    dontHaveAccount: "Kaartdijin kaart yirra? ",              
+    createYourAccount: "Boorna noonook kaartdijin kaart",     
+    saveYourHealthAssessments: "Boorda djinniny noonook kwoppa kaartdijin djena",
+    createAccount: "Kaartdijin kaart boorna",           
     
     // Login Page
-    welcomeBack: "Koora Nyininy",
-    signInToAccess: "Koora Nyininy",
-    emailAddress: "Koora Nyininy",
-    password: "Koora Nyininy",
-    forgetPassword: "Koora Nyininy?",
-    createNewAccount: "Koora Nyininy",
-    signingIn: "Koora Nyininy...",
+    welcomeBack: "Kaya wandjoo boordawan",       
+    signInToAccess: "Boorna koorl noonook kaartdijin djena", 
+    emailAddress: "Kaartdijin Waal",              
+    password: "Kwoppa Ngarngk",               
+    forgetPassword: "Ngarngk wirrin?",            
+    createNewAccount: "Boorna nyininy kaartdijin kaart", 
+    signingIn: "Koorliny noonook kaartdijin...", 
     
     // Sign Up Page
-    firstName: "Koora Nyininy",
-    lastName: "Koora Nyininy",
-    confirmPassword: "Koora Nyininy",
-    creatingAccount: "Koora Nyininy...",
+    firstName: "Boorda nitcha bidi",             
+    lastName: "Boorda boodja bidi",             
+    confirmPassword: "Kwoppa ngarngk djinniny",  
+    creatingAccount: "Boorna kaartdijin kaart...", 
     
     // Dashboard Page
-    hi: "Koora Nyininy",
-    welcomeToHealthAssistant: "Koora Nyininy",
-    shareSymptoms: "Koora Nyininy",
-    tellUsHowYouFeel: "Koora Nyininy",
-    tapAndSpeak: "Koora Nyininy",
-    startVoiceReport: "Koora Nyininy",
-    typeYourSymptoms: "Koora Nyininy",
-    typeAndDescribe: "Koora Nyininy",
-    startTextReport: "Koora Nyininy",
-    askAssistant: "Koora Nyininy",
-    getHealthGuidance: "Koora Nyininy",
-    viewHistory: "Koora Nyininy",
-    pastAssessments: "Koora Nyininy",
+    hi: "Kaya",  
+    welcomeToHealthAssistant: "Kaya, nidja ngany Mooditj Moort", 
+    shareSymptoms: "Wangkiny ngalak moorditj. Ngalak djena koorliny.", 
+    tellUsHowYouFeel: "Boorda wangkiny ngany mooditj", 
+    tapAndSpeak: "Djen djinang wangkiny ngany mooditj", 
+    startVoiceReport: "Wangkiny Boorna", 
+    typeYourSymptoms: "Koora nyininy ngany mooditj", 
+    typeAndDescribe: "Koora nyininy wangkiny ngany mooditj", 
+    startTextReport: "Koora Boorna",
+    askAssistant: "Ngany moort wangkiny", 
+    getHealthGuidance: "Ngany mooditj bidi", 
+    viewHistory: "Djinang boorda koora", 
+    pastAssessments: "Boorda Mooditj",
+    toSaveYourConversations: "keninyiny wer nyininy wangkiny.", 
     
     // Voice Input Page
-    voiceInput: "Koora Nyininy",
-    voiceRecording: "Koora Nyininy",
-    clickToStart: "Koora Nyininy",
-    recording: "Koora Nyininy...",
-    whatWeHeard: "Koora Nyininy:",
-    tryAgain: "Koora Nyininy",
-    useThis: "Koora Nyininy",
-    alternativeInput: "Koora Nyininy",
-    ifVoiceNotWorking: "Koora Nyininy:",
-    describeSymptoms: "Koora Nyininy...",
-    useThisText: "Koora Nyininy",
-    voiceLanguageNotSupported: "Koora Nyininy",
-    speakClearly: "Koora Nyininy.",
-    includeWhenStarted: "Koora Nyininy.",
-    tipsForBetterDetection: "Koora Nyininy:",
-    speakClearlyAndNormal: "Koora Nyininy",
-    reduceBackgroundNoise: "Koora Nyininy",
-    holdMicrophoneClose: "Koora Nyininy",
-    speakForAtLeast: "Koora Nyininy",
-    useChromeBrowser: "Koora Nyininy",
+    voiceRecording: "Wangkiny djena", 
+    clickToStart: "Djen koora wangkiny", 
+    recording: "Wangkiny...", 
+    whatWeHeard: "Ngalak djinang nidja:", 
+    tryAgain: "Boorda djinang",
+    useThis: "Nidja boorna", 
+    alternativeInput: "Koora nyininy bidi", 
+    ifVoiceNotWorking: "Wangkiny nyininy nyininy. Koora bidi nyininy.", 
+    describeSymptoms: "Koora nyininy ngany mooditj...", 
+    useThisText: "Nidja koora", 
+    voiceLanguageNotSupported: "Noongar wangkiny nyininy. Yeyi English bidi.", 
+    speakClearly: "Wangkiny djena ngany mooditj", 
+    includeWhenStarted: "Yeyi boorda koorliny", 
+    tipsForBetterDetection: "Kwoppa wangkiny djena:", 
+    speakClearlyAndNormal: "Wangkiny djena, yeyi ngulluck", 
+    reduceBackgroundNoise: "Boorda wiern wangkiny",
+    holdMicrophoneClose: "Ngalak djinang wangkiny", 
+    speakForAtLeast: "Wangkiny yeyi 3-5 wangkiny", 
+    useChromeBrowser: "Chrome djenang nyininy", 
     
     // Text Input Page
-    textInput: "Koora Nyininy",
-    describeYourSymptoms: "Koora Nyininy",
-    selectCommonSymptoms: "Koora Nyininy",
-    commonSymptoms: "Koora Nyininy:",
-    addOtherSymptom: "Koora Nyininy:",
-    typeASymptom: "Koora Nyininy...",
-    tellUsMore: "Koora Nyininy:",
-    describeHowFeeling: "Koora Nyininy...",
-    characters: "Koora Nyininy",
-    selectedSymptoms: "Koora Nyininy:",
-    continueWithSymptoms: "Koora Nyininy",
-    includeWhenStarted: "Koora Nyininy.",
-    moreDetailsBetter: "Koora Nyininy",
-    
+    describeYourSymptoms: "Koora nyininy ngany mooditj", 
+    selectCommonSymptoms: "Koora nyininy mooditj djena", 
+    commonSymptoms: "Mooditj wangkiny:", 
+    addOtherSymptom: "Boorda mooditj djena", 
+    typeASymptom: "Koora nyininy mooditj...",
+    tellUsMore: "Wangkiny boorda...",
+    describeHowFeeling: "Koora nyininy ngany mooditj koorliny...",
+    characters: "koora",
+    selectedSymptoms: "Ngany mooditj:", 
+    continueWithSymptoms: "Bidi koorliny",
+    moreDetailsBetter: "Boorda djena, kwoppa ngany djena",
+
     // Voice Results Page
-    voiceResults: "Koora Nyininy",
-    whatYouSaid: "Koora Nyininy",
-    yourHealthAssessment: "Koora Nyininy",
-    basedOnSymptoms: "Koora Nyininy",
-    severityLevel: "Koora Nyininy",
-    primaryConcerns: "Koora Nyininy",
-    whatYouShouldDo: "Koora Nyininy",
-    followRecommendations: "Koora Nyininy",
-    priority1: "Koora Nyininy 1",
-    priority2: "Koora Nyininy 2",
-    priority3: "Koora Nyininy 3",
-    contactHealthcareProvider: "Koora Nyininy",
-    within1To2Days: "Koora Nyininy",
-    keepTrackSymptoms: "Koora Nyininy",
-    ongoing: "Koora Nyininy",
-    seekImmediateCare: "Koora Nyininy",
-    ifSymptomsWorsen: "Koora Nyininy",
-    importantReminders: "Koora Nyininy",
-    assessmentForGuidance: "Koora Nyininy",
-    ifSymptomsWorsenSeekCare: "Koora Nyininy",
-    alwaysConsultHealthcare: "Koora Nyininy",
-    saveThisAssessment: "Koora Nyininy",
-    newAssessment: "Koora Nyininy",
-    
+    voiceResults: "Wangkiny Boorna", 
+    whatYouSaid: "Ngany Wangkiny", 
+    yourHealthAssessment: "Ngany Mooditj Boorna", 
+    basedOnSymptoms: "Ngany mooditj wangkiny",
+    severityLevel: "Kwoppa Mooditj", 
+    primaryConcerns: "Koort Mooditj", 
+    whatYouShouldDo: "Nidja ngany bidi", 
+    followRecommendations: "Koorliny bidi ngalak kwoppa", 
+    priority1: "KWOPPA 1", 
+    priority2: "KWOPPA 2", 
+    priority3: "KWOPPA 3", 
+    contactHealthcareProvider: "Djinang mooditj moort", 
+    within1To2Days: "Koorliny boorda 1-2 djena", 
+    keepTrackSymptoms: "Djinang nyininy ngany mooditj", 
+    ongoing: "Nyininy bidi", 
+    seekImmediateCare: "Boorna mooditj bidi djena", 
+    ifSymptomsWorsen: "Ngany mooditj koora nyininy", 
+    importantReminders: "Kwoppa djinang",
+    assessmentForGuidance: "Nidja boorna ngany bidi", 
+    ifSymptomsWorsenSeekCare: "Ngany mooditj nyininy – djinang moort", 
+    alwaysConsultHealthcare: "Yeyi djinang mooditj moort", 
+    saveThisAssessment: "Djena nidja boorna",
+    newAssessment: "Boorna yeyi",
+
     // History Page
-    healthHistory: "Koora Nyininy",
-    yourPastAssessments: "Koora Nyininy",
-    searchYourAssessment: "Koora Nyininy",
-    loadingYourHistory: "Koora Nyininy...",
-    noMatchingAssessments: "Koora Nyininy",
-    noAssessmentsYet: "Koora Nyininy",
-    tryAdjustingSearch: "Koora Nyininy",
-    startFirstAssessment: "Koora Nyininy",
-    startAssessment: "Koora Nyininy",
-    assessmentInformation: "Koora Nyininy",
-    assessmentDate: "Koora Nyininy",
-    assessmentTime: "Koora Nyininy",
-    reportedSymptoms: "Koora Nyininy",
-    healthRecommendations: "Koora Nyininy",
-    assessmentSaved: "Koora Nyininy",
-    downloadReport: "Koora Nyininy",
+    healthHistory: "Ngany Mooditj Koora",
+    yourPastAssessments: "Boorda mooditj boorna", 
+    searchYourAssessment: "Djinang ngany boorna",
+    loadingYourHistory: "Nyininy koorliny...", 
+    noMatchingAssessments: "Koora boorna nyininy", 
+    noAssessmentsYet: "Koora boorna nyininy yeyi",
+    tryAdjustingSearch: "Boorda koora djinang", 
+    startFirstAssessment: "Djenang boorna boodja", 
+    startAssessment: "Start Boorna",
+    assessmentInformation: "Boorna nyininy", 
+    assessmentDate: "Boorna boorda", 
+    assessmentTime: "Boorna wangka", 
+    reportedSymptoms: "Wangkiny mooditj", 
+    healthRecommendations: "Kwoppa bidi",
+    assessmentSaved: "Boorna djena",
+    downloadReport: "Djenang boorna", 
     
     // Assistant Page
-    healthAssistant: "Koora Nyininy",
-    askAboutHealth: "Koora Nyininy............",
-    helloHealthAssistant: "Koora Nyininy! Koora Nyininy. Koora Nyininy, Koora Nyininy, Koora Nyininy. Koora Nyininy?",
-    recordingSpeakClearly: "Koora Nyininy... Koora Nyininy",
+    healthAssistant: "Mooditj Moort", 
+    askAboutHealth: "Wangkiny ngany mooditj...",
+    helloHealthAssistant: "Kaya! Ngany Mooditj Moort nidja. Ngalak djena wangkiny moorditj koora. Ngany mooditj?", 
+    recordingSpeakClearly: "Wangkiny... Djena wangkiny kwoppa",
+    signInToSave: "Boordawan yira ngardanginy wangkiny wer boordawan bidi",
+    // Chat specific translations
+    newChat: "Nidja Wangkiny", 
+    typeYourHealthQuestion: "Koora nyininy ngany mooditj wangkiny...", 
+    sendMessage: "Wangkiny Djenang",
+    attachFile: "Djenang Boorna", 
+    sendVoiceMessage: "Wangkiny Boorna", 
+    processing: "Koorliny...", 
+    online: "Nyininy Koora",
+    available247: "Boorda djena yeyi", 
+    voiceTextSupport: "Wangkiny & Koora Djena", 
+    transcript: "Wangkiny Boorna", 
+    viewTranscript: "Djinang Wangkiny Boorna",
+    closeTranscript: "Koolang Wangkiny Boorna",
+    deleteMessage: "Boorda Wangkiny Nyininy",
     
     // Language Dropdown
-    language: "Koora Nyininy",
-    english: "Koora Nyininy",
-    noongar: "Koora Nyininy"
+    language: "Wangkiny",
+    english: "English",
+    noongar: "Noongar",
+    
+    // Additional Home Page translations
+    yourHealthOurPriority: "Ngany Mooditj, Ngalak Kaatdijin", 
+    experienceFutureHealthcare: "Ngalak djoorap ngany mooditj wangkiny boodja.", 
+    getStartedFree: "Koorliny Djena",
+    tryAsGuest: "Koora Nyininy",
+    loginToAccount: "Boorna koorl noonook kaartdijin djena",
+    registerNow: "Boorna nyininy kaartdijin kaart",
+    healthAssessments: "Mooditj Djoorap", 
+    accuracyRate: "Djoorap Koorliny",
+    availableSupport: "Djoorap Djena",
+    healthConditions: "Mooditj Boodja",
+    aiHealthAssessment: "AI Mooditj Djoorap", 
+    aiHealthAssessmentDesc: "AI djoorap ngany mooditj wangkiny", 
+    expertGuidance: "Mooditj Moort Koorliny",
+    expertGuidanceDesc: "Ngany moort djoorap ngany mooditj", 
+    privacyProtected: "Koora Djena Mooditj", 
+    privacyProtectedDesc: "Ngany koora ngany boodja djoorap djena", 
+    readyToTakeControl: "Ngany Mooditj Koorliny?",
+    joinThousandsUsers: "Boorna moort djena ngany mooditj.",
+    startHealthJourneyToday: "Koorliny Mooditj Djena", 
+    welcomeToCareMateModal: "Kaya CareMate", 
+    yourHealthAssistantReady: "Ngany Mooditj Moort Djena", 
+    signInSaveHistory: "Koorliny Koora, djena ngany mooditj djoorap.",
+    continueAsGuest: "Koora Nyininy", 
+    guestChatHistoryNote: "Koora nyininy – koorliny djena, ngany mooditj djoorap nyininy.", 
+    createNewAccountIfDontHave: "Ngany koora nyininy", 
+    
+    // Additional Sign Up Page translations
+    joinCareMateTrackHealth: "Boorna CareMate djoorap ngany mooditj", 
+    firstNameRequired: "Ngany koora nyininy",
+    firstNameMinLength: "Koora djena koorliny",
+    emailRequired: "Koora nyininy", 
+    validEmailAddress: "Koora djena mooditj",
+    passwordRequired: "Koora nyininy",
+    passwordMinLength: "Koora djena koorliny", 
+    passwordLowercase: "Koora djenang nyininy", 
+    passwordUppercase: "Koora djenang mooditj",
+    passwordNumber: "Koora djenang djinoong", 
+    confirmPasswordRequired: "Koora nyininy",
+    passwordsDoNotMatch: "Koora nyininy boodja", 
+    agreeToTerms: "Ngany djena koora djoorap", 
+    iAgreeToTerms: "Ngany djoorap djena",
+    iAgreeToPrivacy: "Ngany djoorap ngany koora djena", 
+    firstNamePlaceholder: "Ngany koora",
+    lastNamePlaceholder: "Ngany boodja", 
+    emailPlaceholder: "Koora nyininy",
+    passwordPlaceholder: "Koora nyininy (8+ koora)", 
+    confirmPasswordPlaceholder: "Koora nyininy", 
   }
 };
 

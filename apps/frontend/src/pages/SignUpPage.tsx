@@ -9,6 +9,7 @@ import LanguageDropdown from '../components/LanguageDropdown/LanguageDropdown';
 import { authService } from '../services/api';
 import { User } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useTheme } from '../contexts/ThemeContext';
 
 interface SignUpPageProps {
   onNavigate: (page: string) => void;
@@ -18,6 +19,7 @@ interface SignUpPageProps {
 const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate, onLogin }) => {
   const navigate = useNavigate();
   const { t } = useLanguage();
+  const { theme } = useTheme();
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -29,16 +31,53 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate, onLogin }) => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [fieldErrors, setFieldErrors] = useState<{[key: string]: string}>({});
   const [agreements, setAgreements] = useState({
     terms: false,
     privacy: false
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: value
     });
+    
+    // Clear field error when user starts typing
+    if (fieldErrors[name]) {
+      setFieldErrors({
+        ...fieldErrors,
+        [name]: ''
+      });
+    }
+  };
+
+  const validateField = (name: string, value: string): string => {
+    switch (name) {
+      case 'firstName':
+        if (!value.trim()) return t('firstNameRequired');
+        if (value.trim().length < 2) return t('firstNameMinLength');
+        return '';
+      case 'email':
+        if (!value.trim()) return t('emailRequired');
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailPattern.test(value)) return t('validEmailAddress');
+        return '';
+      case 'password':
+        if (!value) return t('passwordRequired');
+        if (value.length < 8) return t('passwordMinLength');
+        if (!/(?=.*[a-z])/.test(value)) return t('passwordLowercase');
+        if (!/(?=.*[A-Z])/.test(value)) return t('passwordUppercase');
+        if (!/(?=.*\d)/.test(value)) return t('passwordNumber');
+        return '';
+      case 'confirmPassword':
+        if (!value) return t('confirmPasswordRequired');
+        if (value !== formData.password) return t('passwordsDoNotMatch');
+        return '';
+      default:
+        return '';
+    }
   };
 
   const handleAgreementChange = (type: 'terms' | 'privacy') => {
@@ -51,40 +90,72 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate, onLogin }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setFieldErrors({});
 
-    if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
-      return;
+    // Validate all fields
+    const errors: {[key: string]: string} = {};
+    let hasErrors = false;
+
+    // Validate required fields
+    if (!formData.firstName.trim()) {
+      errors.firstName = t('firstNameRequired');
+      hasErrors = true;
+    }
+    if (!formData.email.trim()) {
+      errors.email = t('emailRequired');
+      hasErrors = true;
+    }
+    if (!formData.password) {
+      errors.password = t('passwordRequired');
+      hasErrors = true;
+    }
+    if (!formData.confirmPassword) {
+      errors.confirmPassword = t('confirmPasswordRequired');
+      hasErrors = true;
     }
 
-    if (formData.password.length < 8) {
-      setError('Password must be at least 8 characters');
-      return;
-    }
+    // Validate field formats
+    Object.keys(formData).forEach(field => {
+      const error = validateField(field, formData[field as keyof typeof formData]);
+      if (error) {
+        errors[field] = error;
+        hasErrors = true;
+      }
+    });
 
+    // Check agreements
     if (!agreements.terms || !agreements.privacy) {
-      setError('Please agree to the Terms of Service and Privacy Policy');
+      setError(t('agreeToTerms'));
+      return;
+    }
+
+    if (hasErrors) {
+      setFieldErrors(errors);
       return;
     }
 
     setIsLoading(true);
 
     try {
+      console.log('🔄 Attempting to register user:', formData.email);
       const response = await authService.register({
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        email: formData.email,
+        firstName: formData.firstName.trim(),
+        lastName: formData.lastName.trim(),
+        email: formData.email.trim().toLowerCase(),
         password: formData.password
       });
 
       if (response.success && response.data) {
+        console.log('✅ Registration successful:', response.data);
         onLogin(response.data);
         navigate('/dashboard');
       } else {
-        setError(response.message || 'Registration failed');
+        console.error('❌ Registration failed:', response.message);
+        setError(response.message || 'Registration failed. Please try again.');
       }
     } catch (err) {
-      setError('An error occurred during registration');
+      console.error('❌ Registration error:', err);
+      setError('An error occurred during registration. Please check your connection and try again.');
     } finally {
       setIsLoading(false);
     }
@@ -93,7 +164,7 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate, onLogin }) => {
   return (
     <Layout backgroundType="auth">
       <Header 
-        showLanguage={false}
+        showLanguage={true}
         title="CareMate"
       />
       <div className="min-h-screen p-4 pt-20">
@@ -101,29 +172,41 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate, onLogin }) => {
           <BackButton to="/" />
           
           <div className="flex items-center justify-center">
-            <div className="bg-white rounded-3xl p-8 w-full max-w-md shadow-2xl">
+            <div className={`rounded-3xl p-8 w-full max-w-md shadow-2xl transition-colors duration-300 ${
+              theme === 'dark' ? 'bg-slate-800' : 'bg-white'
+            }`}>
           <div className="text-center mb-8">
-            <h1 className="text-2xl font-bold text-gray-800 mb-2">{t('createAccount')}</h1>
+            <h1 className={`text-2xl font-bold mb-2 ${
+              theme === 'dark' ? 'text-white' : 'text-gray-800'
+            }`}>{t('createAccount')}</h1>
             
             <div className="mb-4">
               <Logo size="md" />
             </div>
             
-            <p className="text-gray-600 text-sm">
-              Join CareMate to track your<br />health assessment
+            <p className={`text-sm ${
+              theme === 'dark' ? 'text-slate-300' : 'text-gray-600'
+            }`}>
+              {t('joinCareMateTrackHealth')}
             </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg text-sm">
+              <div className={`px-4 py-3 rounded-lg text-sm transition-colors duration-300 ${
+                theme === 'dark' 
+                  ? 'bg-red-900/50 border border-red-700 text-red-300' 
+                  : 'bg-red-50 border border-red-200 text-red-600'
+              }`}>
                 {error}
               </div>
             )}
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className={`block text-sm font-medium mb-1 ${
+                  theme === 'dark' ? 'text-slate-300' : 'text-gray-700'
+                }`}>
                   {t('firstName')}*
                 </label>
                 <input
@@ -131,13 +214,24 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate, onLogin }) => {
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleInputChange}
-                  placeholder="First name"
-                  className="w-full px-3 py-2 bg-gray-100 border-0 rounded-lg focus:ring-2 focus:ring-blue-500 focus:bg-white transition-colors text-sm"
+                  placeholder={t('firstNamePlaceholder')}
+                  className={`w-full px-3 py-2 border-0 rounded-lg focus:ring-2 focus:ring-blue-500 transition-colors text-sm ${
+                    fieldErrors.firstName
+                      ? 'ring-2 ring-red-500'
+                      : theme === 'dark'
+                      ? 'bg-slate-700 text-white placeholder-slate-400 focus:bg-slate-600'
+                      : 'bg-gray-100 text-gray-900 placeholder-gray-500 focus:bg-white'
+                  }`}
                   required
                 />
+                {fieldErrors.firstName && (
+                  <p className="text-red-500 text-xs mt-1">{fieldErrors.firstName}</p>
+                )}
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className={`block text-sm font-medium mb-1 ${
+                  theme === 'dark' ? 'text-slate-300' : 'text-gray-700'
+                }`}>
                   {t('lastName')}
                 </label>
                 <input
@@ -145,14 +239,25 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate, onLogin }) => {
                   name="lastName"
                   value={formData.lastName}
                   onChange={handleInputChange}
-                  placeholder="Last Name"
-                  className="w-full px-3 py-2 bg-gray-100 border-0 rounded-lg focus:ring-2 focus:ring-blue-500 focus:bg-white transition-colors text-sm"
+                  placeholder={t('lastNamePlaceholder')}
+                  className={`w-full px-3 py-2 border-0 rounded-lg focus:ring-2 focus:ring-blue-500 transition-colors text-sm ${
+                    fieldErrors.lastName
+                      ? 'ring-2 ring-red-500'
+                      : theme === 'dark'
+                      ? 'bg-slate-700 text-white placeholder-slate-400 focus:bg-slate-600'
+                      : 'bg-gray-100 text-gray-900 placeholder-gray-500 focus:bg-white'
+                  }`}
                 />
+                {fieldErrors.lastName && (
+                  <p className="text-red-500 text-xs mt-1">{fieldErrors.lastName}</p>
+                )}
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className={`block text-sm font-medium mb-1 ${
+                theme === 'dark' ? 'text-slate-300' : 'text-gray-700'
+              }`}>
                 {t('emailAddress')}*
               </label>
               <input
@@ -160,14 +265,25 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate, onLogin }) => {
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
-                placeholder="Enter your email"
-                className="w-full px-3 py-2 bg-gray-100 border-0 rounded-lg focus:ring-2 focus:ring-blue-500 focus:bg-white transition-colors text-sm"
+                  placeholder={t('emailPlaceholder')}
+                className={`w-full px-3 py-2 border-0 rounded-lg focus:ring-2 focus:ring-blue-500 transition-colors text-sm ${
+                  fieldErrors.email
+                    ? 'ring-2 ring-red-500'
+                    : theme === 'dark'
+                    ? 'bg-slate-700 text-white placeholder-slate-400 focus:bg-slate-600'
+                    : 'bg-gray-100 text-gray-900 placeholder-gray-500 focus:bg-white'
+                }`}
                 required
               />
+              {fieldErrors.email && (
+                <p className="text-red-500 text-xs mt-1">{fieldErrors.email}</p>
+              )}
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className={`block text-sm font-medium mb-1 ${
+                theme === 'dark' ? 'text-slate-300' : 'text-gray-700'
+              }`}>
                 {t('password')}*
               </label>
               <div className="relative">
@@ -176,22 +292,37 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate, onLogin }) => {
                   name="password"
                   value={formData.password}
                   onChange={handleInputChange}
-                  placeholder="Create a Password(8+ characters)"
-                  className="w-full px-3 py-2 bg-gray-100 border-0 rounded-lg focus:ring-2 focus:ring-blue-500 focus:bg-white transition-colors text-sm pr-10"
+                  placeholder={t('passwordPlaceholder')}
+                  className={`w-full px-3 py-2 border-0 rounded-lg focus:ring-2 focus:ring-blue-500 transition-colors text-sm pr-10 ${
+                    fieldErrors.password
+                      ? 'ring-2 ring-red-500'
+                      : theme === 'dark'
+                      ? 'bg-slate-700 text-white placeholder-slate-400 focus:bg-slate-600'
+                      : 'bg-gray-100 text-gray-900 placeholder-gray-500 focus:bg-white'
+                  }`}
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                  className={`absolute right-3 top-1/2 transform -translate-y-1/2 transition-colors ${
+                    theme === 'dark' 
+                      ? 'text-slate-400 hover:text-slate-300' 
+                      : 'text-gray-500 hover:text-gray-700'
+                  }`}
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
+              {fieldErrors.password && (
+                <p className="text-red-500 text-xs mt-1">{fieldErrors.password}</p>
+              )}
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className={`block text-sm font-medium mb-1 ${
+                theme === 'dark' ? 'text-slate-300' : 'text-gray-700'
+              }`}>
                 {t('confirmPassword')}*
               </label>
               <div className="relative">
@@ -200,18 +331,31 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate, onLogin }) => {
                   name="confirmPassword"
                   value={formData.confirmPassword}
                   onChange={handleInputChange}
-                  placeholder="Confirm your Password"
-                  className="w-full px-3 py-2 bg-gray-100 border-0 rounded-lg focus:ring-2 focus:ring-blue-500 focus:bg-white transition-colors text-sm pr-10"
+                  placeholder={t('confirmPasswordPlaceholder')}
+                  className={`w-full px-3 py-2 border-0 rounded-lg focus:ring-2 focus:ring-blue-500 transition-colors text-sm pr-10 ${
+                    fieldErrors.confirmPassword
+                      ? 'ring-2 ring-red-500'
+                      : theme === 'dark'
+                      ? 'bg-slate-700 text-white placeholder-slate-400 focus:bg-slate-600'
+                      : 'bg-gray-100 text-gray-900 placeholder-gray-500 focus:bg-white'
+                  }`}
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                  className={`absolute right-3 top-1/2 transform -translate-y-1/2 transition-colors ${
+                    theme === 'dark' 
+                      ? 'text-slate-400 hover:text-slate-300' 
+                      : 'text-gray-500 hover:text-gray-700'
+                  }`}
                 >
                   {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
+              {fieldErrors.confirmPassword && (
+                <p className="text-red-500 text-xs mt-1">{fieldErrors.confirmPassword}</p>
+              )}
             </div>
 
             <div className="space-y-2 text-xs">
@@ -222,7 +366,9 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate, onLogin }) => {
                   onChange={() => handleAgreementChange('terms')}
                   className="mt-1 mr-2 rounded"
                 />
-                <span className="text-gray-600">I agree to the Terms of Service</span>
+                <span className={`${
+                  theme === 'dark' ? 'text-slate-300' : 'text-gray-600'
+                }`}>{t('iAgreeToTerms')}</span>
               </label>
               <label className="flex items-start">
                 <input
@@ -231,8 +377,10 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate, onLogin }) => {
                   onChange={() => handleAgreementChange('privacy')}
                   className="mt-1 mr-2 rounded"
                 />
-                <span className="text-gray-600">
-                  I agree to the Privacy Policy and understand how my health data will be used
+                <span className={`${
+                  theme === 'dark' ? 'text-slate-300' : 'text-gray-600'
+                }`}>
+                  {t('iAgreeToPrivacy')}
                 </span>
               </label>
             </div>
@@ -245,12 +393,18 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate, onLogin }) => {
               {isLoading ? t('creatingAccount') : t('createAccount')}
             </button>
 
-            <div className="text-center text-sm text-gray-600">
+            <div className={`text-center text-sm ${
+              theme === 'dark' ? 'text-slate-300' : 'text-gray-600'
+            }`}>
               {t('alreadyHaveAccount')}{' '}
               <button
                 type="button"
                 onClick={() => navigate('/login')}
-                className="text-[#183172] hover:text-[#183172]/80 underline"
+                className={`underline transition-colors ${
+                  theme === 'dark' 
+                    ? 'text-blue-400 hover:text-blue-300' 
+                    : 'text-[#183172] hover:text-[#183172]/80'
+                }`}
               >
                 {t('signIn')}
               </button>

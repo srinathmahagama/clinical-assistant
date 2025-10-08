@@ -9,6 +9,7 @@ import LanguageDropdown from '../components/LanguageDropdown/LanguageDropdown';
 import { authService } from '../services/api';
 import { User } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useTheme } from '../contexts/ThemeContext';
 
 interface LoginPageProps {
   onNavigate: (page: string) => void;
@@ -18,7 +19,8 @@ interface LoginPageProps {
 const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onLogin }) => {
   const navigate = useNavigate();
   const { t } = useLanguage();
-  const [email, setEmail] = useState('nimash@example.com');
+  const { theme } = useTheme();
+  const [email, setEmail] = useState('test@example.com');
   const [password, setPassword] = useState('password123');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -47,7 +49,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onLogin }) => {
   return (
     <Layout backgroundType="auth">
       <Header 
-        showLanguage={false}
+        showLanguage={true}
         title="CareMate"
       />
       <div className="min-h-screen p-4 pt-20">
@@ -55,10 +57,16 @@ const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onLogin }) => {
           <BackButton to="/" />
           
           <div className="flex items-center justify-center">
-            <div className="bg-white rounded-3xl p-8 w-full max-w-md shadow-2xl">
+            <div className={`rounded-3xl p-8 w-full max-w-md shadow-2xl transition-colors duration-300 ${
+              theme === 'dark' ? 'bg-slate-800' : 'bg-white'
+            }`}>
           <div className="text-center mb-8">
-            <h1 className="text-2xl font-bold text-gray-800 mb-2">{t('welcomeBack')}</h1>
-            <p className="text-gray-600 mb-6">{t('signInToAccess')}</p>
+            <h1 className={`text-2xl font-bold mb-2 ${
+              theme === 'dark' ? 'text-white' : 'text-gray-800'
+            }`}>{t('welcomeBack')}</h1>
+            <p className={`mb-6 ${
+              theme === 'dark' ? 'text-slate-300' : 'text-gray-600'
+            }`}>{t('signInToAccess')}</p>
             
             <div className="mb-6">
               <Logo size="lg" />
@@ -67,13 +75,19 @@ const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onLogin }) => {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg text-sm">
+              <div className={`px-4 py-3 rounded-lg text-sm transition-colors duration-300 ${
+                theme === 'dark' 
+                  ? 'bg-red-900/50 border border-red-700 text-red-300' 
+                  : 'bg-red-50 border border-red-200 text-red-600'
+              }`}>
                 {error}
               </div>
             )}
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className={`block text-sm font-medium mb-2 ${
+                theme === 'dark' ? 'text-slate-300' : 'text-gray-700'
+              }`}>
                 {t('emailAddress')}
               </label>
               <input
@@ -81,13 +95,19 @@ const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onLogin }) => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="example@gmail.com"
-                className="w-full px-4 py-3 bg-gray-100 border-0 rounded-lg focus:ring-2 focus:ring-blue-500 focus:bg-white transition-colors"
+                className={`w-full px-4 py-3 border-0 rounded-lg focus:ring-2 focus:ring-blue-500 transition-colors ${
+                  theme === 'dark'
+                    ? 'bg-slate-700 text-white placeholder-slate-400 focus:bg-slate-600'
+                    : 'bg-gray-100 text-gray-900 placeholder-gray-500 focus:bg-white'
+                }`}
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className={`block text-sm font-medium mb-2 ${
+                theme === 'dark' ? 'text-slate-300' : 'text-gray-700'
+              }`}>
                 {t('password')}
               </label>
               <div className="relative">
@@ -96,13 +116,21 @@ const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onLogin }) => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="enter your password"
-                  className="w-full px-4 py-3 bg-gray-100 border-0 rounded-lg focus:ring-2 focus:ring-blue-500 focus:bg-white transition-colors pr-12"
+                  className={`w-full px-4 py-3 border-0 rounded-lg focus:ring-2 focus:ring-blue-500 transition-colors pr-12 ${
+                    theme === 'dark'
+                      ? 'bg-slate-700 text-white placeholder-slate-400 focus:bg-slate-600'
+                      : 'bg-gray-100 text-gray-900 placeholder-gray-500 focus:bg-white'
+                  }`}
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                  className={`absolute right-3 top-1/2 transform -translate-y-1/2 transition-colors ${
+                    theme === 'dark' 
+                      ? 'text-slate-400 hover:text-slate-300' 
+                      : 'text-gray-500 hover:text-gray-700'
+                  }`}
                 >
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
@@ -121,18 +149,28 @@ const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onLogin }) => {
               <button
                 type="button"
                 onClick={() => navigate('/')}
-                className="text-[#183172] hover:text-[#183172]/80 text-sm underline"
+                className={`text-sm underline transition-colors ${
+                  theme === 'dark' 
+                    ? 'text-blue-400 hover:text-blue-300' 
+                    : 'text-[#183172] hover:text-[#183172]/80'
+                }`}
               >
                 {t('forgetPassword')}
               </button>
             </div>
 
-            <div className="text-center text-sm text-gray-600">
+            <div className={`text-center text-sm ${
+              theme === 'dark' ? 'text-slate-300' : 'text-gray-600'
+            }`}>
               {t('createNewAccount')}{' '}
               <button
                 type="button"
                 onClick={() => navigate('/signup')}
-                className="text-[#183172] hover:text-[#183172]/80 underline"
+                className={`underline transition-colors ${
+                  theme === 'dark' 
+                    ? 'text-blue-400 hover:text-blue-300' 
+                    : 'text-[#183172] hover:text-[#183172]/80'
+                }`}
               >
                 {t('signUp')}
               </button>
