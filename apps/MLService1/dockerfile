@@ -5,6 +5,9 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Copy app and pre-trained model only
+COPY ./app ./app
+
 # Copy source
 COPY . .
 

@@ -1,0 +1,35 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+.venv/
+
+# HuggingFace / Torch models
+*.bin
+*.pt
+*.ckpt
+*.h5
+
+# Model directories
+apps/nlpService/models/
+apps/nlpService/noongar_ner_final/
+
+# Datasets / checkpoints
+apps/nlpService/noongar_hf_dataset/
+# Ignore HuggingFace datasets + caches
+*.arrow
+apps/nlpService/noongar_hf_dataset/
+datasets/
+
+# Ignore intermediate models/checkpoints
+*.bin
+*.pt
+*.ckpt
+apps/nlpService/models/checkpoints/
+apps/nlpService/models/tmp/
+
+# Keep final model folder (but not training junk)
+!apps/nlpService/models/final_model/
