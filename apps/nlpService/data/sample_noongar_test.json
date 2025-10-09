@@ -1,0 +1,23 @@
+[
+    {
+        "id": "clinical_test_001",
+        "text": "Noongar koorl yamatji moorditj wirn kepal-ak.",
+        "tokens": ["Noongar", "koorl", "yamatji", "moorditj", "wirn", "kepal-ak"],
+        "ner_tags": ["O", "O", "O", "B-SYMPTOM", "I-SYMPTOM", "B-LOC"],
+        "english_translation": "Noongar went to a person with a strong illness at the river."
+    },
+    {
+        "id": "clinical_test_002",
+        "text": "Wandjukat kaya wardan-ak kaadidjiny wara.",
+        "tokens": ["Wandjukat", "kaya", "wardan-ak", "kaadidjiny", "wara"],
+        "ner_tags": ["B-PER", "O", "B-LOC", "O", "B-SYMPTOM"],
+        "english_translation": "Wandjukat said at the ocean there is a meeting about pain."
+    },
+    {
+        "id": "clinical_test_003",
+        "text": "Nidja keny Noongar djinang moorditj ngarrik.",
+        "tokens": ["Nidja", "keny", "Noongar", "djinang", "moorditj", "ngarrik"],
+        "ner_tags": ["O", "O", "O", "O", "B-SYMPTOM", "B-TREATMENT"],
+        "english_translation": "This one Noongar saw a strong fever being treated."
+    }
+]

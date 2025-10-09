@@ -1,0 +1,53 @@
+{
+  "citation": "",
+  "description": "",
+  "features": {
+    "tokens": {
+      "feature": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "_type": "List"
+    },
+    "ner_tags": {
+      "feature": {
+        "names": [
+          "O",
+          "B-SYMPTOM",
+          "I-SYMPTOM",
+          "B-BODY_PART",
+          "I-BODY_PART",
+          "B-NEGATION",
+          "I-NEGATION",
+          "B-QUALITY",
+          "I-QUALITY"
+        ],
+        "_type": "ClassLabel"
+      },
+      "_type": "List"
+    },
+    "input_ids": {
+      "feature": {
+        "dtype": "int32",
+        "_type": "Value"
+      },
+      "_type": "List"
+    },
+    "attention_mask": {
+      "feature": {
+        "dtype": "int8",
+        "_type": "Value"
+      },
+      "_type": "List"
+    },
+    "labels": {
+      "feature": {
+        "dtype": "int64",
+        "_type": "Value"
+      },
+      "_type": "List"
+    }
+  },
+  "homepage": "",
+  "license": ""
+}
