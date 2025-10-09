@@ -1,0 +1,24 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+.env/
+
+# Logs
+*.log
+
+# Training data 
+training/data/raw/
+training/data/interim/
+training/data/processed/
+
+# Model binaries
+models/*.joblib
+
+# Keep metadata files so inference works
+!models/feature_order.csv
+!models/label_classes.json

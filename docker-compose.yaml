@@ -1,6 +1,5 @@
-version: '3.8'
+version: "3.8"
 services:
-
   nlpservice:
     build: ./apps/nlpService
     ports:
@@ -15,6 +14,13 @@ services:
     volumes:
       - ./apps/MLService1:/app
 
+  mlservice2:
+    build: ./apps/MLService2
+    ports:
+      - "8102:8102"
+    volumes:
+      - ./apps/MLService2:/app
+
   backend:
     build: ./apps/backend
     ports:
@@ -22,6 +28,7 @@ services:
     depends_on:
       - nlpservice
       - mlservice1
+      - mlservice2
     volumes:
       - ./apps/backend:/app
 
