@@ -47,11 +47,11 @@ export interface Message {
   audioUrl?: string;
   duration?: number;
   transcript?: string;
-  isTranscribed?: boolean;
   fileUrl?: string;
   fileName?: string;
   fileType?: string;
   fileSize?: number;
+  isThinking?: boolean; // Flag to identify AI thinking/processing messages
 }
 
 export interface ChatSession {

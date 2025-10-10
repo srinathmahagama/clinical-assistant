@@ -1,16 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Send, Bot, Paperclip, Menu, Image } from 'lucide-react';
+import { Send, Bot, Menu, Image, Mic } from 'lucide-react';
 import Layout from '../components/Layout/Layout';
 import Header from '../components/Header/Header';
 import BackButton from '../components/BackButton/BackButton';
-import VoiceMessage from '../components/VoiceMessage/VoiceMessage';
-import VoiceRecorder from '../components/VoiceRecorder/VoiceRecorder';
 import FileMessage from '../components/FileMessage/FileMessage';
-import FileUpload from '../components/FileUpload/FileUpload';
 import ChatSidebar from '../components/ChatSidebar/ChatSidebar';
 import Avatar from '../components/Avatar/Avatar';
-import MessageOptions from '../components/MessageOptions/MessageOptions';
+import VoiceMessage from '../components/VoiceMessage/VoiceMessage';
+import VoiceRecorder from '../components/VoiceRecorder/VoiceRecorder';
 // import TextToSpeech from '../components/TextToSpeech/TextToSpeech';
 import SymptomSelector from '../components/SymptomSelector/SymptomSelector';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -46,10 +44,8 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [isRecording, setIsRecording] = useState(false);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [showFileUpload, setShowFileUpload] = useState(false);
   const [showSymptomSelector, setShowSymptomSelector] = useState(false);
+  const [showVoiceRecorder, setShowVoiceRecorder] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Auto-scroll to bottom when messages change
@@ -606,222 +602,7 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
     }
   };
 
-  const handleSendVoiceMessage = async (audioBlob: Blob, duration: number) => {
-    console.log('Received voice message:', audioBlob, 'duration:', duration);
-    setIsProcessing(true);
-    setIsRecording(false); // Reset recording state
-    
-    try {
-      // Create audio URL for playback
-      const audioUrl = URL.createObjectURL(audioBlob);
-      console.log('Created audio URL:', audioUrl);
-      
-      // Don't add user message immediately - wait for backend response
-      // This prevents duplicate user messages
-      // The backend will create the user message with proper transcript
-      
-      // Show processing state
-      setIsLoading(true);
-      
-      // Send voice message to backend
-      const response = await chatService.sendVoiceMessage(
-        currentSession?.id || 'guest-session',
-        audioBlob,
-        duration
-      );
-      
-      if (response.success && response.data) {
-        // The backend response includes both user and AI messages
-        const { userMessage: backendUserMessage, response: aiResponse } = response.data;
-        
-        // Add both messages to the current session
-        if (!isGuest) {
-          // For logged-in users, update the current session with both messages
-          if (currentSession) {
-            // First add messages to local state for immediate UI update
-            const updatedMessages = [...currentSession.messages, backendUserMessage, aiResponse];
-            const updatedSession = { ...currentSession, messages: updatedMessages, updatedAt: new Date().toISOString() };
-            setCurrentSession(updatedSession);
-            setMessages(updatedMessages);
-            
-            // Update sessions list to reflect the updated session
-            const updatedSessions = sessions.map(s => 
-              s.id === currentSession.id ? updatedSession : s
-            );
-            setSessions(updatedSessions);
-            
-            // Refresh session data from backend to ensure consistency
-            try {
-              const messagesResponse = await chatService.getChatMessages(currentSession.id);
-              if (messagesResponse.success && messagesResponse.data) {
-                const sessionWithMessages = { ...currentSession, messages: messagesResponse.data };
-                setCurrentSession(sessionWithMessages);
-                setMessages(messagesResponse.data);
-              }
-            } catch (error) {
-              console.error('Failed to refresh session data:', error);
-            }
-          }
-        } else {
-          // For guest users, just add to local state
-          setMessages(prev => [...prev, backendUserMessage, aiResponse]);
-        }
 
-        // Auto-play assistant voice response if it's a voice message
-        if (aiResponse && aiResponse.type === 'voice' && aiResponse.audioUrl) {
-          setTimeout(() => {
-            const audioUrl = aiResponse.audioUrl!.startsWith('http') ? aiResponse.audioUrl! : `http://localhost:5000${aiResponse.audioUrl!}`;
-            const audio = new Audio(audioUrl);
-            audio.play().catch(error => {
-              console.log('Auto-play failed (user interaction required):', error);
-            });
-          }, 500); // Small delay to ensure UI is updated
-        }
-      } else {
-        // Fallback response if backend fails
-        const fallbackMessage: Message = {
-          id: (Date.now() + 1).toString(),
-          text: "I'm here to help with your health concerns. Please try again.",
-          isUser: false,
-          timestamp: new Date().toLocaleTimeString('en-US', { 
-            hour: 'numeric', 
-            minute: '2-digit',
-            hour12: true 
-          }),
-          createdAt: new Date().toISOString(),
-          type: 'text'
-        };
-
-        if (!isGuest) {
-          // For logged-in users, update the current session with the fallback message
-          if (currentSession) {
-            const updatedMessages = [...currentSession.messages, fallbackMessage];
-            const updatedSession = { ...currentSession, messages: updatedMessages, updatedAt: new Date().toISOString() };
-            setCurrentSession(updatedSession);
-            setMessages(updatedMessages);
-            
-            // Update sessions list to reflect the updated session
-            const updatedSessions = sessions.map(s => 
-              s.id === currentSession.id ? updatedSession : s
-            );
-            setSessions(updatedSessions);
-          }
-        } else {
-          setMessages(prev => [...prev, fallbackMessage]);
-        }
-      }
-    } catch (error) {
-      console.error('Voice message failed:', error);
-      // Fallback response
-      const fallbackMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        text: "I'm here to help with your health concerns. Please try again.",
-        isUser: false,
-        timestamp: new Date().toLocaleTimeString('en-US', { 
-          hour: 'numeric', 
-          minute: '2-digit',
-          hour12: true 
-        }),
-        createdAt: new Date().toISOString(),
-        type: 'text'
-      };
-
-      if (!isGuest) {
-        // For logged-in users, update the current session with the error message
-        if (currentSession) {
-          const updatedMessages = [...currentSession.messages, fallbackMessage];
-          const updatedSession = { ...currentSession, messages: updatedMessages, updatedAt: new Date().toISOString() };
-          setCurrentSession(updatedSession);
-          setMessages(updatedMessages);
-          
-          // Update sessions list to reflect the updated session
-          const updatedSessions = sessions.map(s => 
-            s.id === currentSession.id ? updatedSession : s
-          );
-          setSessions(updatedSessions);
-        }
-      } else {
-        setMessages(prev => [...prev, fallbackMessage]);
-      }
-    } finally {
-      setIsProcessing(false);
-      setIsLoading(false);
-    }
-  };
-
-  const handleFileSelect = async (file: File) => {
-    setIsLoading(true);
-    
-    try {
-      // Upload file to chat backend and get AI response
-      const response = await chatService.uploadFile(currentSession?.id || 'guest-session', file);
-      
-      if (response.success && response.data) {
-        // Add AI response to messages
-        if (!isGuest) {
-          chatSessionManager.addMessage(response.data);
-          const updatedMessages = chatSessionManager.getCurrentSession()?.messages || [];
-          setMessages(updatedMessages);
-          setSessions(chatSessionManager.getAllSessions());
-        } else {
-          setMessages(prev => [...prev, response.data!]);
-        }
-      } else {
-        console.error('File upload failed:', response.message);
-        // Fallback response
-        const fallbackMessage: Message = {
-          id: (Date.now() + 1).toString(),
-          text: `I've received your file: ${file.name}. I'm here to help analyze it for you. Please try again.`,
-          isUser: false,
-          timestamp: new Date().toLocaleTimeString('en-US', { 
-            hour: 'numeric', 
-            minute: '2-digit',
-            hour12: true 
-          }),
-          createdAt: new Date().toISOString(),
-          type: 'text'
-        };
-
-        if (!isGuest) {
-          chatSessionManager.addMessage(fallbackMessage);
-          const updatedMessages = chatSessionManager.getCurrentSession()?.messages || [];
-          setMessages(updatedMessages);
-        } else {
-          setMessages(prev => [...prev, fallbackMessage]);
-        }
-      }
-    } catch (error) {
-      console.error('File handling failed:', error);
-      // Fallback: still show the file message
-      const fileMessage: Message = {
-        id: Date.now().toString(),
-        text: `Shared ${file.type.startsWith('image/') ? 'image' : file.type.startsWith('video/') ? 'video' : 'document'}: ${file.name}`,
-        isUser: true,
-        timestamp: new Date().toLocaleTimeString('en-US', { 
-          hour: 'numeric', 
-          minute: '2-digit',
-          hour12: true 
-        }),
-        createdAt: new Date().toISOString(),
-        type: 'file',
-        fileUrl: URL.createObjectURL(file),
-        fileName: file.name,
-        fileType: file.type,
-        fileSize: file.size
-      };
-
-      if (!isGuest) {
-        chatSessionManager.addMessage(fileMessage);
-        const updatedMessages = chatSessionManager.getCurrentSession()?.messages || [];
-        setMessages(updatedMessages);
-      } else {
-        setMessages(prev => [...prev, fileMessage]);
-      }
-    } finally {
-      setIsLoading(false);
-      setShowFileUpload(false);
-    }
-  };
 
   const handleDeleteMessage = async (messageId: string) => {
     try {
@@ -855,29 +636,159 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
     }
   };
 
-  const handleTranscribe = async (messageId: string) => {
-    // Mock transcription for demo
-    const message = messages.find(msg => msg.id === messageId);
-    if (message && message.type === 'voice' && !message.isTranscribed) {
-      const mockTranscript = "This is a mock transcription of the voice message.";
+
+  const handleSendVoiceMessage = async (audioBlob: Blob, duration: number) => {
+    console.log('🎤 Sending voice message:', audioBlob, 'duration:', duration);
+    setIsLoading(true);
+    setShowVoiceRecorder(false);
+    
+    try {
+      // Create audio URL for immediate playback
+      const audioUrl = URL.createObjectURL(audioBlob);
       
-      // Update the message with transcript
-      if (currentSession) {
-        const messageIndex = currentSession.messages.findIndex(msg => msg.id === messageId);
-        if (messageIndex !== -1) {
-          currentSession.messages[messageIndex].transcript = mockTranscript;
-          currentSession.messages[messageIndex].isTranscribed = true;
-          currentSession.updatedAt = new Date().toISOString();
-          chatSessionManager['saveSessions']();
-          setMessages([...currentSession.messages]);
+      // Create user voice message immediately
+      const userVoiceMessage: Message = {
+        id: (Date.now()).toString(),
+        text: 'Voice message...', // Placeholder, will be updated with transcript
+        isUser: true,
+        timestamp: new Date().toLocaleTimeString('en-US', { 
+          hour: 'numeric', 
+          minute: '2-digit',
+          hour12: true 
+        }),
+        createdAt: new Date().toISOString(),
+        type: 'voice',
+        audioUrl: audioUrl,
+        duration: duration,
+        transcript: 'Voice message...'
+      };
+      
+      // Add user message immediately
+      if (!isGuest && currentSession) {
+        const updatedMessages = [...currentSession.messages, userVoiceMessage];
+        const updatedSession = { ...currentSession, messages: updatedMessages, updatedAt: new Date().toISOString() };
+        setCurrentSession(updatedSession);
+        setMessages(updatedMessages);
+        
+        const updatedSessions = sessions.map(s => 
+          s.id === currentSession.id ? updatedSession : s
+        );
+        setSessions(updatedSessions);
+      } else {
+        setMessages(prev => [...prev, userVoiceMessage]);
+      }
+      
+      // Send to backend
+      const response = await chatService.sendVoiceMessage(
+        currentSession?.id || 'guest-session',
+        audioBlob,
+        duration
+      );
+      
+      if (response.success && response.data) {
+        const { userMessage: backendUserMessage, response: aiResponse } = response.data;
+        
+        // Update user message with backend data (transcript)
+        const updatedUserMessage = {
+          ...backendUserMessage,
+          audioUrl: audioUrl // Keep local URL for immediate playback
+        };
+        
+        // Replace user message and add AI response
+        if (!isGuest && currentSession) {
+          const currentMessages = currentSession.messages;
+          const updatedMessages = [
+            ...currentMessages.slice(0, -1), // Remove placeholder user message
+            updatedUserMessage, // Add updated user message with transcript
+            aiResponse // Add AI response
+          ];
+          
+          const updatedSession = { ...currentSession, messages: updatedMessages, updatedAt: new Date().toISOString() };
+          setCurrentSession(updatedSession);
+          setMessages(updatedMessages);
+          
+          const updatedSessions = sessions.map(s => 
+            s.id === currentSession.id ? updatedSession : s
+          );
+          setSessions(updatedSessions);
+        } else {
+          setMessages(prev => {
+            const withoutLast = prev.slice(0, -1); // Remove placeholder user message
+            return [...withoutLast, updatedUserMessage, aiResponse];
+          });
+        }
+        
+        // Auto-play AI response if it's a voice message
+        if (aiResponse && aiResponse.type === 'voice' && aiResponse.audioUrl) {
+          setTimeout(() => {
+            const audioUrl = aiResponse.audioUrl!.startsWith('http') ? aiResponse.audioUrl! : `http://localhost:5000${aiResponse.audioUrl!}`;
+            const audio = new Audio(audioUrl);
+            audio.play().catch(error => {
+              console.log('Auto-play failed (user interaction required):', error);
+            });
+          }, 500);
+        }
+      } else {
+        // Fallback response
+        const fallbackMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          text: "I'm here to help with your health concerns. Please try again.",
+          isUser: false,
+          timestamp: new Date().toLocaleTimeString('en-US', { 
+            hour: 'numeric', 
+            minute: '2-digit',
+            hour12: true 
+          }),
+          createdAt: new Date().toISOString(),
+          type: 'text'
+        };
+
+        if (!isGuest && currentSession) {
+          const updatedMessages = [...currentSession.messages, fallbackMessage];
+          const updatedSession = { ...currentSession, messages: updatedMessages, updatedAt: new Date().toISOString() };
+          setCurrentSession(updatedSession);
+          setMessages(updatedMessages);
+          
+          const updatedSessions = sessions.map(s => 
+            s.id === currentSession.id ? updatedSession : s
+          );
+          setSessions(updatedSessions);
+        } else {
+          setMessages(prev => [...prev, fallbackMessage]);
         }
       }
-    }
-  };
+    } catch (error) {
+      console.error('Voice message failed:', error);
+      // Fallback response
+      const fallbackMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        text: "I'm here to help with your health concerns. Please try again.",
+        isUser: false,
+        timestamp: new Date().toLocaleTimeString('en-US', { 
+          hour: 'numeric', 
+          minute: '2-digit',
+          hour12: true 
+        }),
+        createdAt: new Date().toISOString(),
+        type: 'text'
+      };
 
-  const handleCancelVoiceRecording = () => {
-    setIsRecording(false);
-    setIsProcessing(false);
+      if (!isGuest && currentSession) {
+        const updatedMessages = [...currentSession.messages, fallbackMessage];
+        const updatedSession = { ...currentSession, messages: updatedMessages, updatedAt: new Date().toISOString() };
+        setCurrentSession(updatedSession);
+        setMessages(updatedMessages);
+        
+        const updatedSessions = sessions.map(s => 
+          s.id === currentSession.id ? updatedSession : s
+        );
+        setSessions(updatedSessions);
+      } else {
+        setMessages(prev => [...prev, fallbackMessage]);
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -1127,7 +1038,9 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
               <div className={`flex-1 overflow-y-auto p-6 space-y-4 transition-colors duration-300 ${
                 theme === 'dark' ? 'bg-slate-900' : 'bg-gray-50'
               }`}>
-              {messages.map((message) => (
+              {messages.map((message) => {
+                console.log('🎨 Rendering message:', message.id, 'type:', message.type, 'isUser:', message.isUser);
+                return (
                   <div key={message.id} className={`flex items-start space-x-3 ${message.isUser ? 'flex-row-reverse space-x-reverse' : ''}`}>
                     {/* Avatar */}
                     <Avatar 
@@ -1157,9 +1070,6 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
                           isUser={message.isUser}
                           timestamp={message.timestamp}
                           transcript={message.transcript}
-                          isTranscribed={message.isTranscribed}
-                          onTranscribe={() => handleTranscribe(message.id)}
-                          onDelete={() => handleDeleteMessage(message.id)}
                         />
                       ) : message.type === 'file' ? (
                         <FileMessage
@@ -1206,7 +1116,8 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
                       )}
                     </div>
                   </div>
-                ))}
+                );
+              })}
               
               {isLoading && (
                 <div className="flex items-start space-x-3">
@@ -1278,19 +1189,29 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
                           ? 'bg-slate-700 border-slate-600 text-white placeholder-slate-400'
                           : 'bg-white border border-gray-300 text-gray-900 placeholder-gray-500'
                       }`}
-                      disabled={isLoading || isProcessing}
+                      disabled={isLoading}
                     />
                   </div>
 
                   {/* Voice Message Button */}
+                  {!showVoiceRecorder ? (
+                    <button
+                      onClick={() => setShowVoiceRecorder(true)}
+                      className={`p-3 rounded-full text-white transition-all transform hover:scale-105 shadow-lg ${
+                        theme === 'dark' 
+                          ? 'bg-green-600 hover:bg-green-700' 
+                          : 'bg-green-500 hover:bg-green-600'
+                      }`}
+                      title="Record voice message"
+                    >
+                      <Mic className="w-5 h-5" />
+                    </button>
+                  ) : (
                   <VoiceRecorder
                     onSendVoiceMessage={handleSendVoiceMessage}
-                    onCancel={handleCancelVoiceRecording}
-                    isRecording={isRecording}
-                    onStartRecording={() => setIsRecording(true)}
-                    onStopRecording={() => setIsRecording(false)}
+                      onCancel={() => setShowVoiceRecorder(false)}
                   />
-
+                  )}
 
  {/* Symptom Selector Button */}
                   <button
@@ -1308,7 +1229,7 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
                   {/* Send Button */}
                   <button
                     onClick={sendMessage}
-                    disabled={!inputText.trim() || isLoading || isProcessing}
+                    disabled={!inputText.trim() || isLoading}
                     className="p-3 rounded-full bg-blue-500 text-white hover:bg-blue-600 transition-all transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                     title={t('sendMessage')}
                   >
@@ -1319,12 +1240,6 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
             
 
                 {/* File Upload Modal */}
-                {/* {showFileUpload && (
-                  <FileUpload
-                    onFileSelect={handleFileSelect}
-                    onClose={() => setShowFileUpload(false)}
-                  />
-                )} */}
           </div>
         </div>
           </div>

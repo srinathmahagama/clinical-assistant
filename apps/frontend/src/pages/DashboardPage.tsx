@@ -42,7 +42,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ user, isGuest, onLogout, 
                   <p className={`text-sm ${
                     theme === 'dark' ? 'text-white/80' : 'text-white/80'
                   }`}>
-                    {t('guestChatHistoryNote')} <button onClick={onSignIn} className="text-yellow-300 hover:text-yellow-200 underline">{t('signIn')}</button> {t('toSaveYourConversations')}
+                    {t('guestChatHistoryNote')} <button onClick={() => navigate('/login')} className="text-yellow-300 hover:text-yellow-200 underline">{t('signIn')}</button> {t('toSaveYourConversations')}
                   </p>
                 </div>
               </div>
@@ -137,7 +137,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ user, isGuest, onLogout, 
            </div> */}
           
           
-          {user ? (
+          {!isGuest ? (
             <div 
               onClick={() => navigate('/history')}
               className={`rounded-3xl p-6 shadow-2xl mb-8 transition-all duration-300 hover:shadow-xl cursor-pointer ${
@@ -172,7 +172,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ user, isGuest, onLogout, 
             </div>
           ) : (
             <div 
-              onClick={onSignIn}
+              onClick={() => navigate('/login')}
               className={`rounded-3xl p-6 shadow-2xl mb-8 transition-all duration-300 hover:shadow-xl cursor-pointer ${
                 theme === 'dark' 
                   ? 'bg-gradient-to-r from-slate-800/40 to-slate-900/40 backdrop-blur-sm border border-white/10 hover:from-blue-500/20 hover:to-purple-600/20' 
@@ -185,9 +185,9 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ user, isGuest, onLogout, 
                 }`}>
                   <Clock className="w-10 h-10 text-white" />
                 </div>
-                <h2 className="text-3xl font-bold mb-4">Sign in to view history</h2>
+                <h2 className="text-3xl font-bold mb-4">{t('signInToViewHistory')}</h2>
                 <p className="text-white/90 text-lg mb-8 max-w-2xl mx-auto">
-                  Save your conversations and access your chat history anytime
+                  {t('saveYourConvoToAccessAnyTime')}
                 </p>
                 <button
                   onClick={onSignIn}
@@ -198,7 +198,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ user, isGuest, onLogout, 
                   }`}
                 >
                   <FileText className="w-6 h-6 mr-3" />
-                  Sign in to view history
+                  {t('signInToViewHistory')}
                   <ArrowRight className="w-6 h-6 ml-3" />
                 </button>
               </div>
