@@ -56,14 +56,14 @@ const SymptomSelector: React.FC<SymptomSelectorProps> = ({
       name: 'Head & Face',
       icon: '🧠',
       images: [
-        { id: 'headache', name: 'Headache', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face', tags: ['headache', 'pain', 'head'] },
-        { id: 'migraine', name: 'Migraine', image: 'https://images.unsplash.com/photo-1517363898874-2a9114134d97?w=200&h=200&fit=crop&crop=face', tags: ['migraine', 'severe headache', 'head'] },
-        { id: 'dizziness', name: 'Dizziness', image: 'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=200&h=200&fit=crop&crop=face', tags: ['dizziness', 'vertigo', 'head'] },
-        { id: 'facial-pain', name: 'Facial Pain', image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop&crop=face', tags: ['facial pain', 'face', 'head'] },
-        { id: 'eye-pain', name: 'Eye Pain', image: 'https://images.unsplash.com/photo-1582213733776-fa1923c5c528?w=200&h=200&fit=crop&crop=face', tags: ['eye pain', 'vision', 'head'] },
-        { id: 'ear-pain', name: 'Ear Pain', image: 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=200&h=200&fit=crop&crop=face', tags: ['ear pain', 'hearing', 'head'] },
-        { id: 'tooth-pain', name: 'Tooth Pain', image: 'https://images.unsplash.com/photo-1572448804125-2be657d7e5b1?w=200&h=200&fit=crop&crop=face', tags: ['tooth pain', 'dental', 'mouth'] },
-        { id: 'neck-pain', name: 'Neck Pain', image: 'https://images.unsplash.com/photo-1523539664694-3d7e2f4a0b0e?w=200&h=200&fit=crop&crop=face', tags: ['neck pain', 'stiffness', 'head'] }
+        { id: 'headache', name: 'Headache', image: 'https://regionalneurological.com/wp-content/uploads/2019/08/AdobeStock_244803452.jpeg', tags: ['headache', 'pain', 'head'] },
+        { id: 'migraine', name: 'Migraine', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDsI3EyF0tFEpWQeVSRMf1pZzLuWpAze_2N4nwGlAI8S2_2UI4C-QzF1QFdVozwvRhvA8&usqp=CAU', tags: ['migraine', 'severe headache', 'head'] },
+        { id: 'dizziness', name: 'Dizziness', image: 'https://alldaymedicalcare.com/wp-content/uploads/2024/09/Dizziness.jpg', tags: ['dizziness', 'vertigo', 'head'] },
+        { id: 'facial-pain', name: 'Facial Pain', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROGdTjdy4_h3MKaCEL_3tO_ki56tGRmZUFlx6ZQtUWVAEspjWwsUc0o2rcMTZ66zYL0Pk&usqp=CAU', tags: ['facial pain', 'face', 'head'] },
+        { id: 'eye-pain', name: 'Eye Pain', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeb_pqkYFBv94iTBq2lb3oQM1pB8M5jwUYWQHyRRfyUxRxAzCeiJezglAFkHXSh_i98AA&usqp=CAU', tags: ['eye pain', 'vision', 'head'] },
+        { id: 'ear-pain', name: 'Ear Pain', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcrM-9RAzvRbRnn9bRZ2rTDThKGxJ1BjqQ0OoWFTnkPTt4K6oTALoV2qif4W65W8s_Dx4&usqp=CAU', tags: ['ear pain', 'hearing', 'head'] },
+        { id: 'tooth-pain', name: 'Tooth Pain', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-3ZAeveaYQ8jEXcumMj_4mP-j3Oa6Oa6Lho_JeHIEcccrTTcOQVy8wPlF5QIXNt1zj6M&usqp=CAU', tags: ['tooth pain', 'dental', 'mouth'] },
+        { id: 'neck-pain', name: 'Neck Pain', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYtdG_EmVul6NJOakkw-hsZ9br3Uegwr3z2PkgrZRAvXnSwkE5Zfjn7d1E-cc03aXV1pg&usqp=CAU', tags: ['neck pain', 'stiffness', 'head'] }
       ]
     },
     {
@@ -71,12 +71,12 @@ const SymptomSelector: React.FC<SymptomSelectorProps> = ({
       name: 'Chest & Heart',
       icon: '❤️',
       images: [
-        { id: 'chest-pain', name: 'Chest Pain', image: 'https://images.unsplash.com/photo-1603344205187-78a91b8a9533?w=200&h=200&fit=crop&crop=center', tags: ['chest pain', 'heart', 'chest'] },
-        { id: 'shortness-breath', name: 'Shortness of Breath', image: 'https://images.unsplash.com/photo-1581578731547-07e7177d9f9f?w=200&h=200&fit=crop&crop=center', tags: ['breathing', 'lungs', 'chest'] },
-        { id: 'heart-palpitations', name: 'Heart Palpitations', image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=200&h=200&fit=crop&crop=center', tags: ['heart', 'palpitations', 'chest'] },
-        { id: 'cough', name: 'Cough', image: 'https://images.unsplash.com/photo-1582774007591-5ca6b4b8d2c9?w=200&h=200&fit=crop&crop=center', tags: ['cough', 'throat', 'chest'] },
-        { id: 'wheezing', name: 'Wheezing', image: 'https://images.unsplash.com/photo-1576092768241-dec231879af5?w=200&h=200&fit=crop&crop=center', tags: ['wheezing', 'breathing', 'lungs'] },
-        { id: 'chest-tightness', name: 'Chest Tightness', image: 'https://images.unsplash.com/photo-1606890658317-7d14490b76fd?w=200&h=200&fit=crop&crop=center', tags: ['chest tightness', 'pressure', 'chest'] }
+        { id: 'chest-pain', name: 'Chest Pain', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaQ3NRUOGbZREb9bawPnJJx7_qmCcp-P-Ntz-etfUOeh6eprGoMCRwSvnL24H8ti8869M&usqp=CAU', tags: ['chest pain', 'heart', 'chest'] },
+        { id: 'shortness-breath', name: 'Shortness of Breath', image: 'https://www.primehv.com/wp-content/uploads/2024/02/shortness-of-breath.jpeg', tags: ['breathing', 'lungs', 'chest'] },
+        { id: 'heart-palpitations', name: 'Heart Palpitations', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA8BZ1Hhl7i9CF0aw3WAeyznWKlSTuqCA7IwB5JlSvkbXzOtNpUGODg5G2HLoPZwCvnr8&usqp=CAU', tags: ['heart', 'palpitations', 'chest'] },
+        { id: 'cough', name: 'Cough', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOUED43vh_bC1tB0SxPEop1OOIDETjb0hOZqm-fs2Aelhn_35WfMxskKVg9xL0Uh7rHv4&usqp=CAU', tags: ['cough', 'throat', 'chest'] },
+        { id: 'wheezing', name: 'Wheezing', image: 'https://www.lungandsleep.com.au/wp-content/uploads/2020/09/Wheeze-1.jpg', tags: ['wheezing', 'breathing', 'lungs'] },
+        { id: 'chest-tightness', name: 'Chest Tightness', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSfG675FvnSRh_uGBdGwvvSsMt6DwMikx6dGJiXaVbTBtbcwGjFOrWOQBKQfBS4R5-q-A&usqp=CAU', tags: ['chest tightness', 'pressure', 'chest'] }
       ]
     },
     {
@@ -84,14 +84,14 @@ const SymptomSelector: React.FC<SymptomSelectorProps> = ({
       name: 'Abdomen & Stomach',
       icon: '🫀',
       images: [
-        { id: 'stomach-pain', name: 'Stomach Pain', image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=200&h=200&fit=crop&crop=center', tags: ['stomach pain', 'abdomen', 'digestive'] },
-        { id: 'nausea', name: 'Nausea', image: 'https://images.unsplash.com/photo-1582774007591-5ca6b4b8d2c9?w=200&h=200&fit=crop&crop=face', tags: ['nausea', 'sick', 'stomach'] },
-        { id: 'diarrhea', name: 'Diarrhea', image: 'https://images.unsplash.com/photo-1606890658317-7d14490b76fd?w=200&h=200&fit=crop&crop=center', tags: ['diarrhea', 'digestive', 'stomach'] },
-        { id: 'constipation', name: 'Constipation', image: 'https://images.unsplash.com/photo-1576092768241-dec231879af5?w=200&h=200&fit=crop&crop=center', tags: ['constipation', 'digestive', 'stomach'] },
-        { id: 'vomiting', name: 'Vomiting', image: 'https://images.unsplash.com/photo-1582774007591-5ca6b4b8d2c9?w=200&h=200&fit=crop&crop=face', tags: ['vomiting', 'nausea', 'stomach'] },
-        { id: 'bloating', name: 'Bloating', image: 'https://images.unsplash.com/photo-1603344205187-78a91b8a9533?w=200&h=200&fit=crop&crop=center', tags: ['bloating', 'gas', 'stomach'] },
-        { id: 'heartburn', name: 'Heartburn', image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=200&h=200&fit=crop&crop=center', tags: ['heartburn', 'acid reflux', 'stomach'] },
-        { id: 'appetite-loss', name: 'Loss of Appetite', image: 'https://images.unsplash.com/photo-1581578731547-07e7177d9f9f?w=200&h=200&fit=crop&crop=center', tags: ['appetite loss', 'hunger', 'stomach'] }
+        { id: 'stomach-pain', name: 'Stomach Pain', image: 'https://www.emergencyphysicians.org/siteassets/emphysicians/all-images/kwtg/stomach-ache3.jpg', tags: ['stomach pain', 'abdomen', 'digestive'] },
+        { id: 'nausea', name: 'Nausea', image: 'https://www.visitcompletecare.com/wp-content/uploads/2025/05/shutterstock_1972998752-1.webp', tags: ['nausea', 'sick', 'stomach'] },
+        { id: 'diarrhea', name: 'Diarrhea', image: 'https://gastrofl.com/wp-content/uploads/2023/03/Gastro-image-1246295110.jpeg', tags: ['diarrhea', 'digestive', 'stomach'] },
+        { id: 'constipation', name: 'Constipation', image: 'https://www.newlifenutrition.com.au/wp-content/uploads/AdobeStock_207132330-1024x540.jpeg', tags: ['constipation', 'digestive', 'stomach'] },
+        { id: 'vomiting', name: 'Vomiting', image: 'https://drupal-cdn-hfaeddcdbng5hfbg.a01.azurefd.net/sites/default/files/2025-02/Nausea-and-Vomiting-scaled.jpg', tags: ['vomiting', 'nausea', 'stomach'] },
+        { id: 'bloating', name: 'Bloating', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzl95E8HZBjfUrqylQbJuAn7PK3fBZPC3l2w&s', tags: ['bloating', 'gas', 'stomach'] },
+        { id: 'heartburn', name: 'Heartburn', image: 'https://cdhf.ca/wp-content/uploads/2022/07/heartburn-causes-treatment-scaled.jpg', tags: ['heartburn', 'acid reflux', 'stomach'] },
+        { id: 'appetite-loss', name: 'Loss of Appetite', image: 'https://www.sugarfit.com/assets/638dde01d46fe3ff88b82cf7_loss-of-appetite_Z1REA2s.jpg', tags: ['appetite loss', 'hunger', 'stomach'] }
       ]
     },
     {
@@ -99,14 +99,14 @@ const SymptomSelector: React.FC<SymptomSelectorProps> = ({
       name: 'Skin & Rashes',
       icon: '🦠',
       images: [
-        { id: 'rash', name: 'Skin Rash', image: 'https://images.unsplash.com/photo-1603344205187-78a91b8a9533?w=200&h=200&fit=crop&crop=center', tags: ['rash', 'skin', 'irritation'] },
-        { id: 'hives', name: 'Hives', image: 'https://images.unsplash.com/photo-1576092768241-dec231879af5?w=200&h=200&fit=crop&crop=center', tags: ['hives', 'allergic reaction', 'skin'] },
-        { id: 'acne', name: 'Acne', image: 'https://images.unsplash.com/photo-1582213733776-fa1923c5c528?w=200&h=200&fit=crop&crop=face', tags: ['acne', 'skin', 'face'] },
-        { id: 'dry-skin', name: 'Dry Skin', image: 'https://images.unsplash.com/photo-1606890658317-7d14490b76fd?w=200&h=200&fit=crop&crop=center', tags: ['dry skin', 'flaky', 'skin'] },
-        { id: 'itching', name: 'Itching', image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=200&h=200&fit=crop&crop=center', tags: ['itching', 'pruritus', 'skin'] },
-        { id: 'swelling', name: 'Swelling', image: 'https://images.unsplash.com/photo-1581578731547-07e7177d9f9f?w=200&h=200&fit=crop&crop=center', tags: ['swelling', 'edema', 'skin'] },
-        { id: 'bruising', name: 'Bruising', image: 'https://images.unsplash.com/photo-1603344205187-78a91b8a9533?w=200&h=200&fit=crop&crop=center', tags: ['bruising', 'contusion', 'skin'] },
-        { id: 'discoloration', name: 'Skin Discoloration', image: 'https://images.unsplash.com/photo-1576092768241-dec231879af5?w=200&h=200&fit=crop&crop=center', tags: ['discoloration', 'pigmentation', 'skin'] }
+        { id: 'rash', name: 'Skin Rash', image: 'https://images.theconversation.com/files/209558/original/file-20180308-30983-e4u830.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=754&fit=clip', tags: ['rash', 'skin', 'irritation'] },
+        { id: 'hives', name: 'Hives', image: 'https://images.everydayhealth.com/images/2025/what-hives-look-like-alt-1440x810.jpg?sfvrsn=c9d65b48_3', tags: ['hives', 'allergic reaction', 'skin'] },
+        { id: 'acne', name: 'Acne', image: 'https://southern-dermatology.com.au/cdn/shop/files/Acne_Vulgaris.png?v=1739831943&width=1080', tags: ['acne', 'skin', 'face'] },
+        { id: 'dry-skin', name: 'Dry Skin', image: 'https://www.reddit.com/media?url=https%3A%2F%2Fi.redd.it%2F3mll21jv39ya1.jpg', tags: ['dry skin', 'flaky', 'skin'] },
+        { id: 'itching', name: 'Itching', image: 'https://gladskin.com/cdn/shop/articles/TEMPLATE-Blog_Header_6_3b77c7f6-c2de-429c-9fb4-8589087afa07.jpg?v=1677712889', tags: ['itching', 'pruritus', 'skin'] },
+        { id: 'swelling', name: 'Swelling', image: 'https://media.post.rvohealth.io/wp-content/uploads/sites/3/2020/05/swollen-toes.-angioedema-732x549-thumbnail.jpg', tags: ['swelling', 'edema', 'skin'] },
+        { id: 'bruising', name: 'Bruising', image: 'https://www.nebraskamed.com/sites/default/files/images/dermatology/bruises_opengraph.jpg', tags: ['bruising', 'contusion', 'skin'] },
+        { id: 'discoloration', name: 'Skin Discoloration', image: 'https://deyga.in/cdn/shop/articles/skin-discoloration.jpg?v=1652349499&width=1100', tags: ['discoloration', 'pigmentation', 'skin'] }
       ]
     },
     {

@@ -750,7 +750,7 @@ export const chatService = {
     }
   },
 
-  // POST /chat/voice-message - Send voice message to Flask backend
+  // POST /chat/voice-message - Send voice message to backend
   sendVoiceMessage: async (sessionId: string, audioBlob: Blob, duration: number): Promise<ApiResponse<{userMessage: Message, response: Message}>> => {
     console.log('🎤 FLASK API: Send voice message to session:', sessionId, 'duration:', duration);
     
@@ -778,41 +778,6 @@ export const chatService = {
     } catch (error) {
       console.error('Voice message failed:', error);
       return { success: false, message: 'Network error while sending voice message' };
-    }
-  },
-
-  // POST /chat/transcribe - Transcribe voice message
-  transcribeVoiceMessage: async (audioBlob: Blob): Promise<ApiResponse<{ transcript: string; confidence: number }>> => {
-    console.log('📝 FLASK API: Transcribe voice message');
-    
-    try {
-      const formData = new FormData();
-      formData.append('audio', audioBlob, 'voice-message.webm');
-      
-      const response = await fetch(`${API_BASE_URL}/chat/transcribe`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${getAuthToken()}`
-        },
-        body: formData
-      });
-      
-      const data = await response.json();
-      
-      if (data.success) {
-      return { 
-        success: true, 
-        data: {
-            transcript: data.data.transcript,
-            confidence: data.data.confidence
-        }
-      };
-      }
-      
-      return { success: false, message: data.message || 'Failed to transcribe voice message' };
-    } catch (error) {
-      console.error('Transcription failed:', error);
-      return { success: false, message: 'Network error while transcribing voice message' };
     }
   },
 

@@ -90,6 +90,8 @@ Join thousands of people who trust CareMate for better health insights and sup
     viewHistory: "View History",
     pastAssessments: "Past Assessments",
     toSaveYourConversations: "to save your conversations.",
+    signInToViewHistory: "Sign in to view history",
+    saveYourConvoToAccessAnyTime:"Save your conversations and access your chat history anytime ",
     
     // Voice Input Page
     voiceRecording: "Voice Recording",
@@ -335,6 +337,8 @@ Yenniny, yenniny nyinniny
     viewHistory: "Djinang boorda koora", 
     pastAssessments: "Boorda Mooditj",
     toSaveYourConversations: "keninyiny wer nyininy wangkiny.", 
+    signInToViewHistory: "Djinang ngardak bidi kwobidak",
+    saveYourConvoToAccessAnyTime:"Boordawan wer kadak bidi djinang ngalang yarnang wannarn",
     
     // Voice Input Page
     voiceRecording: "Wangkiny djena", 
