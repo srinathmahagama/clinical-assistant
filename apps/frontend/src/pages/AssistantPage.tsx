@@ -57,6 +57,13 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
     scrollToBottom();
   }, [messages, isLoading]);
 
+  useEffect(() => {
+    if (currentSession) {
+      console.log('🔄 Setting messages from current session:', currentSession.messages.length);
+      setMessages(currentSession.messages);
+    }
+  }, [currentSession]);
+
   // Initialize chat sessions on component mount
   useEffect(() => {
     const initializeSessions = async () => {
@@ -474,7 +481,24 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
     setInputText('');
     setIsLoading(true);
 
+    // Create user message immediately for better UX
+    const userMessage: Message = {
+      id: `user-${Date.now()}`,
+      text: messageText,
+      isUser: true,
+      timestamp: new Date().toLocaleTimeString('en-US', { 
+        hour: 'numeric', 
+        minute: '2-digit',
+        hour12: true 
+      }),
+      createdAt: new Date().toISOString(),
+      type: 'text'
+    };
+
     try {
+      // Add user message immediately to show in UI
+      setMessages(prev => [...prev, userMessage]);
+
       // Send message to backend
       const response = await chatService.sendMessage(
         currentSession?.id || 'guest-session', 
@@ -482,100 +506,33 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
       );
       
       if (response.success && response.data) {
-        // The backend response includes both user and AI messages
-        const { userMessage, response: aiResponse } = response.data;
+        const { userMessage: backendUserMessage, response: aiResponse } = response.data;
         
-        // Add both messages to the current session
-        if (!isGuest) {
-          // For logged-in users, refresh the session data from backend to ensure consistency
-          if (currentSession) {
-            // First add messages to local state for immediate UI update
-            const updatedMessages = [...currentSession.messages, userMessage, aiResponse];
-            const updatedSession = { ...currentSession, messages: updatedMessages, updatedAt: new Date().toISOString() };
-            setCurrentSession(updatedSession);
-            setMessages(updatedMessages);
-            
-            // Update sessions list to reflect the updated session
-            const updatedSessions = sessions.map(s => 
-              s.id === currentSession.id ? updatedSession : s
-            );
-            setSessions(updatedSessions);
-            
-            // Refresh session data from backend to ensure consistency
-            try {
-              const messagesResponse = await chatService.getChatMessages(currentSession.id);
-              if (messagesResponse.success && messagesResponse.data) {
-                const sessionWithMessages = { ...currentSession, messages: messagesResponse.data };
-                setCurrentSession(sessionWithMessages);
-                setMessages(messagesResponse.data);
-              }
-            } catch (error) {
-              console.error('Failed to refresh session data:', error);
-            }
-          }
-        } else {
-          // For guest users, just add to local state
-          setMessages(prev => [...prev, userMessage, aiResponse]);
+        // Replace the temporary user message with backend version and add AI response
+        setMessages(prev => {
+          const withoutLast = prev.slice(0, -1); // Remove temporary user message
+          return [...withoutLast, backendUserMessage, aiResponse];
+        });
+
+        // Update current session for logged-in users
+        if (!isGuest && currentSession) {
+          const updatedMessages = [...currentSession.messages, backendUserMessage, aiResponse];
+          const updatedSession = { 
+            ...currentSession, 
+            messages: updatedMessages, 
+            updatedAt: new Date().toISOString() 
+          };
+          setCurrentSession(updatedSession);
         }
       } else {
-        // Fallback response if backend fails
-        const userMessage: Message = {
-          id: Date.now().toString(),
-          text: messageText,
-          isUser: true,
-          timestamp: new Date().toLocaleTimeString('en-US', { 
-            hour: 'numeric', 
-            minute: '2-digit',
-            hour12: true 
-          }),
-          createdAt: new Date().toISOString(),
-          type: 'text'
-        };
-
-        const fallbackMessage: Message = {
-          id: (Date.now() + 1).toString(),
-          text: "I'm here to help with your health concerns. Please try again.",
-          isUser: false,
-          timestamp: new Date().toLocaleTimeString('en-US', { 
-            hour: 'numeric', 
-            minute: '2-digit',
-            hour12: true 
-          }),
-          createdAt: new Date().toISOString(),
-          type: 'text'
-        };
-
-        if (!isGuest) {
-          // Fallback to local session manager
-          chatSessionManager.addMessage(userMessage);
-          chatSessionManager.addMessage(fallbackMessage);
-          const updatedMessages = chatSessionManager.getCurrentSession()?.messages || [];
-          setMessages(updatedMessages);
-          setSessions(chatSessionManager.getAllSessions());
-        } else {
-          setMessages(prev => [...prev, userMessage, fallbackMessage]);
-        }
+        throw new Error('Failed to send message');
       }
     } catch (error) {
       console.error('Chat message failed:', error);
       
-      // Create user message for error case
-      const userMessage: Message = {
-        id: Date.now().toString(),
-        text: messageText,
-        isUser: true,
-        timestamp: new Date().toLocaleTimeString('en-US', { 
-          hour: 'numeric', 
-          minute: '2-digit',
-          hour12: true 
-        }),
-        createdAt: new Date().toISOString(),
-        type: 'text'
-      };
-
       // Fallback response
       const fallbackMessage: Message = {
-        id: (Date.now() + 1).toString(),
+        id: `ai-${Date.now()}`,
         text: "I'm here to help with your health concerns. Please try again.",
         isUser: false,
         timestamp: new Date().toLocaleTimeString('en-US', { 
@@ -587,22 +544,26 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
         type: 'text'
       };
 
-      if (!isGuest) {
-        // Fallback to local session manager
-        chatSessionManager.addMessage(userMessage);
-        chatSessionManager.addMessage(fallbackMessage);
-        const updatedMessages = chatSessionManager.getCurrentSession()?.messages || [];
-        setMessages(updatedMessages);
-        setSessions(chatSessionManager.getAllSessions());
-      } else {
-        setMessages(prev => [...prev, userMessage, fallbackMessage]);
+      // Update messages with fallback
+      setMessages(prev => {
+        const withoutLast = prev.slice(0, -1); // Remove temporary user message  
+        return [...withoutLast, userMessage, fallbackMessage];
+      });
+
+      // Update session for logged-in users
+      if (!isGuest && currentSession) {
+        const updatedMessages = [...currentSession.messages, userMessage, fallbackMessage];
+        const updatedSession = { 
+          ...currentSession, 
+          messages: updatedMessages, 
+          updatedAt: new Date().toISOString() 
+        };
+        setCurrentSession(updatedSession);
       }
     } finally {
       setIsLoading(false);
     }
   };
-
-
 
   const handleDeleteMessage = async (messageId: string) => {
     try {
@@ -635,7 +596,6 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
       }
     }
   };
-
 
   const handleSendVoiceMessage = async (audioBlob: Blob, duration: number) => {
     console.log('🎤 Sending voice message:', audioBlob, 'duration:', duration);
@@ -721,7 +681,7 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
         // Auto-play AI response if it's a voice message
         if (aiResponse && aiResponse.type === 'voice' && aiResponse.audioUrl) {
           setTimeout(() => {
-            const audioUrl = aiResponse.audioUrl!.startsWith('http') ? aiResponse.audioUrl! : `http://localhost:5000${aiResponse.audioUrl!}`;
+            const audioUrl = aiResponse.audioUrl!.startsWith('http') ? aiResponse.audioUrl! : `http://localhost:8000${aiResponse.audioUrl!}`;
             const audio = new Audio(audioUrl);
             audio.play().catch(error => {
               console.log('Auto-play failed (user interaction required):', error);
@@ -977,8 +937,8 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
               />
             )}
             
-            {/* Main Chat Area */}
-            <div className="flex-1 flex flex-col">
+                      {/* Main Chat Area */}
+                      <div className="flex-1 flex flex-col">
               {/* Chat Header */}
               <div className={`p-4 flex items-center justify-between border-b transition-colors duration-300 ${
                 theme === 'dark' 
@@ -1038,121 +998,90 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
               <div className={`flex-1 overflow-y-auto p-6 space-y-4 transition-colors duration-300 ${
                 theme === 'dark' ? 'bg-slate-900' : 'bg-gray-50'
               }`}>
-              {messages.map((message) => {
-                console.log('🎨 Rendering message:', message.id, 'type:', message.type, 'isUser:', message.isUser);
-                return (
-                  <div key={message.id} className={`flex items-start space-x-3 ${message.isUser ? 'flex-row-reverse space-x-reverse' : ''}`}>
-                    {/* Avatar */}
-                    <Avatar 
-                      type={message.isUser ? 'user' : 'assistant'}
-                      userName={message.isUser ? user?.firstName : undefined}
-                      isGuest={message.isUser ? isGuest : false}
-                      size="md"
-                    />
-                    
-                    {/* Message Content */}
-                    <div className={`flex flex-col ${message.isUser ? 'items-end' : 'items-start'} max-w-[70%]`}>
-                      {/* User/Assistant Name */}
-                      <div className={`text-xs mb-1 px-2 ${
-                        theme === 'dark' ? 'text-slate-400' : 'text-gray-500'
-                      }`}>
-                        {message.isUser 
-                          ? (isGuest ? 'Guest User' : user?.firstName || 'User')
-                          : 'CareMate Assistant'
-                        }
-                      </div>
-                      
-                      {/* Message Bubble */}
-                      {message.type === 'voice' ? (
-                        <VoiceMessage
-                          audioUrl={message.audioUrl!.startsWith('http') ? message.audioUrl! : `http://localhost:5000${message.audioUrl!}`}
-                          duration={message.duration!}
-                          isUser={message.isUser}
-                          timestamp={message.timestamp}
-                          transcript={message.transcript}
+                {messages && messages.length > 0 ? (
+                  messages.map((message, index) => {
+                    console.log(`🎨 RENDERING MESSAGE ${index}:`, message.id, message.text.substring(0, 50));
+                    return (
+                      <div key={message.id} className={`flex items-start space-x-3 ${message.isUser ? 'flex-row-reverse space-x-reverse' : ''}`}>
+                        {/* Avatar */}
+                        <Avatar 
+                          type={message.isUser ? 'user' : 'assistant'}
+                          userName={message.isUser ? user?.firstName : undefined}
+                          isGuest={message.isUser ? isGuest : false}
+                          size="md"
                         />
-                      ) : message.type === 'file' ? (
-                        <FileMessage
-                          fileUrl={message.fileUrl!}
-                          fileName={message.fileName!}
-                          fileType={message.fileType!}
-                          fileSize={message.fileSize!}
-                          timestamp={message.timestamp}
-                          isUser={message.isUser}
-                          onDelete={() => handleDeleteMessage(message.id)}
-                        />
-                      ) : (
-                        <div className={`max-w-md px-4 py-3 rounded-lg relative group transition-colors duration-300 ${
-                          message.isUser 
-                            ? theme === 'dark' 
-                              ? 'bg-blue-900/45 text-white' 
-                              : 'bg-blue-800/45 text-white'
-                            : theme === 'dark'
-                              ? 'bg-slate-700 text-slate-100'
-                              : 'bg-gray-200 text-gray-800'
-                        }`}>
-                          <p className="text-sm break-words whitespace-pre-wrap">{message.text}</p>
-                          <div className="flex items-center justify-between mt-1">
-                            <div className={`text-xs ${
-                              message.isUser 
-                                ? 'text-blue-100' 
-                                : theme === 'dark' 
-                                  ? 'text-slate-400' 
-                                  : 'text-gray-500'
-                            }`}>{message.timestamp}</div>
-                            <div className="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                              {/* <TextToSpeech
-                                text={message.text}
-                                isUser={message.isUser}
-                                messageId={message.id}
-                              />
-                              <MessageOptions 
-                                onDelete={() => handleDeleteMessage(message.id)}
-                                isUser={message.isUser}
-                              /> */}
+                        
+                        {/* Message Content */}
+                        <div className={`flex flex-col ${message.isUser ? 'items-end' : 'items-start'} max-w-[70%]`}>
+                          {/* User/Assistant Name */}
+                          <div className={`text-xs mb-1 px-2 ${
+                            theme === 'dark' ? 'text-slate-400' : 'text-gray-500'
+                          }`}>
+                            {message.isUser 
+                              ? (isGuest ? 'Guest User' : user?.firstName || 'User')
+                              : 'CareMate Assistant'
+                            }
+                          </div>
+                          
+                          {/* Message Bubble */}
+                          <div className={`max-w-md px-4 py-3 rounded-lg relative group transition-colors duration-300 ${
+                            message.isUser 
+                              ? theme === 'dark' 
+                                ? 'bg-blue-900/45 text-white' 
+                                : 'bg-blue-800/45 text-white'
+                              : theme === 'dark'
+                                ? 'bg-slate-700 text-slate-100'
+                                : 'bg-gray-200 text-gray-800'
+                          }`}>
+                            <p className="text-sm break-words whitespace-pre-wrap">{message.text}</p>
+                            <div className="flex items-center justify-between mt-1">
+                              <div className={`text-xs ${
+                                message.isUser 
+                                  ? 'text-blue-100' 
+                                  : theme === 'dark' 
+                                    ? 'text-slate-400' 
+                                    : 'text-gray-500'
+                              }`}>{message.timestamp}</div>
                             </div>
                           </div>
                         </div>
-                      )}
-                    </div>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <div className="text-center text-gray-500 py-8">
+                    No messages yet. Start a conversation!
                   </div>
-                );
-              })}
-              
-              {isLoading && (
-                <div className="flex items-start space-x-3">
-                  {/* Assistant Avatar */}
-                  <Avatar 
-                    type="assistant"
-                    size="md"
-                  />
-                  
-                  {/* Loading Message */}
-                  <div className="flex flex-col items-start max-w-[70%]">
-                    <div className={`text-xs mb-1 px-2 ${
-                      theme === 'dark' ? 'text-slate-400' : 'text-gray-500'
-                    }`}>
-                      CareMate Assistant
-                    </div>
-                    <div className={`max-w-md px-4 py-3 rounded-lg transition-colors duration-300 ${
-                      theme === 'dark' 
-                        ? 'bg-slate-700 text-slate-100' 
-                        : 'bg-gray-200 text-gray-800'
-                    }`}>
-                      <div className="flex items-center space-x-2">
-                        <div className={`animate-spin rounded-full h-4 w-4 border-b-2 ${
-                          theme === 'dark' ? 'border-slate-300' : 'border-gray-600'
-                        }`}></div>
-                        <span className="text-sm">Assistant is typing...</span>
+                )}
+                
+                {isLoading && (
+                  <div className="flex items-start space-x-3">
+                    <Avatar type="assistant" size="md" />
+                    <div className="flex flex-col items-start max-w-[70%]">
+                      <div className={`text-xs mb-1 px-2 ${
+                        theme === 'dark' ? 'text-slate-400' : 'text-gray-500'
+                      }`}>
+                        CareMate Assistant
+                      </div>
+                      <div className={`max-w-md px-4 py-3 rounded-lg transition-colors duration-300 ${
+                        theme === 'dark' 
+                          ? 'bg-slate-700 text-slate-100' 
+                          : 'bg-gray-200 text-gray-800'
+                      }`}>
+                        <div className="flex items-center space-x-2">
+                          <div className={`animate-spin rounded-full h-4 w-4 border-b-2 ${
+                            theme === 'dark' ? 'border-slate-300' : 'border-gray-600'
+                          }`}></div>
+                          <span className="text-sm">Assistant is typing...</span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              )}
-              
-              {/* Auto-scroll anchor */}
-              <div ref={messagesEndRef} />
-          </div>
+                )}
+                
+                {/* Auto-scroll anchor */}
+                <div ref={messagesEndRef} />
+              </div>
 
               {/* Input Area */}
               <div className={`p-4 border-t transition-colors duration-300 ${
@@ -1161,21 +1090,6 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
                   : 'bg-white border-gray-200'
               }`}>
                 <div className="flex items-center space-x-3">
-                 
-
-                  {/* File Upload Button - WhatsApp Style
-                  <button
-                    onClick={() => setShowFileUpload(true)}
-                    className={`p-3 rounded-full text-white transition-all transform hover:scale-105 shadow-lg ${
-                      theme === 'dark' 
-                        ? 'bg-slate-600 hover:bg-slate-500' 
-                        : 'bg-gray-500 hover:bg-gray-600'
-                    }`}
-                    title="Attach file"
-                  >
-                    <Paperclip className="w-5 h-5" />
-                  </button> */}
-
                   {/* Text Input */}
                   <div className="flex-1 relative">
                     <input
@@ -1207,13 +1121,13 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
                       <Mic className="w-5 h-5" />
                     </button>
                   ) : (
-                  <VoiceRecorder
-                    onSendVoiceMessage={handleSendVoiceMessage}
+                    <VoiceRecorder
+                      onSendVoiceMessage={handleSendVoiceMessage}
                       onCancel={() => setShowVoiceRecorder(false)}
-                  />
+                    />
                   )}
 
- {/* Symptom Selector Button */}
+                  {/* Symptom Selector Button */}
                   <button
                     onClick={() => setShowSymptomSelector(true)}
                     className={`p-3 rounded-full text-white transition-all transform hover:scale-105 shadow-lg ${
@@ -1235,13 +1149,9 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
                   >
                     <Send className="w-5 h-5" />
                   </button>
-
                 </div>
-            
-
-                {/* File Upload Modal */}
-          </div>
-        </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
