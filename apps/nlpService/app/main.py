@@ -228,7 +228,7 @@ def read_root():
         "endpoints": ["/analyze", "/analyze-batch", "/docs", "/health"]
     }
     
-ML_SERVICE_URL = "http://localhost:8101/predict"  # where MLService1 is running
+ML_SERVICE_URL = "http://mlservice1:8101/predict" # where MLService1 is running
 
 class AnalyzeResponse(BaseModel):
     text_analysis: dict

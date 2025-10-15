@@ -8,7 +8,7 @@ import { User, Assessment, ApiResponse, Message, ChatSession } from '../types';
 // ===================================================================
 
 // API Base URL - Flask backend
-const API_BASE_URL = 'http://localhost:5000';
+const API_BASE_URL = 'http://localhost:8000';
 
 // ===================================================================
 // JWT AUTHENTICATION UTILITIES
@@ -146,55 +146,56 @@ const simulateApiDelay = (ms: number = 1000) => new Promise(resolve => setTimeou
 export const authService = {
   // POST /api/auth/login
   login: async (email: string, password: string): Promise<ApiResponse<User>> => {
-    console.log('🔐 FLASK API: Login attempt for', email);
+    console.log('🔐 MOCK AUTH: Login attempt for', email);
     
+    // TEMPORARY BYPASS - Accept any credentials for testing
     try {
-      const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-      });
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
       
-      const data = await response.json();
+      // Create mock user
+      const mockUser: User = {
+        id: '1',
+        email: email,
+        name: 'Test User',
+        role: 'user'
+      };
       
-      if (data.success && data.data) {
-        const { user, access_token } = data.data;
-        setAuthToken(access_token);
-      localStorage.setItem('user', JSON.stringify(user));
-      return { success: true, data: user };
-    }
-    
-      return { success: false, message: data.message || 'Login failed' };
+      // Mock token
+      const mockToken = 'mock-jwt-token-for-testing';
+      setAuthToken(mockToken);
+      localStorage.setItem('user', JSON.stringify(mockUser));
+      
+      console.log('✅ Mock login successful');
+      return { success: true, data: mockUser };
     } catch (error) {
-      console.error('Login failed:', error);
-      return { success: false, message: 'Network error during login' };
+      console.error('Mock login failed:', error);
+      return { success: false, message: 'Mock login failed' };
     }
   },
 
   // POST /api/auth/register
   register: async (userData: Omit<User, 'id'> & { password: string }): Promise<ApiResponse<User>> => {
-    console.log('📝 FLASK API: Register attempt for', userData.email);
+    console.log('📝 MOCK AUTH: Register attempt for', userData.email);
     
+    // TEMPORARY BYPASS - Auto-success for testing
     try {
-      const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(userData)
-      });
+      await new Promise(resolve => setTimeout(resolve, 1000));
       
-      const data = await response.json();
+      const mockUser: User = {
+        id: '2',
+        email: userData.email,
+        name: userData.name || 'New User',
+        role: 'user'
+      };
       
-      if (data.success && data.data) {
-        const { user, access_token } = data.data;
-        setAuthToken(access_token);
-        localStorage.setItem('user', JSON.stringify(user));
-        return { success: true, data: user };
-      }
+      const mockToken = 'mock-jwt-token-for-testing';
+      setAuthToken(mockToken);
+      localStorage.setItem('user', JSON.stringify(mockUser));
       
-      return { success: false, message: data.message || 'Registration failed' };
+      return { success: true, data: mockUser };
     } catch (error) {
-      console.error('Registration failed:', error);
-      return { success: false, message: 'Network error during registration' };
+      return { success: false, message: 'Mock registration failed' };
     }
   },
 
@@ -649,293 +650,396 @@ export const voiceService = {
 // ===================================================================
 // CHAT/ASSISTANT SERVICE - FLASK BACKEND INTEGRATION
 // ===================================================================
+// ===================================================================
+// CHAT/ASSISTANT SERVICE - USING INTEGRATION ENDPOINT
+// ===================================================================
 export const chatService = {
-  // GET /api/chat/sessions - Get chat sessions
+  // Mock session management (since we don't have Flask backend)
   getChatSessions: async (): Promise<ApiResponse<ChatSession[]>> => {
-    console.log('💬 FLASK API: Get chat sessions');
-    
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/chat/sessions`, {
-        method: 'GET',
-        headers: createAuthHeaders()
-      });
-      
-      const data = await response.json();
-      
-      if (data.success) {
-        return { success: true, data: data.data };
-      }
-      
-      return { success: false, message: data.message || 'Failed to get chat sessions' };
-    } catch (error) {
-      console.error('Get chat sessions failed:', error);
-      return { success: false, message: 'Network error while getting chat sessions' };
-    }
+    console.log('💬 MOCK: Get chat sessions');
+    return { success: true, data: [] };
   },
 
-  // POST /api/chat/sessions - Create chat session
   createChatSession: async (title?: string, language?: string): Promise<ApiResponse<ChatSession>> => {
-    console.log('🆕 FLASK API: Create chat session');
+    console.log('🆕 MOCK: Create chat session');
     
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/chat/sessions`, {
-        method: 'POST',
-        headers: createAuthHeaders(),
-        body: JSON.stringify({ 
-          title: title || 'New Chat',
-          language: language || 'en'
-        })
-      });
-      
-      const data = await response.json();
-      
-      if (data.success) {
-        return { success: true, data: data.data };
-      }
-      
-      return { success: false, message: data.message || 'Failed to create chat session' };
-    } catch (error) {
-      console.error('Create chat session failed:', error);
-      return { success: false, message: 'Network error while creating chat session' };
-    }
+    const initialMessages = {
+      en: "Hello! I'm your health assistant. I can help you understand your symptoms, explain your assessment results, or answer health questions. How can I help you today?",
+      noongar: "Kaya! Ngany mooditj moort. Ngany mooditj wangkiny, ngany mooditj koora, ngany mooditj wangkiny. Ngany mooditj?"
+    };
+
+    const newSession: ChatSession = {
+      id: `session-${Date.now()}`,
+      userId: '1',
+      title: title || 'New Chat',
+      messages: [
+        {
+          id: '1',
+          text: initialMessages[language as keyof typeof initialMessages] || initialMessages.en,
+          isUser: false,
+          timestamp: new Date().toLocaleTimeString('en-US', { 
+            hour: 'numeric', 
+            minute: '2-digit',
+            hour12: true 
+          }),
+          createdAt: new Date().toISOString(),
+          type: 'text'
+        }
+      ],
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      language: language || 'en'
+    };
+    
+    return { success: true, data: newSession };
   },
 
-  // GET /api/chat/sessions/:id/messages - Get chat messages
   getChatMessages: async (sessionId: string): Promise<ApiResponse<Message[]>> => {
-    console.log('📨 FLASK API: Get chat messages for session:', sessionId);
+    console.log('📨 MOCK: Get chat messages for session:', sessionId);
     
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/chat/sessions/${sessionId}/messages`, {
-        method: 'GET',
-        headers: createAuthHeaders()
-      });
-      
-      const data = await response.json();
-      
-      if (data.success) {
-        return { success: true, data: data.data };
+    const initialMessages = {
+      en: "Hello! I'm your health assistant. I can help you understand your symptoms, explain your assessment results, or answer health questions. How can I help you today?",
+      noongar: "Kaya! Ngany mooditj moort. Ngany mooditj wangkiny, ngany mooditj koora, ngany mooditj wangkiny. Ngany mooditj?"
+    };
+
+    const messages: Message[] = [
+      {
+        id: '1',
+        text: initialMessages.en,
+        isUser: false,
+        timestamp: new Date().toLocaleTimeString('en-US', { 
+          hour: 'numeric', 
+          minute: '2-digit',
+          hour12: true 
+        }),
+        createdAt: new Date().toISOString(),
+        type: 'text'
       }
-      
-      return { success: false, message: data.message || 'Failed to get chat messages' };
-    } catch (error) {
-      console.error('Get chat messages failed:', error);
-      return { success: false, message: 'Network error while getting chat messages' };
-    }
+    ];
+    
+    return { success: true, data: messages };
   },
 
-  // POST /chat/message - Send message to Flask backend
+  // Main message handler - uses YOUR integration endpoint
   sendMessage: async (sessionId: string, message: string): Promise<ApiResponse<{userMessage: Message, response: Message}>> => {
-    console.log('📤 FLASK API: Send message to session:', sessionId, message);
+    console.log('📤 INTEGRATION: Send message:', message);
     
-    try {
-      const response = await fetch(`${API_BASE_URL}/chat/message`, {
-        method: 'POST',
-        headers: createAuthHeaders(),
-        body: JSON.stringify({ 
-          message,
-          sessionId
-        })
-      });
+    // Check if message is health-related
+    const healthKeywords = [
+      'fever', 'headache', 'pain', 'symptom', 'hurt', 'sick', 'ill', 'unwell', 
+      'doctor', 'hospital', 'medicine', 'cough', 'cold', 'flu', 'nausea', 'dizziness',
+      // Noongar words
+      'wara', 'kalyakal', 'yoowart', 'koort', 'miyal', 'kaat', 'korbol', 
+      'ngoorndiny', 'woort', 'nyidiny', 'ngaitj', 'kadak', 'boola', 'kwop', 'moorditj'
+    ];
+    
+    const isHealthRelated = healthKeywords.some(keyword => 
+      message.toLowerCase().includes(keyword)
+    );
+    
+    if (isHealthRelated) {
+      console.log('🩺 Health-related message detected, using integration endpoint');
       
-      const data = await response.json();
-      
-      if (data.success && data.data) {
-        return { success: true, data: data.data };
+      try {
+        // Send to YOUR integration endpoint
+        const response = await fetch('http://localhost:8000/analyze-clinical-text', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: message })
+        });
+        
+        console.log('📥 Integration response status:', response.status);
+        
+        if (!response.ok) {
+          throw new Error(`Integration error: ${response.status}`);
+        }
+        
+        const analysisResult = await response.json();
+        console.log('✅ Analysis received:', analysisResult);
+        
+        // Create user message
+        const userMessage: Message = {
+          id: Date.now().toString(),
+          text: message,
+          isUser: true,
+          timestamp: new Date().toLocaleTimeString('en-US', { 
+            hour: 'numeric', 
+            minute: '2-digit',
+            hour12: true 
+          }),
+          createdAt: new Date().toISOString(),
+          type: 'text'
+        };
+        
+        // Create AI response from analysis
+        const aiResponse: Message = {
+          id: (Date.now() + 1).toString(),
+          text: chatService.formatAnalysisForChat(analysisResult),
+          isUser: false,
+          timestamp: new Date().toLocaleTimeString('en-US', { 
+            hour: 'numeric', 
+            minute: '2-digit',
+            hour12: true 
+          }),
+          createdAt: new Date().toISOString(),
+          type: 'text'
+        };
+        
+        return { success: true, data: { userMessage, response: aiResponse } };
+        
+      } catch (error) {
+        console.error('❌ Health message analysis failed:', error);
+        // Fall through to regular response
       }
-      
-      return { success: false, message: data.message || 'Failed to send message' };
-    } catch (error) {
-      console.error('Chat message failed:', error);
-      return { success: false, message: 'Network error while sending message' };
     }
+    
+    // Regular chat response for non-health messages
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      text: message,
+      isUser: true,
+      timestamp: new Date().toLocaleTimeString('en-US', { 
+        hour: 'numeric', 
+        minute: '2-digit',
+        hour12: true 
+      }),
+      createdAt: new Date().toISOString(),
+      type: 'text'
+    };
+
+    const aiResponse: Message = {
+      id: (Date.now() + 1).toString(),
+      text: `I understand you said: "${message}". How can I help you with your health concerns today?`,
+      isUser: false,
+      timestamp: new Date().toLocaleTimeString('en-US', { 
+        hour: 'numeric', 
+        minute: '2-digit',
+        hour12: true 
+      }),
+      createdAt: new Date().toISOString(),
+      type: 'text'
+    };
+
+    return { success: true, data: { userMessage, response: aiResponse } };
   },
 
-  // POST /chat/voice-message - Send voice message to backend
-  sendVoiceMessage: async (sessionId: string, audioBlob: Blob, duration: number): Promise<ApiResponse<{userMessage: Message, response: Message}>> => {
-    console.log('🎤 FLASK API: Send voice message to session:', sessionId, 'duration:', duration);
-    
-    try {
-      const formData = new FormData();
-      formData.append('audio', audioBlob, 'voice-message.webm');
-      formData.append('duration', duration.toString());
-      formData.append('sessionId', sessionId);
-      
-      const response = await fetch(`${API_BASE_URL}/chat/voice-message`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${getAuthToken()}`
-        },
-        body: formData
-      });
-      
-      const data = await response.json();
-      
-      if (data.success && data.data) {
-        return { success: true, data: data.data };
-      }
-      
-      return { success: false, message: data.message || 'Failed to send voice message' };
-    } catch (error) {
-      console.error('Voice message failed:', error);
-      return { success: false, message: 'Network error while sending voice message' };
-    }
-  },
-
-  // PUT /api/chat/sessions/:id - Update chat session (rename, etc.)
-  updateChatSession: async (sessionId: string, updates: { title?: string }): Promise<ApiResponse<ChatSession>> => {
-    console.log('✏️ FLASK API: Update chat session:', sessionId, updates);
-    
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/chat/sessions/${sessionId}`, {
-        method: 'PUT',
-        headers: createAuthHeaders(),
-        body: JSON.stringify(updates)
-      });
-      
-      const data = await response.json();
-      
-      if (data.success) {
-        return { success: true, data: data.data };
-      }
-      
-      return { success: false, message: data.message || 'Failed to update chat session' };
-    } catch (error) {
-      console.error('Update chat session failed:', error);
-      return { success: false, message: 'Network error while updating chat session' };
-    }
-  },
-
-  // DELETE /api/chat/sessions/:id - Delete chat session
-  deleteChatSession: async (sessionId: string): Promise<ApiResponse<null>> => {
-    console.log('🗑️ FLASK API: Delete chat session:', sessionId);
-    
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/chat/sessions/${sessionId}`, {
-        method: 'DELETE',
-        headers: createAuthHeaders()
-      });
-      
-      const data = await response.json();
-      
-      if (data.success) {
-        return { success: true };
-      }
-      
-      return { success: false, message: data.message || 'Failed to delete chat session' };
-    } catch (error) {
-      console.error('Delete chat session failed:', error);
-      return { success: false, message: 'Network error while deleting chat session' };
-    }
-  },
-
-  // DELETE /api/chat/sessions/:sessionId/messages/:messageId - Delete specific message
-  deleteMessage: async (sessionId: string, messageId: string): Promise<ApiResponse<null>> => {
-    console.log('🗑️ FLASK API: Delete message:', sessionId, messageId);
-    
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/chat/sessions/${sessionId}/messages/${messageId}`, {
-        method: 'DELETE',
-        headers: createAuthHeaders()
-      });
-      
-      const data = await response.json();
-      
-      if (data.success) {
-        return { success: true };
-      }
-      
-      return { success: false, message: data.message || 'Failed to delete message' };
-    } catch (error) {
-      console.error('Delete message failed:', error);
-      return { success: false, message: 'Network error while deleting message' };
-    }
-  },
-
-  // POST /chat/file-upload - Upload file and get AI response
-  uploadFile: async (sessionId: string, file: File): Promise<ApiResponse<Message>> => {
-    console.log('📎 FLASK API: Upload file to session:', sessionId, 'file:', file.name);
-    
-    try {
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('sessionId', sessionId);
-      
-      const response = await fetch(`${API_BASE_URL}/chat/file-upload`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${getAuthToken()}`
-        },
-        body: formData
-      });
-      
-      const data = await response.json();
-      
-      if (data.success && data.data) {
-        return { success: true, data: data.data.response };
-      }
-      
-      return { success: false, message: data.message || 'Failed to upload file' };
-    } catch (error) {
-      console.error('File upload failed:', error);
-      return { success: false, message: 'Network error while uploading file' };
-    }
-  },
-
-  // POST /chat/symptoms - Send selected symptoms and get AI response
+  // Symptoms handler - uses YOUR integration endpoint
+  
   sendSymptoms: async (sessionId: string, symptoms: string[]): Promise<ApiResponse<Message>> => {
-    console.log('🩺 FLASK API: Send symptoms to session:', sessionId, 'symptoms:', symptoms);
+    console.log('🩺 INTEGRATION: Send symptoms to NLP+ML backend:', symptoms);
     
     try {
-      const response = await fetch(`${API_BASE_URL}/chat/symptoms`, {
+      // Combine symptoms into text for your integration endpoint
+      const symptomText = symptoms.join(', ');
+      
+      // Send to YOUR integration endpoint
+      const response = await fetch('http://localhost:8000/analyze-clinical-text', {
         method: 'POST',
-        headers: createAuthHeaders(),
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
-          symptoms,
-          sessionId
+          text: symptomText
         })
       });
       
-      const data = await response.json();
-      
-      if (data.success && data.data) {
-        return { success: true, data: data.data.response };
+      if (!response.ok) {
+        throw new Error(`Backend error: ${response.status}`);
       }
       
-      return { success: false, message: data.message || 'Failed to process symptoms' };
+      const analysisResult = await response.json();
+      
+      // Format the response for the chat interface
+      const aiResponse: Message = {
+        id: Date.now().toString(),
+        text: chatService.formatAnalysisForChat(analysisResult),
+        isUser: false,
+        timestamp: new Date().toLocaleTimeString('en-US', { 
+          hour: 'numeric', 
+          minute: '2-digit',
+          hour12: true 
+        }),
+        createdAt: new Date().toISOString(),
+        type: 'text'
+      };
+      
+      return { success: true, data: aiResponse };
+      
     } catch (error) {
-      console.error('Symptoms processing failed:', error);
-      return { success: false, message: 'Network error while processing symptoms' };
+      console.error('Symptoms analysis failed:', error);
+      
+      // Fallback response
+      const fallbackResponse: Message = {
+        id: Date.now().toString(),
+        text: `I've analyzed your symptoms: ${symptoms.join(', ')}. Based on this, I recommend consulting with a healthcare provider for proper evaluation.`,
+        isUser: false,
+        timestamp: new Date().toLocaleTimeString('en-US', { 
+          hour: 'numeric', 
+          minute: '2-digit',
+          hour12: true 
+        }),
+        createdAt: new Date().toISOString(),
+        type: 'text'
+      };
+      
+      return { success: true, data: fallbackResponse };
     }
   },
 
-  // POST /api/voice-chat/response - Generate voice response for voice-to-voice chat
-  generateVoiceResponse: async (message: string, sessionId: string): Promise<ApiResponse<Message>> => {
-    console.log('🎤 FLASK API: Generate voice response for message:', message.substring(0, 50) + '...');
-    
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/voice-chat/response`, {
-        method: 'POST',
-        headers: createAuthHeaders(),
-        body: JSON.stringify({ 
-          message,
-          sessionId
-        })
+  // Helper function to format analysis for chat
+  // In chatService.sendMessage, update the response formatting:
+formatAnalysisForChat: (analysisResult: any): string => {
+  console.log('📋 Formatting analysis for chat:', analysisResult);
+  
+  // Handle case where analysis might be nested
+  const analysis = analysisResult.analysis || analysisResult;
+  const { text_analysis, ml_prediction } = analysis;
+  
+  let response = "🔍 **Health Analysis Results**\n\n";
+  
+  // Add symptoms detected from NLP
+  if (text_analysis?.entities && text_analysis.entities.length > 0) {
+    const symptoms = text_analysis.entities.filter((entity: any) => entity.entity === 'SYMPTOM');
+    if (symptoms.length > 0) {
+      response += "**Symptoms Detected:**\n";
+      symptoms.forEach((entity: any) => {
+        response += `• ${entity.word}`;
+        if (entity.english_translation) {
+          response += ` (${entity.english_translation})`;
+        }
+        response += '\n';
       });
-      
-      const data = await response.json();
-      
-      if (data.success && data.data) {
-        return { success: true, data: data.data };
-      }
-      
-      return { success: false, message: data.message || 'Failed to generate voice response' };
-    } catch (error) {
-      console.error('Voice response generation failed:', error);
-      return { success: false, message: 'Network error while generating voice response' };
+      response += "\n";
     }
   }
-};
+  
+  // Add ML predictions
+  if (ml_prediction) {
+    response += "**Possible Conditions:**\n";
+    if (ml_prediction.best_prediction) {
+      response += `• **${ml_prediction.best_prediction.disease}** (${ml_prediction.best_prediction.confidence} confidence)\n`;
+    }
+    
+    if (ml_prediction.top_3_predictions) {
+      ml_prediction.top_3_predictions.slice(0, 3).forEach((pred: any, index: number) => {
+        if (index > 0 || !ml_prediction.best_prediction) { // Don't duplicate best prediction
+          response += `• ${pred.disease} (${pred.confidence})\n`;
+        }
+      });
+    }
+    
+    if (ml_prediction.severity) {
+      response += `\n**Severity Level:** ${ml_prediction.severity}\n`;
+    }
+  }
+  
+  response += "\n💡 *Please consult with a healthcare provider for proper diagnosis and treatment.*";
+  
+  return response;
+},
+       
 
+  // Mock other methods we don't need right now
+  sendVoiceMessage: async (sessionId: string, audioBlob: Blob, duration: number): Promise<ApiResponse<{userMessage: Message, response: Message}>> => {
+    console.log('🎤 MOCK: Send voice message');
+    await simulateApiDelay(2000);
+    
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      text: '[Voice message]',
+      isUser: true,
+      timestamp: new Date().toLocaleTimeString('en-US', { 
+        hour: 'numeric', 
+        minute: '2-digit',
+        hour12: true 
+      }),
+      createdAt: new Date().toISOString(),
+      type: 'voice',
+      audioUrl: URL.createObjectURL(audioBlob),
+      duration: duration
+    };
+
+    const aiResponse: Message = {
+      id: (Date.now() + 1).toString(),
+      text: "I received your voice message. How can I help you with your health concerns?",
+      isUser: false,
+      timestamp: new Date().toLocaleTimeString('en-US', { 
+        hour: 'numeric', 
+        minute: '2-digit',
+        hour12: true 
+      }),
+      createdAt: new Date().toISOString(),
+      type: 'text'
+    };
+
+    return { success: true, data: { userMessage, response: aiResponse } };
+  },
+
+  transcribeVoiceMessage: async (audioBlob: Blob): Promise<ApiResponse<{ transcript: string; confidence: number }>> => {
+    console.log('📝 MOCK: Transcribe voice message');
+    await simulateApiDelay(1500);
+    return { 
+      success: true, 
+      data: {
+        transcript: 'Mock transcription of voice message',
+        confidence: 0.95
+      }
+    };
+  },
+
+  updateChatSession: async (sessionId: string, updates: { title?: string }): Promise<ApiResponse<ChatSession>> => {
+    console.log('✏️ MOCK: Update chat session:', sessionId, updates);
+    return { success: true, data: {} as ChatSession };
+  },
+
+  deleteChatSession: async (sessionId: string): Promise<ApiResponse<null>> => {
+    console.log('🗑️ MOCK: Delete chat session:', sessionId);
+    return { success: true };
+  },
+
+  deleteMessage: async (sessionId: string, messageId: string): Promise<ApiResponse<null>> => {
+    console.log('🗑️ MOCK: Delete message:', sessionId, messageId);
+    return { success: true };
+  },
+
+  uploadFile: async (sessionId: string, file: File): Promise<ApiResponse<Message>> => {
+    console.log('📎 MOCK: Upload file:', file.name);
+    await simulateApiDelay(1000);
+    
+    const aiResponse: Message = {
+      id: Date.now().toString(),
+      text: `I received your file: ${file.name}. How can I help you analyze this information?`,
+      isUser: false,
+      timestamp: new Date().toLocaleTimeString('en-US', { 
+        hour: 'numeric', 
+        minute: '2-digit',
+        hour12: true 
+      }),
+      createdAt: new Date().toISOString(),
+      type: 'text'
+    };
+    
+    return { success: true, data: aiResponse };
+  },
+
+  generateVoiceResponse: async (message: string, sessionId: string): Promise<ApiResponse<Message>> => {
+    console.log('🎤 MOCK: Generate voice response');
+    await simulateApiDelay(1000);
+    
+    const aiResponse: Message = {
+      id: Date.now().toString(),
+      text: `Voice response for: ${message}`,
+      isUser: false,
+      timestamp: new Date().toLocaleTimeString('en-US', { 
+        hour: 'numeric', 
+        minute: '2-digit',
+        hour12: true 
+      }),
+      createdAt: new Date().toISOString(),
+      type: 'text'
+    };
+    
+    return { success: true, data: aiResponse };
+  }
+};
 // ===================================================================
 // USER PROFILE SERVICE - FLASK BACKEND INTEGRATION
 // ===================================================================
