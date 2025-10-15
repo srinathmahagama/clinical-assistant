@@ -1,0 +1,138 @@
+{
+  "headache": {
+    "symptom": "Headache",
+    "noongar": "Moorditj koorliny",
+    "severity": "mild",
+    "remedies": [
+      "Drink plenty of water",
+      "Take rest in a quiet, dark room",
+      "Use a cold compress on your forehead",
+      "Avoid caffeine and stress"
+    ],
+    "remedies_noongar": [
+      "Ngardak bilya ngardiny — drink water",
+      "Moorditj kadak moort room — rest in quiet place",
+      "Boordawan djena cool bilya bandang — use cool cloth on head",
+      "Koora koorliny djena — avoid stress"
+    ]
+  },
+  "migraine": {
+    "symptom": "Migraine",
+    "noongar": "Koorliny koorndarn",
+    "severity": "moderate",
+    "remedies": [
+      "Rest in a dark, quiet place",
+      "Drink water often",
+      "Avoid bright lights and loud noises",
+      "See a doctor if pain is strong"
+    ],
+    "remedies_noongar": [
+      "Moorditj kadak moort room — rest quiet place",
+      "Ngardak bilya djena — drink water often",
+      "Koora boodjar birak wiern — avoid bright lights and noise",
+      "Boordawan doctor noonook djena — see doctor if strong pain"
+    ]
+  },
+  "shortness-breath": {
+    "symptom": "Shortness of Breath",
+    "noongar": "Djilba yira ngardiny",
+    "severity": "severe",
+    "remedies": [
+      "Sit upright and relax shoulders",
+      "Breathe slowly through pursed lips",
+      "Use prescribed inhaler if needed",
+      "Seek medical help immediately if it persists"
+    ],
+    "remedies_noongar": [
+      "Boordawan kadak yira — sit up straight",
+      "Ngardak djilba moorditj — breathe slow and calm",
+      "Use doctor medicine if yoowarl",
+      "Boordawan doctor kwop nyininy — get help straightaway"
+    ]
+  },
+  "cough": {
+    "symptom": "Cough",
+    "noongar": "Warran djilba",
+    "severity": "mild",
+    "remedies": [
+      "Drink warm tea or honey water",
+      "Rest and avoid dusty areas",
+      "Use steam inhalation",
+      "See doctor if cough stays long"
+    ],
+    "remedies_noongar": [
+      "Ngardak warm tea or honey bilya — drink warm tea or honey water",
+      "Moorditj kadak — rest",
+      "Boordawan djinda wirn djilba — breathe steam gently",
+      "Boordawan doctor noonook — see doctor if it stays long"
+    ]
+  },
+  "stomach-pain": {
+    "symptom": "Stomach Pain",
+    "noongar": "Djarn ngardiny",
+    "severity": "moderate",
+    "remedies": [
+      "Avoid spicy or oily foods",
+      "Drink warm fluids",
+      "Rest and relax",
+      "Seek medical advice if persistent"
+    ],
+    "remedies_noongar": [
+      "Koora boodjar kaarna — avoid hot or greasy food",
+      "Ngardak warm bilya — drink warm fluids",
+      "Moorditj kadak nyininy — rest easy",
+      "Boordawan doctor nyininy — talk to doctor if stays"
+    ]
+  },
+  "rash": {
+    "symptom": "Skin Rash",
+    "noongar": "Koorda marli",
+    "severity": "mild",
+    "remedies": [
+      "Keep the skin clean and dry",
+      "Apply soothing cream or aloe vera",
+      "Avoid scratching",
+      "See doctor if it spreads"
+    ],
+    "remedies_noongar": [
+      "Boordawan marli kwop nyininy — keep skin clean and dry",
+      "Use cream or aloe vera",
+      "Koora djenak — no scratching",
+      "Boordawan doctor if grows"
+    ]
+  },
+  "fever": {
+    "symptom": "Fever",
+    "noongar": "Koora warra djena",
+    "severity": "moderate",
+    "remedies": [
+      "Drink lots of water",
+      "Rest and wear light clothing",
+      "Take paracetamol if needed",
+      "See doctor if high fever persists"
+    ],
+    "remedies_noongar": [
+      "Ngardak bilya — drink water",
+      "Moorditj kadak nyininy — rest",
+      "Use medicine if yoowarl — take medicine if needed",
+      "Boordawan doctor kwop nyininy — see doctor if stays"
+    ]
+  },
+  "anxiety": {
+    "symptom": "Anxiety",
+    "noongar": "Koorliny wiern",
+    "severity": "moderate",
+    "remedies": [
+      "Practice slow breathing",
+      "Exercise regularly",
+      "Limit caffeine",
+      "Talk with someone you trust"
+    ],
+    "remedies_noongar": [
+      "Ngardak djilba moorditj — breathe calm",
+      "Boodjar kadak movement — do body exercise",
+      "Koora caffeine — avoid caffeine",
+      "Yarn with moort noonook — talk with family or friend"
+    ]
+  }
+}

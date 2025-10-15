@@ -26,7 +26,11 @@ const BackButton: React.FC<BackButtonProps> = ({ onClick, to }) => {
     <button
       onClick={handleClick}
       className={`fixed top-28 left-6 z-50 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-lg ${
-        theme === 'dark' 
+        theme === 'noongar-dark'
+          ? 'bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20'
+          : theme === 'noongar-light'
+          ? 'bg-black/10 backdrop-blur-sm border border-black/20 text-black hover:bg-black/20'
+          : theme === 'dark' 
           ? 'bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20' 
           : 'bg-black/10 backdrop-blur-sm border border-black/20 text-black hover:bg-black/20'
       }`}

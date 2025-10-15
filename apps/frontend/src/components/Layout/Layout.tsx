@@ -16,14 +16,22 @@ const Layout: React.FC<LayoutProps> = ({ children, showLanguageButton = true, ba
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: backgroundType === 'auth' 
+          backgroundImage: (theme === 'noongar-light' || theme === 'noongar-dark')
+            ? `url('/src/images/noongar images/denmark-dooram-dancersweb-006.jpg')`
+            : backgroundType === 'auth' 
             ? `url('https://images.pexels.com/photos/4173251/pexels-photo-4173251.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')`
             : `url('https://images.pexels.com/photos/4386466/pexels-photo-4386466.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')`
         }}
       >
         {/* Gradient Overlay - different for light and dark themes */}
         <div className={`absolute inset-0 ${
-          theme === 'light' 
+          theme === 'noongar-light'
+            ? 'bg-gradient-to-br from-orange-400/90 via-blue-500/85 to-orange-600/90'
+            : theme === 'noongar-dark'
+            ? (backgroundType === 'auth'
+                ? 'bg-gradient-to-br from-slate-900/95 via-slate-800/98 to-slate-900/95'
+                : 'bg-gradient-to-br from-slate-900/90 via-slate-800/95 to-slate-900/90')
+            : theme === 'light' 
             ? (backgroundType === 'auth' 
                 ? 'bg-gradient-to-br from-blue-500/70 via-indigo-600/70 to-purple-700/70'
                 : 'bg-gradient-to-br from-blue-400/80 via-purple-500/80 to-pink-400/80')

@@ -4,7 +4,7 @@ import { translations, Language, TranslationKey } from '../translations/translat
 interface LanguageContextType {
   language: Language;
   setLanguage: (language: Language) => void;
-  t: (key: TranslationKey) => string;
+  t: (key: string) => string;
   // Chat session language management
   getChatSessionLanguage: (sessionId?: string) => Language;
   setChatSessionLanguage: (sessionId: string, language: Language) => void;
@@ -33,11 +33,46 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
   const setLanguage = (newLanguage: Language) => {
     setLanguageState(newLanguage);
     localStorage.setItem('caremate-language', newLanguage);
+    
+    // Trigger theme change based on language
+    if (newLanguage === 'noongar') {
+      // Default to noongar-dark when switching to Noongar
+      localStorage.setItem('caremate-theme', 'noongar-dark');
+      // Dispatch a custom event to notify theme context
+      window.dispatchEvent(new CustomEvent('languageChanged', { detail: { language: newLanguage } }));
+    } else if (newLanguage === 'en') {
+      // Only change theme if it was noongar
+      const currentTheme = localStorage.getItem('caremate-theme');
+      if (currentTheme === 'noongar-light' || currentTheme === 'noongar-dark') {
+        localStorage.setItem('caremate-theme', 'dark');
+        window.dispatchEvent(new CustomEvent('languageChanged', { detail: { language: newLanguage } }));
+      }
+    }
   };
 
-  // Translation function
-  const t = (key: TranslationKey): string => {
-    return translations[language][key] || translations.en[key] || key;
+  // Translation function with support for nested keys
+  const t = (key: string): string => {
+    const keys = key.split('.');
+    let value: any = translations[language];
+    
+    for (const k of keys) {
+      if (value && typeof value === 'object' && k in value) {
+        value = value[k];
+      } else {
+        // Fallback to English
+        value = translations.en;
+        for (const fallbackKey of keys) {
+          if (value && typeof value === 'object' && fallbackKey in value) {
+            value = value[fallbackKey];
+          } else {
+            return key; // Return the key if not found
+          }
+        }
+        break;
+      }
+    }
+    
+    return typeof value === 'string' ? value : key;
   };
 
   // Chat session language management

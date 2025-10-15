@@ -103,18 +103,32 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({
 
   return (
     <div className={`w-80 flex flex-col h-full transition-colors duration-300 ${
-      theme === 'dark' 
+      theme === 'noongar-dark' 
+        ? 'bg-slate-800 text-white' 
+        : theme === 'noongar-light'
+        ? 'bg-white text-orange-800'
+        : theme === 'dark' 
         ? 'bg-slate-800 text-white' 
         : 'bg-white text-gray-800'
     }`}>
       {/* Header */}
       <div className={`p-4 border-b transition-colors duration-300 ${
-        theme === 'dark' ? 'border-slate-600' : 'border-gray-200'
+        theme === 'noongar-dark' 
+          ? 'border-slate-600' 
+          : theme === 'noongar-light'
+          ? 'border-orange-200'
+          : theme === 'dark' 
+          ? 'border-slate-600' 
+          : 'border-gray-200'
       }`}>
         <button
           onClick={onNewChat}
           className={`w-full flex items-center justify-center space-x-2 px-4 py-3 rounded-lg transition-colors ${
-            theme === 'dark' 
+            theme === 'noongar-dark' 
+              ? 'bg-slate-700 hover:bg-slate-600 text-white'
+              : theme === 'noongar-light'
+              ? 'bg-orange-600 hover:bg-orange-700 text-white'
+              : theme === 'dark' 
               ? 'bg-slate-700 hover:bg-slate-600 text-white' 
               : 'bg-blue-600 hover:bg-blue-700 text-white'
           }`}
@@ -132,10 +146,18 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({
               key={session.id}
               className={`group relative p-3 rounded-lg cursor-pointer transition-colors ${
                 session.id === currentSessionId
-                  ? theme === 'dark' 
+                  ? theme === 'noongar-dark' 
+                    ? 'bg-slate-600'
+                    : theme === 'noongar-light'
+                    ? 'bg-orange-200'
+                    : theme === 'dark' 
                     ? 'bg-slate-600' 
                     : 'bg-blue-200'
-                  : theme === 'dark'
+                  : theme === 'noongar-dark'
+                    ? 'bg-slate-700 hover:bg-slate-600'
+                    : theme === 'noongar-light'
+                    ? 'bg-orange-50 hover:bg-orange-100'
+                    : theme === 'dark'
                     ? 'bg-slate-700 hover:bg-slate-600'
                     : 'bg-blue-50 hover:bg-blue-100'
               }`}
@@ -151,10 +173,14 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({
                       if (e.key === 'Enter') handleSaveEdit();
                       if (e.key === 'Escape') handleCancelEdit();
                     }}
-                    className={`flex-1 px-2 py-1 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                      theme === 'dark' 
-                        ? 'bg-gray-600 text-white' 
-                        : 'bg-white text-gray-800 border border-gray-300'
+                    className={`flex-1 px-2 py-1 rounded text-sm focus:outline-none focus:ring-2 ${
+                      theme === 'noongar-dark' 
+                        ? 'bg-gray-600 text-white focus:ring-blue-500'
+                        : theme === 'noongar-light'
+                        ? 'bg-white text-orange-800 border border-orange-300 focus:ring-orange-500'
+                        : theme === 'dark' 
+                        ? 'bg-gray-600 text-white focus:ring-blue-500' 
+                        : 'bg-white text-gray-800 border border-gray-300 focus:ring-blue-500'
                     }`}
                     autoFocus
                   />

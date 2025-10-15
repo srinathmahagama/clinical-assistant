@@ -39,7 +39,7 @@ const Header: React.FC<HeaderProps> = ({ onLogout, showLanguage = true, title = 
 
   // Get display name
   const getDisplayName = () => {
-    if (isGuest) return 'Guest';
+    if (isGuest) return t('guestUser');
     if (user?.firstName) return user.firstName;
     return 'User';
   };

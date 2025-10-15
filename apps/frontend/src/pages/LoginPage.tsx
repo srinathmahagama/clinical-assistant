@@ -58,14 +58,32 @@ const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onLogin }) => {
           
           <div className="flex items-center justify-center">
             <div className={`rounded-3xl p-8 w-full max-w-md shadow-2xl transition-colors duration-300 ${
-              theme === 'dark' ? 'bg-slate-800' : 'bg-white'
+              theme === 'noongar-dark' 
+                ? 'bg-slate-800' 
+                : theme === 'noongar-light'
+                ? 'bg-white'
+                : theme === 'dark' 
+                ? 'bg-slate-800' 
+                : 'bg-white'
             }`}>
           <div className="text-center mb-8">
             <h1 className={`text-2xl font-bold mb-2 ${
-              theme === 'dark' ? 'text-white' : 'text-gray-800'
+              (theme === 'noongar-dark' || theme === 'noongar-light')
+                ? theme === 'noongar-dark'
+                  ? 'text-white'
+                  : 'text-gray-800'
+                : theme === 'dark' 
+                ? 'text-white' 
+                : 'text-gray-800'
             }`}>{t('welcomeBack')}</h1>
             <p className={`mb-6 ${
-              theme === 'dark' ? 'text-slate-300' : 'text-gray-600'
+              (theme === 'noongar-dark' || theme === 'noongar-light')
+                ? theme === 'noongar-dark'
+                  ? 'text-slate-300'
+                  : 'text-gray-600'
+                : theme === 'dark' 
+                ? 'text-slate-300' 
+                : 'text-gray-600'
             }`}>{t('signInToAccess')}</p>
             
             <div className="mb-6">
@@ -76,7 +94,11 @@ const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onLogin }) => {
           <form onSubmit={handleSubmit} className="space-y-6">
             {error && (
               <div className={`px-4 py-3 rounded-lg text-sm transition-colors duration-300 ${
-                theme === 'dark' 
+                (theme === 'noongar-dark' || theme === 'noongar-light')
+                  ? theme === 'noongar-dark'
+                    ? 'bg-red-900/50 border border-red-700 text-red-300'
+                    : 'bg-red-50 border border-red-200 text-red-600'
+                  : theme === 'dark' 
                   ? 'bg-red-900/50 border border-red-700 text-red-300' 
                   : 'bg-red-50 border border-red-200 text-red-600'
               }`}>
@@ -86,7 +108,13 @@ const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onLogin }) => {
 
             <div>
               <label className={`block text-sm font-medium mb-2 ${
-                theme === 'dark' ? 'text-slate-300' : 'text-gray-700'
+                (theme === 'noongar-dark' || theme === 'noongar-light')
+                  ? theme === 'noongar-dark'
+                    ? 'text-slate-300'
+                    : 'text-gray-700'
+                  : theme === 'dark' 
+                  ? 'text-slate-300' 
+                  : 'text-gray-700'
               }`}>
                 {t('emailAddress')}
               </label>
@@ -95,10 +123,14 @@ const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onLogin }) => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="example@gmail.com"
-                className={`w-full px-4 py-3 border-0 rounded-lg focus:ring-2 focus:ring-blue-500 transition-colors ${
-                  theme === 'dark'
-                    ? 'bg-slate-700 text-white placeholder-slate-400 focus:bg-slate-600'
-                    : 'bg-gray-100 text-gray-900 placeholder-gray-500 focus:bg-white'
+                className={`w-full px-4 py-3 border-0 rounded-lg focus:ring-2 transition-colors ${
+                  (theme === 'noongar-dark' || theme === 'noongar-light')
+                    ? theme === 'noongar-dark'
+                      ? 'bg-slate-700 text-white placeholder-slate-400 focus:bg-slate-600 focus:ring-orange-500'
+                      : 'bg-gray-100 text-gray-900 placeholder-gray-500 focus:bg-white focus:ring-orange-500'
+                    : theme === 'dark'
+                    ? 'bg-slate-700 text-white placeholder-slate-400 focus:bg-slate-600 focus:ring-blue-500'
+                    : 'bg-gray-100 text-gray-900 placeholder-gray-500 focus:bg-white focus:ring-blue-500'
                 }`}
                 required
               />
@@ -106,7 +138,13 @@ const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onLogin }) => {
 
             <div>
               <label className={`block text-sm font-medium mb-2 ${
-                theme === 'dark' ? 'text-slate-300' : 'text-gray-700'
+                (theme === 'noongar-dark' || theme === 'noongar-light')
+                  ? theme === 'noongar-dark'
+                    ? 'text-slate-300'
+                    : 'text-gray-700'
+                  : theme === 'dark' 
+                  ? 'text-slate-300' 
+                  : 'text-gray-700'
               }`}>
                 {t('password')}
               </label>
@@ -116,10 +154,14 @@ const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onLogin }) => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="enter your password"
-                  className={`w-full px-4 py-3 border-0 rounded-lg focus:ring-2 focus:ring-blue-500 transition-colors pr-12 ${
-                    theme === 'dark'
-                      ? 'bg-slate-700 text-white placeholder-slate-400 focus:bg-slate-600'
-                      : 'bg-gray-100 text-gray-900 placeholder-gray-500 focus:bg-white'
+                  className={`w-full px-4 py-3 border-0 rounded-lg focus:ring-2 transition-colors pr-12 ${
+                    (theme === 'noongar-dark' || theme === 'noongar-light')
+                      ? theme === 'noongar-dark'
+                        ? 'bg-slate-700 text-white placeholder-slate-400 focus:bg-slate-600 focus:ring-orange-500'
+                        : 'bg-gray-100 text-gray-900 placeholder-gray-500 focus:bg-white focus:ring-orange-500'
+                      : theme === 'dark'
+                      ? 'bg-slate-700 text-white placeholder-slate-400 focus:bg-slate-600 focus:ring-blue-500'
+                      : 'bg-gray-100 text-gray-900 placeholder-gray-500 focus:bg-white focus:ring-blue-500'
                   }`}
                   required
                 />
@@ -127,7 +169,11 @@ const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onLogin }) => {
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className={`absolute right-3 top-1/2 transform -translate-y-1/2 transition-colors ${
-                    theme === 'dark' 
+                    (theme === 'noongar-dark' || theme === 'noongar-light')
+                      ? theme === 'noongar-dark'
+                        ? 'text-slate-400 hover:text-slate-300'
+                        : 'text-gray-500 hover:text-gray-700'
+                      : theme === 'dark' 
                       ? 'text-slate-400 hover:text-slate-300' 
                       : 'text-gray-500 hover:text-gray-700'
                   }`}
@@ -140,7 +186,11 @@ const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onLogin }) => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-gray-600 hover:bg-[#183172] text-white py-3 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className={`w-full py-3 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+                theme === 'noongar-light' || theme === 'noongar-dark'
+                  ? 'bg-orange-600 hover:bg-orange-700 text-white'
+                  : 'bg-gray-600 hover:bg-[#183172] text-white'
+              }`}
             >
               {isLoading ? t('signingIn') : t('signIn')}
             </button>
@@ -150,7 +200,11 @@ const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onLogin }) => {
                 type="button"
                 onClick={() => navigate('/')}
                 className={`text-sm underline transition-colors ${
-                  theme === 'dark' 
+                  (theme === 'noongar-dark' || theme === 'noongar-light')
+                    ? theme === 'noongar-dark'
+                      ? 'text-orange-400 hover:text-orange-300'
+                      : 'text-orange-600 hover:text-orange-500'
+                    : theme === 'dark' 
                     ? 'text-blue-400 hover:text-blue-300' 
                     : 'text-[#183172] hover:text-[#183172]/80'
                 }`}
@@ -160,14 +214,24 @@ const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onLogin }) => {
             </div>
 
             <div className={`text-center text-sm ${
-              theme === 'dark' ? 'text-slate-300' : 'text-gray-600'
+              (theme === 'noongar-dark' || theme === 'noongar-light')
+                ? theme === 'noongar-dark'
+                  ? 'text-slate-300'
+                  : 'text-gray-600'
+                : theme === 'dark' 
+                ? 'text-slate-300' 
+                : 'text-gray-600'
             }`}>
               {t('createNewAccount')}{' '}
               <button
                 type="button"
                 onClick={() => navigate('/signup')}
                 className={`underline transition-colors ${
-                  theme === 'dark' 
+                  (theme === 'noongar-dark' || theme === 'noongar-light')
+                    ? theme === 'noongar-dark'
+                      ? 'text-orange-400 hover:text-orange-300'
+                      : 'text-orange-600 hover:text-orange-500'
+                    : theme === 'dark' 
                     ? 'text-blue-400 hover:text-blue-300' 
                     : 'text-[#183172] hover:text-[#183172]/80'
                 }`}

@@ -244,7 +244,99 @@ Join thousands of people who trust CareMate for better health insights and sup
     lastNamePlaceholder: "Last Name",
     emailPlaceholder: "Enter your email",
     passwordPlaceholder: "Create a Password(8+ characters)",
-    confirmPasswordPlaceholder: "Confirm your Password"
+    confirmPasswordPlaceholder: "Confirm your Password",
+    
+    // Symptom Categories
+    symptomCategories: {
+      head: "Head & Face",
+      chest: "Chest & Heart", 
+      abdomen: "Abdomen & Stomach",
+      skin: "Skin & Rashes",
+      muscle: "Muscles & Joints",
+      general: "General Symptoms",
+      mental: "Mental Health",
+      urinary: "Urinary System"
+    },
+    
+    // Symptom count text
+    symptomCount: "symptoms",
+    
+    // Individual Symptoms
+    symptoms: {
+      // Head & Face
+      headache: "Headache",
+      migraine: "Migraine", 
+      dizziness: "Dizziness",
+      facialPain: "Facial Pain",
+      eyePain: "Eye Pain",
+      earPain: "Ear Pain",
+      toothPain: "Tooth Pain",
+      neckPain: "Neck Pain",
+      
+      // Chest & Heart
+      chestPain: "Chest Pain",
+      shortnessOfBreath: "Shortness of Breath",
+      heartPalpitations: "Heart Palpitations",
+      coughing: "Coughing",
+      wheezing: "Wheezing",
+      heartburn: "Heartburn",
+      chestTightness: "Chest Tightness",
+      
+      // Abdomen & Stomach
+      stomachPain: "Stomach Pain",
+      nausea: "Nausea",
+      vomiting: "Vomiting",
+      diarrhea: "Diarrhea",
+      constipation: "Constipation",
+      bloating: "Bloating",
+      indigestion: "Indigestion",
+      appetiteLoss: "Loss of Appetite",
+      
+      // Skin & Rashes
+      rash: "Rash",
+      itching: "Itching",
+      swelling: "Swelling",
+      bruising: "Bruising",
+      drySkin: "Dry Skin",
+      acne: "Acne",
+      hives: "Hives",
+      skinDiscoloration: "Skin Discoloration",
+      
+      // Muscles & Joints
+      backPain: "Back Pain",
+      jointPain: "Joint Pain",
+      muscleCramp: "Muscle Cramp",
+      muscleWeakness: "Muscle Weakness",
+      stiffness: "Stiffness",
+      arthritis: "Arthritis",
+      sprain: "Sprain",
+      muscleAche: "Muscle Ache",
+      swollenJoints: "Swollen Joints",
+      
+      // General Symptoms
+      fever: "Fever",
+      fatigue: "Fatigue",
+      weakness: "Weakness",
+      weightLoss: "Weight Loss",
+      weightGain: "Weight Gain",
+      sleepProblems: "Sleep Problems",
+      appetiteChanges: "Appetite Changes",
+      moodChanges: "Mood Changes",
+      
+      // Mental Health
+      anxiety: "Anxiety",
+      depression: "Depression",
+      stress: "Stress",
+      panic: "Panic Attacks",
+      memoryProblems: "Memory Problems",
+      concentrationIssues: "Concentration Issues",
+      
+      // Urinary System
+      frequentUrination: "Frequent Urination",
+      painfulUrination: "Painful Urination",
+      bloodInUrine: "Blood in Urine",
+      incontinence: "Incontinence"
+    }
   },
   
   noongar: {
@@ -491,6 +583,98 @@ Yenniny, yenniny nyinniny
     emailPlaceholder: "Koora nyininy",
     passwordPlaceholder: "Koora nyininy (8+ koora)", 
     confirmPasswordPlaceholder: "Koora nyininy", 
+    
+    // Symptom Categories
+    symptomCategories: {
+      head: "Koorl & Nitcha",
+      chest: "Koorl & Koort", 
+      abdomen: "Koorl & Boodja",
+      skin: "Koorl & Koora",
+      muscle: "Koorl & Djena",
+      general: "Koorl Mooditj",
+      mental: "Koorl Kaartdijin",
+      urinary: "Koorl Wadjiny"
+    },
+    
+    // Symptom count text
+    symptomCount: "Mooditj",
+    
+    // Individual Symptoms
+    symptoms: {
+      // Head & Face
+      headache: "Koorl Mooditj",
+      migraine: "Koorl Mooditj Djena", 
+      dizziness: "Koorl Wirrin",
+      facialPain: "Nitcha Mooditj",
+      eyePain: "Nitcha Mooditj",
+      earPain: "Nitcha Mooditj",
+      toothPain: "Nitcha Mooditj",
+      neckPain: "Koorl Mooditj",
+      
+      // Chest & Heart
+      chestPain: "Koorl Mooditj",
+      shortnessOfBreath: "Koorl Wirrin",
+      heartPalpitations: "Koort Mooditj",
+      coughing: "Koorl Wirrin",
+      wheezing: "Koorl Wirrin",
+      heartburn: "Koorl Mooditj",
+      chestTightness: "Koorl Mooditj",
+      
+      // Abdomen & Stomach
+      stomachPain: "Boodja Mooditj",
+      nausea: "Boodja Wirrin",
+      vomiting: "Boodja Wirrin",
+      diarrhea: "Boodja Wirrin",
+      constipation: "Boodja Wirrin",
+      bloating: "Boodja Wirrin",
+      indigestion: "Boodja Wirrin",
+      appetiteLoss: "Boodja Wirrin",
+      
+      // Skin & Rashes
+      rash: "Koora Mooditj",
+      itching: "Koora Mooditj",
+      swelling: "Koora Wirrin",
+      bruising: "Koora Mooditj",
+      drySkin: "Koora Wirrin",
+      acne: "Koora Mooditj",
+      hives: "Koora Mooditj",
+      skinDiscoloration: "Koora Wirrin",
+      
+      // Muscles & Joints
+      backPain: "Djena Mooditj",
+      jointPain: "Djena Mooditj",
+      muscleCramp: "Djena Mooditj",
+      muscleWeakness: "Djena Wirrin",
+      stiffness: "Djena Wirrin",
+      arthritis: "Djena Mooditj",
+      sprain: "Djena Mooditj",
+      muscleAche: "Djena Mooditj",
+      swollenJoints: "Djena Wirrin",
+      
+      // General Symptoms
+      fever: "Koorl Mooditj",
+      fatigue: "Koorl Wirrin",
+      weakness: "Koorl Wirrin",
+      weightLoss: "Koorl Wirrin",
+      weightGain: "Koorl Wirrin",
+      sleepProblems: "Koorl Wirrin",
+      appetiteChanges: "Boodja Wirrin",
+      moodChanges: "Koorl Wirrin",
+      
+      // Mental Health
+      anxiety: "Koorl Wirrin",
+      depression: "Koorl Wirrin",
+      stress: "Koorl Wirrin",
+      panic: "Koorl Wirrin",
+      memoryProblems: "Kaartdijin Wirrin",
+      concentrationIssues: "Kaartdijin Wirrin",
+      
+      // Urinary System
+      frequentUrination: "Wadjiny Wirrin",
+      painfulUrination: "Wadjiny Mooditj",
+      bloodInUrine: "Wadjiny Mooditj",
+      incontinence: "Wadjiny Wirrin"
+    }
   }
 };
 
