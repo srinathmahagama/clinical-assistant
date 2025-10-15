@@ -207,10 +207,14 @@ const HistoryPage: React.FC<HistoryPageProps> = ({ onNavigate, onLogout, user, i
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder={t('searchYourAssessment')}
-                className={`w-full pl-12 pr-4 py-4 rounded-xl border-0 focus:ring-2 focus:ring-blue-500 focus:outline-none shadow-lg transition-colors ${
-                  theme === 'dark' 
-                    ? 'bg-gradient-to-r from-blue-500/10 to-purple-600/10 text-black placeholder-gray-500 border border-white/10 backdrop-blur-sm' 
-                    : 'bg-white text-gray-700 placeholder-gray-500'
+                className={`w-full pl-12 pr-4 py-4 rounded-xl border-0 focus:ring-2 focus:outline-none shadow-lg transition-colors ${
+                  (theme === 'noongar-dark' || theme === 'noongar-light')
+                    ? theme === 'noongar-dark'
+                      ? 'bg-gradient-to-r from-orange-500/10 to-orange-600/10 text-white placeholder-gray-400 border border-white/10 backdrop-blur-sm focus:ring-orange-500'
+                      : 'bg-white text-orange-900 placeholder-orange-500 focus:ring-orange-500'
+                    : theme === 'dark' 
+                    ? 'bg-gradient-to-r from-blue-500/10 to-purple-600/10 text-black placeholder-gray-500 border border-white/10 backdrop-blur-sm focus:ring-blue-500' 
+                    : 'bg-white text-gray-700 placeholder-gray-500 focus:ring-blue-500'
                 }`}
               />
             </div>
@@ -220,7 +224,11 @@ const HistoryPage: React.FC<HistoryPageProps> = ({ onNavigate, onLogout, user, i
           <div className="mb-8">
             <button
               onClick={handleStartNewChat}
-              className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-4 px-6 rounded-xl font-semibold text-lg hover:from-blue-600 hover:to-purple-700 transition-all transform hover:scale-105 shadow-lg flex items-center justify-center"
+              className={`w-full text-white py-4 px-6 rounded-xl font-semibold text-lg transition-all transform hover:scale-105 shadow-lg flex items-center justify-center ${
+                (theme === 'noongar-dark' || theme === 'noongar-light')
+                  ? 'bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700'
+                  : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700'
+              }`}
             >
               <MessageCircle className="w-6 h-6 mr-3" />
               Start New Consultation
@@ -232,7 +240,11 @@ const HistoryPage: React.FC<HistoryPageProps> = ({ onNavigate, onLogout, user, i
           {isLoading && (
             <div className="text-center py-8">
               <div className={`w-8 h-8 border-4 rounded-full animate-spin mx-auto ${
-                theme === 'dark' 
+                (theme === 'noongar-dark' || theme === 'noongar-light')
+                  ? theme === 'noongar-dark'
+                    ? 'border-white/20 border-t-orange-400'
+                    : 'border-orange-200 border-t-orange-600'
+                  : theme === 'dark' 
                   ? 'border-white/20 border-t-white/60' 
                   : 'border-blue-200 border-t-blue-600'
               }`}></div>
@@ -246,13 +258,21 @@ const HistoryPage: React.FC<HistoryPageProps> = ({ onNavigate, onLogout, user, i
           <div className="space-y-4">
             {filteredSessions.map((session) => (
               <div key={session.id} className={`rounded-xl p-6 shadow-lg hover:shadow-xl transition-all ${
-                theme === 'dark' 
+                (theme === 'noongar-dark' || theme === 'noongar-light')
+                  ? theme === 'noongar-dark'
+                    ? 'bg-gradient-to-r from-orange-500/20 to-orange-600/20 backdrop-blur-sm border border-white/10 hover:from-orange-500/30 hover:to-orange-600/30'
+                    : 'bg-white hover:bg-orange-50'
+                  : theme === 'dark' 
                   ? 'bg-gradient-to-r from-blue-500/20 to-purple-600/20 backdrop-blur-sm border border-white/10 hover:from-blue-500/30 hover:to-purple-600/30' 
                   : 'bg-white hover:bg-gray-50'
               }`}>
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center flex-1 cursor-pointer" onClick={() => handleViewChat(session.id)}>
-                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mr-4">
+                    <div className={`w-12 h-12 rounded-full flex items-center justify-center mr-4 ${
+                      (theme === 'noongar-dark' || theme === 'noongar-light')
+                        ? 'bg-gradient-to-r from-orange-500 to-orange-600'
+                        : 'bg-gradient-to-r from-blue-500 to-purple-600'
+                    }`}>
                       <Bot className="w-6 h-6 text-white" />
                     </div>
                     <div className="flex-1">
@@ -262,10 +282,14 @@ const HistoryPage: React.FC<HistoryPageProps> = ({ onNavigate, onLogout, user, i
                             type="text"
                             value={editTitle}
                             onChange={(e) => setEditTitle(e.target.value)}
-                            className={`px-2 py-1 rounded text-lg font-bold border-0 focus:ring-2 focus:ring-blue-500 focus:outline-none ${
-                              theme === 'dark' 
-                                ? 'bg-slate-600 text-white' 
-                                : 'bg-gray-100 text-gray-800'
+                            className={`px-2 py-1 rounded text-lg font-bold border-0 focus:ring-2 focus:outline-none ${
+                              (theme === 'noongar-dark' || theme === 'noongar-light')
+                                ? theme === 'noongar-dark'
+                                  ? 'bg-slate-600 text-white focus:ring-orange-500'
+                                  : 'bg-orange-100 text-orange-900 focus:ring-orange-500'
+                                : theme === 'dark' 
+                                ? 'bg-slate-600 text-white focus:ring-blue-500' 
+                                : 'bg-gray-100 text-gray-800 focus:ring-blue-500'
                             }`}
                             autoFocus
                             onKeyDown={(e) => {
@@ -364,7 +388,11 @@ const HistoryPage: React.FC<HistoryPageProps> = ({ onNavigate, onLogout, user, i
               {!searchTerm && (
                 <button
                   onClick={handleStartNewChat}
-                  className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-3 rounded-xl font-semibold hover:from-blue-600 hover:to-purple-700 transition-all transform hover:scale-105 shadow-lg"
+                  className={`text-white px-8 py-3 rounded-xl font-semibold transition-all transform hover:scale-105 shadow-lg ${
+                    (theme === 'noongar-dark' || theme === 'noongar-light')
+                      ? 'bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700'
+                      : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700'
+                  }`}
                 >
                   {t('startAssessment')}
                 </button>

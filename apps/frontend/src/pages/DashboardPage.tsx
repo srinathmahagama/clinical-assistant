@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { MessageCircle, Clock, Stethoscope, ArrowRight, FileText } from 'lucide-react';
 import Layout from '../components/Layout/Layout';
 import Header from '../components/Header/Header';
+import NoongarSlideshow from '../components/NoongarSlideshow/NoongarSlideshow';
 import { User } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useTheme } from '../contexts/ThemeContext';
@@ -59,18 +60,35 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ user, isGuest, onLogout, 
             </p>
           </div>
 
+          {/* Noongar Slideshow - Only show when Noongar theme is active */}
+          {/* {(theme === 'noongar-light' || theme === 'noongar-dark') && ( */}
+            {/* // <div className="mb-8">
+            //   <NoongarSlideshow />
+            // </div> */}
+          {/* )} */}
+
           {/* Main Consultation Section */}
           <div 
             onClick={() => navigate('/assistant')}
-            className={`rounded-3xl p-6 shadow-2xl mb-8 transition-all duration-300 hover:shadow-xl cursor-pointer ${
-              theme === 'dark' 
-                ? 'bg-gradient-to-r from-slate-800/40 to-slate-900/40 backdrop-blur-sm border border-white/10 hover:from-blue-500/20 hover:to-purple-600/20' 
-                : 'bg-gradient-to-r from-blue-500 to-purple-600'
-            }`}
+        className={`rounded-3xl p-6 shadow-2xl mb-8 transition-all duration-300 hover:shadow-xl cursor-pointer ${
+          theme === 'noongar-light'
+            ? 'bg-gradient-to-r from-orange-400/70 to-orange-600/70 backdrop-blur-sm border border-orange-500/50 hover:from-orange-500/80 hover:to-orange-700/80'
+            : theme === 'noongar-dark'
+            ? 'bg-gradient-to-r from-slate-800/40 to-slate-900/40 backdrop-blur-sm border border-white/10 hover:from-amber-700/70 hover:to-orange-800/70'
+            : theme === 'dark' 
+            ? 'bg-gradient-to-r from-slate-800/40 to-slate-900/40 backdrop-blur-sm border border-white/10 hover:from-blue-500/20 hover:to-purple-600/20' 
+            : 'bg-gradient-to-r from-blue-500 to-purple-600'
+        }`}
           >
             <div className="text-center text-white">
               <div className={`w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 ${
-                theme === 'dark' ? 'bg-gradient-to-r from-blue-500 to-purple-600' : 'bg-white/20'
+                theme === 'noongar-light'
+                  ? 'bg-gradient-to-r from-orange-500 to-orange-700' 
+                  : theme === 'noongar-dark'
+                  ? 'bg-gradient-to-r from-orange-500 to-orange-700' 
+                  : theme === 'dark' 
+                  ? 'bg-gradient-to-r from-blue-500 to-purple-600' 
+                  : 'bg-white/20'
               }`}>
                 <Stethoscope className="w-10 h-10 text-white" />
               </div>
@@ -81,7 +99,9 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ user, isGuest, onLogout, 
               <button
                 onClick={() => navigate('/assistant')}
                 className={`px-12 py-4 rounded-full font-bold text-lg transition-all transform hover:scale-105 shadow-lg flex items-center mx-auto ${
-                  theme === 'dark' 
+                  (theme === 'noongar-light' || theme === 'noongar-dark')
+                    ? 'bg-white text-orange-600 hover:bg-white/90'
+                    : theme === 'dark' 
                     ? 'bg-white text-slate-800 hover:bg-white/90' 
                     : 'bg-white text-blue-600 hover:bg-white/90'
                 }`}
@@ -141,14 +161,24 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ user, isGuest, onLogout, 
             <div 
               onClick={() => navigate('/history')}
               className={`rounded-3xl p-6 shadow-2xl mb-8 transition-all duration-300 hover:shadow-xl cursor-pointer ${
-                theme === 'dark' 
+                theme === 'noongar-light'
+                  ? 'bg-gradient-to-r from-orange-400/70 to-orange-600/70 backdrop-blur-sm border border-orange-500/50 hover:from-orange-500/80 hover:to-orange-700/80'
+                  : theme === 'noongar-dark'
+                  ? 'bg-gradient-to-r from-slate-800/40 to-slate-900/40 backdrop-blur-sm border border-white/10 hover:from-amber-700/70 hover:to-orange-800/70'
+                  : theme === 'dark' 
                   ? 'bg-gradient-to-r from-slate-800/40 to-slate-900/40 backdrop-blur-sm border border-white/10 hover:from-blue-500/20 hover:to-purple-600/20' 
                   : 'bg-gradient-to-r from-blue-500/35 to-purple-600/35 backdrop-blur-sm border border-white/20'
               }`}
             >
               <div className="text-center text-white">
                 <div className={`w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 ${
-                  theme === 'dark' ? 'bg-gradient-to-r from-blue-500 to-purple-600' : 'bg-white/20'
+                  theme === 'noongar-light'
+                    ? 'bg-gradient-to-r from-orange-500 to-orange-700'
+                    : theme === 'noongar-dark'
+                    ? 'bg-gradient-to-r from-orange-500 to-orange-700'
+                    : theme === 'dark' 
+                    ? 'bg-gradient-to-r from-blue-500 to-purple-600' 
+                    : 'bg-white/20'
                 }`}>
                   <Clock className="w-10 h-10 text-white" />
                 </div>
@@ -159,7 +189,9 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ user, isGuest, onLogout, 
                 <button
                   onClick={() => navigate('/history')}
                   className={`px-12 py-4 rounded-full font-bold text-lg transition-all transform hover:scale-105 shadow-lg flex items-center mx-auto ${
-                    theme === 'dark' 
+                    theme === 'noongar'
+                      ? 'bg-white text-orange-600 hover:bg-white/90'
+                      : theme === 'dark' 
                       ? 'bg-white text-slate-800 hover:bg-white/90' 
                       : 'bg-white text-blue-600 hover:bg-white/90'
                   }`}
@@ -174,14 +206,24 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ user, isGuest, onLogout, 
             <div 
               onClick={() => navigate('/login')}
               className={`rounded-3xl p-6 shadow-2xl mb-8 transition-all duration-300 hover:shadow-xl cursor-pointer ${
-                theme === 'dark' 
+                theme === 'noongar-light'
+                  ? 'bg-gradient-to-r from-orange-400/70 to-orange-600/70 backdrop-blur-sm border border-orange-500/50 hover:from-orange-500/80 hover:to-orange-700/80'
+                  : theme === 'noongar-dark'
+                  ? 'bg-gradient-to-r from-slate-800/40 to-slate-900/40 backdrop-blur-sm border border-white/10 hover:from-amber-700/70 hover:to-orange-800/70'
+                  : theme === 'dark' 
                   ? 'bg-gradient-to-r from-slate-800/40 to-slate-900/40 backdrop-blur-sm border border-white/10 hover:from-blue-500/20 hover:to-purple-600/20' 
                   : 'bg-gradient-to-r from-blue-500/35 to-purple-600/35 backdrop-blur-sm border border-white/20'
               }`}
             >
               <div className="text-center text-white">
                 <div className={`w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 ${
-                  theme === 'dark' ? 'bg-gradient-to-r from-blue-500 to-purple-600' : 'bg-white/20'
+                  theme === 'noongar-light'
+                    ? 'bg-gradient-to-r from-orange-500 to-orange-700'
+                    : theme === 'noongar-dark'
+                    ? 'bg-gradient-to-r from-orange-500 to-orange-700'
+                    : theme === 'dark' 
+                    ? 'bg-gradient-to-r from-blue-500 to-purple-600' 
+                    : 'bg-white/20'
                 }`}>
                   <Clock className="w-10 h-10 text-white" />
                 </div>
@@ -192,7 +234,9 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ user, isGuest, onLogout, 
                 <button
                   onClick={onSignIn}
                   className={`px-12 py-4 rounded-full font-bold text-lg transition-all transform hover:scale-105 shadow-lg flex items-center mx-auto ${
-                    theme === 'dark' 
+                    theme === 'noongar'
+                      ? 'bg-white text-orange-600 hover:bg-white/90'
+                      : theme === 'dark' 
                       ? 'bg-white text-slate-800 hover:bg-white/90' 
                       : 'bg-white text-blue-600 hover:bg-white/90'
                   }`}

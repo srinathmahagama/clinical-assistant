@@ -173,11 +173,23 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate, onLogin }) => {
           
           <div className="flex items-center justify-center">
             <div className={`rounded-3xl p-8 w-full max-w-md shadow-2xl transition-colors duration-300 ${
-              theme === 'dark' ? 'bg-slate-800' : 'bg-white'
+              theme === 'noongar-dark' 
+                ? 'bg-slate-800' 
+                : theme === 'noongar-light'
+                ? 'bg-white'
+                : theme === 'dark' 
+                ? 'bg-slate-800' 
+                : 'bg-white'
             }`}>
           <div className="text-center mb-8">
             <h1 className={`text-2xl font-bold mb-2 ${
-              theme === 'dark' ? 'text-white' : 'text-gray-800'
+              (theme === 'noongar-dark' || theme === 'noongar-light')
+                ? theme === 'noongar-dark'
+                  ? 'text-white'
+                  : 'text-gray-800'
+                : theme === 'dark' 
+                ? 'text-white' 
+                : 'text-gray-800'
             }`}>{t('createAccount')}</h1>
             
             <div className="mb-4">
@@ -215,12 +227,16 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate, onLogin }) => {
                   value={formData.firstName}
                   onChange={handleInputChange}
                   placeholder={t('firstNamePlaceholder')}
-                  className={`w-full px-3 py-2 border-0 rounded-lg focus:ring-2 focus:ring-blue-500 transition-colors text-sm ${
+                  className={`w-full px-3 py-2 border-0 rounded-lg focus:ring-2 transition-colors text-sm ${
                     fieldErrors.firstName
                       ? 'ring-2 ring-red-500'
+                      : (theme === 'noongar-dark' || theme === 'noongar-light')
+                      ? theme === 'noongar-dark'
+                        ? 'bg-slate-700 text-white placeholder-slate-400 focus:bg-slate-600 focus:ring-orange-500'
+                        : 'bg-gray-100 text-gray-900 placeholder-gray-500 focus:bg-white focus:ring-orange-500'
                       : theme === 'dark'
-                      ? 'bg-slate-700 text-white placeholder-slate-400 focus:bg-slate-600'
-                      : 'bg-gray-100 text-gray-900 placeholder-gray-500 focus:bg-white'
+                      ? 'bg-slate-700 text-white placeholder-slate-400 focus:bg-slate-600 focus:ring-blue-500'
+                      : 'bg-gray-100 text-gray-900 placeholder-gray-500 focus:bg-white focus:ring-blue-500'
                   }`}
                   required
                 />
@@ -240,12 +256,16 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate, onLogin }) => {
                   value={formData.lastName}
                   onChange={handleInputChange}
                   placeholder={t('lastNamePlaceholder')}
-                  className={`w-full px-3 py-2 border-0 rounded-lg focus:ring-2 focus:ring-blue-500 transition-colors text-sm ${
+                  className={`w-full px-3 py-2 border-0 rounded-lg focus:ring-2 transition-colors text-sm ${
                     fieldErrors.lastName
                       ? 'ring-2 ring-red-500'
+                      : (theme === 'noongar-dark' || theme === 'noongar-light')
+                      ? theme === 'noongar-dark'
+                        ? 'bg-slate-700 text-white placeholder-slate-400 focus:bg-slate-600 focus:ring-orange-500'
+                        : 'bg-gray-100 text-gray-900 placeholder-gray-500 focus:bg-white focus:ring-orange-500'
                       : theme === 'dark'
-                      ? 'bg-slate-700 text-white placeholder-slate-400 focus:bg-slate-600'
-                      : 'bg-gray-100 text-gray-900 placeholder-gray-500 focus:bg-white'
+                      ? 'bg-slate-700 text-white placeholder-slate-400 focus:bg-slate-600 focus:ring-blue-500'
+                      : 'bg-gray-100 text-gray-900 placeholder-gray-500 focus:bg-white focus:ring-blue-500'
                   }`}
                 />
                 {fieldErrors.lastName && (
@@ -266,12 +286,16 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate, onLogin }) => {
                 value={formData.email}
                 onChange={handleInputChange}
                   placeholder={t('emailPlaceholder')}
-                className={`w-full px-3 py-2 border-0 rounded-lg focus:ring-2 focus:ring-blue-500 transition-colors text-sm ${
+                className={`w-full px-3 py-2 border-0 rounded-lg focus:ring-2 transition-colors text-sm ${
                   fieldErrors.email
                     ? 'ring-2 ring-red-500'
+                    : (theme === 'noongar-dark' || theme === 'noongar-light')
+                    ? theme === 'noongar-dark'
+                      ? 'bg-slate-700 text-white placeholder-slate-400 focus:bg-slate-600 focus:ring-orange-500'
+                      : 'bg-gray-100 text-gray-900 placeholder-gray-500 focus:bg-white focus:ring-orange-500'
                     : theme === 'dark'
-                    ? 'bg-slate-700 text-white placeholder-slate-400 focus:bg-slate-600'
-                    : 'bg-gray-100 text-gray-900 placeholder-gray-500 focus:bg-white'
+                    ? 'bg-slate-700 text-white placeholder-slate-400 focus:bg-slate-600 focus:ring-blue-500'
+                    : 'bg-gray-100 text-gray-900 placeholder-gray-500 focus:bg-white focus:ring-blue-500'
                 }`}
                 required
               />
@@ -293,12 +317,16 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate, onLogin }) => {
                   value={formData.password}
                   onChange={handleInputChange}
                   placeholder={t('passwordPlaceholder')}
-                  className={`w-full px-3 py-2 border-0 rounded-lg focus:ring-2 focus:ring-blue-500 transition-colors text-sm pr-10 ${
+                  className={`w-full px-3 py-2 border-0 rounded-lg focus:ring-2 transition-colors text-sm pr-10 ${
                     fieldErrors.password
                       ? 'ring-2 ring-red-500'
+                      : (theme === 'noongar-dark' || theme === 'noongar-light')
+                      ? theme === 'noongar-dark'
+                        ? 'bg-slate-700 text-white placeholder-slate-400 focus:bg-slate-600 focus:ring-orange-500'
+                        : 'bg-gray-100 text-gray-900 placeholder-gray-500 focus:bg-white focus:ring-orange-500'
                       : theme === 'dark'
-                      ? 'bg-slate-700 text-white placeholder-slate-400 focus:bg-slate-600'
-                      : 'bg-gray-100 text-gray-900 placeholder-gray-500 focus:bg-white'
+                      ? 'bg-slate-700 text-white placeholder-slate-400 focus:bg-slate-600 focus:ring-blue-500'
+                      : 'bg-gray-100 text-gray-900 placeholder-gray-500 focus:bg-white focus:ring-blue-500'
                   }`}
                   required
                 />
@@ -332,12 +360,16 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate, onLogin }) => {
                   value={formData.confirmPassword}
                   onChange={handleInputChange}
                   placeholder={t('confirmPasswordPlaceholder')}
-                  className={`w-full px-3 py-2 border-0 rounded-lg focus:ring-2 focus:ring-blue-500 transition-colors text-sm pr-10 ${
+                  className={`w-full px-3 py-2 border-0 rounded-lg focus:ring-2 transition-colors text-sm pr-10 ${
                     fieldErrors.confirmPassword
                       ? 'ring-2 ring-red-500'
+                      : (theme === 'noongar-dark' || theme === 'noongar-light')
+                      ? theme === 'noongar-dark'
+                        ? 'bg-slate-700 text-white placeholder-slate-400 focus:bg-slate-600 focus:ring-orange-500'
+                        : 'bg-gray-100 text-gray-900 placeholder-gray-500 focus:bg-white focus:ring-orange-500'
                       : theme === 'dark'
-                      ? 'bg-slate-700 text-white placeholder-slate-400 focus:bg-slate-600'
-                      : 'bg-gray-100 text-gray-900 placeholder-gray-500 focus:bg-white'
+                      ? 'bg-slate-700 text-white placeholder-slate-400 focus:bg-slate-600 focus:ring-blue-500'
+                      : 'bg-gray-100 text-gray-900 placeholder-gray-500 focus:bg-white focus:ring-blue-500'
                   }`}
                   required
                 />
@@ -388,7 +420,11 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate, onLogin }) => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-gray-600 hover:bg-[#183172] text-white py-3 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className={`w-full py-3 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+                theme === 'noongar-light' || theme === 'noongar-dark'
+                  ? 'bg-orange-600 hover:bg-orange-700 text-white'
+                  : 'bg-gray-600 hover:bg-[#183172] text-white'
+              }`}
             >
               {isLoading ? t('creatingAccount') : t('createAccount')}
             </button>

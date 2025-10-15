@@ -923,7 +923,7 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
           </div>
           
           <div className={`flex h-[calc(110vh-180px)] rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 my-6 mx-2 ${
-            theme === 'dark' ? 'bg-slate-800' : 'bg-white'
+            theme === 'noongar-dark' ? 'bg-slate-800' : theme === 'noongar-light' ? 'bg-white' : theme === 'dark' ? 'bg-slate-800' : 'bg-white'
           } ${showSymptomSelector ? 'blur-sm' : ''}`}>
             {/* Sidebar */}
             {showSidebar && (
@@ -941,7 +941,11 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
                       <div className="flex-1 flex flex-col">
               {/* Chat Header */}
               <div className={`p-4 flex items-center justify-between border-b transition-colors duration-300 ${
-                theme === 'dark' 
+                theme === 'noongar-dark'
+                  ? 'bg-gradient-to-r from-slate-700 to-slate-600 border-slate-600'
+                  : theme === 'noongar-light'
+                  ? 'bg-gradient-to-r from-orange-500 to-orange-600 border-orange-400'
+                  : theme === 'dark' 
                   ? 'bg-gradient-to-r from-slate-700 to-slate-600 border-slate-600' 
                   : 'bg-gradient-to-r from-blue-500 to-purple-600 border-gray-200'
               }`}>
@@ -950,7 +954,11 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
                     <button
                       onClick={() => setShowSidebar(!showSidebar)}
                       className={`p-2 rounded-lg transition-colors ${
-                        theme === 'dark' 
+                        theme === 'noongar-dark'
+                          ? 'text-white hover:bg-slate-600'
+                          : theme === 'noongar-light'
+                          ? 'text-white hover:bg-white/20'
+                          : theme === 'dark' 
                           ? 'text-white hover:bg-slate-600' 
                           : 'text-white hover:bg-white/20'
                       }`}
@@ -990,13 +998,21 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
                       {t('signInToSave')}
                     </button>
                   )}
-                  <Bot className={`w-6 h-6 ${theme === 'dark' ? 'text-white' : 'text-white'}`} />
+                  <Bot className={`w-6 h-6 ${
+                    theme === 'noongar-dark'
+                      ? 'text-white'
+                      : theme === 'noongar-light'
+                      ? 'text-white'
+                      : theme === 'dark' 
+                      ? 'text-white' 
+                      : 'text-white'
+                  }`} />
                 </div>
               </div>
 
               {/* Messages Area */}
               <div className={`flex-1 overflow-y-auto p-6 space-y-4 transition-colors duration-300 ${
-                theme === 'dark' ? 'bg-slate-900' : 'bg-gray-50'
+                theme === 'noongar-dark' ? 'bg-slate-900' : theme === 'noongar-light' ? 'bg-gray-50' : theme === 'dark' ? 'bg-slate-900' : 'bg-gray-50'
               }`}>
                 {messages && messages.length > 0 ? (
                   messages.map((message, index) => {
@@ -1026,10 +1042,16 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
                           {/* Message Bubble */}
                           <div className={`max-w-md px-4 py-3 rounded-lg relative group transition-colors duration-300 ${
                             message.isUser 
-                              ? theme === 'dark' 
+                              ? (theme === 'noongar-dark' || theme === 'noongar-light')
+                                ? 'bg-orange-600/45 text-white'
+                                : theme === 'dark' 
                                 ? 'bg-blue-900/45 text-white' 
                                 : 'bg-blue-800/45 text-white'
-                              : theme === 'dark'
+                              : (theme === 'noongar-dark' || theme === 'noongar-light')
+                                ? theme === 'noongar-dark'
+                                  ? 'bg-slate-700 text-slate-100'
+                                  : 'bg-orange-100 text-orange-900'
+                                : theme === 'dark'
                                 ? 'bg-slate-700 text-slate-100'
                                 : 'bg-gray-200 text-gray-800'
                           }`}>
@@ -1037,8 +1059,14 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
                             <div className="flex items-center justify-between mt-1">
                               <div className={`text-xs ${
                                 message.isUser 
-                                  ? 'text-blue-100' 
-                                  : theme === 'dark' 
+                                  ? (theme === 'noongar-dark' || theme === 'noongar-light')
+                                    ? 'text-orange-100'
+                                    : 'text-blue-100'
+                                  : (theme === 'noongar-dark' || theme === 'noongar-light')
+                                    ? theme === 'noongar-dark'
+                                      ? 'text-slate-400'
+                                      : 'text-orange-600'
+                                    : theme === 'dark' 
                                     ? 'text-slate-400' 
                                     : 'text-gray-500'
                               }`}>{message.timestamp}</div>
@@ -1064,7 +1092,11 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
                         CareMate Assistant
                       </div>
                       <div className={`max-w-md px-4 py-3 rounded-lg transition-colors duration-300 ${
-                        theme === 'dark' 
+                        (theme === 'noongar-dark' || theme === 'noongar-light')
+                          ? theme === 'noongar-dark'
+                            ? 'bg-slate-700 text-slate-100'
+                            : 'bg-orange-100 text-orange-900'
+                          : theme === 'dark' 
                           ? 'bg-slate-700 text-slate-100' 
                           : 'bg-gray-200 text-gray-800'
                       }`}>
@@ -1085,7 +1117,11 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
 
               {/* Input Area */}
               <div className={`p-4 border-t transition-colors duration-300 ${
-                theme === 'dark' 
+                theme === 'noongar-dark' 
+                  ? 'bg-slate-800 border-slate-600' 
+                  : theme === 'noongar-light'
+                  ? 'bg-white border-orange-200'
+                  : theme === 'dark' 
                   ? 'bg-slate-800 border-slate-600' 
                   : 'bg-white border-gray-200'
               }`}>
@@ -1098,10 +1134,14 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
                       onChange={(e) => setInputText(e.target.value)}
                       onKeyPress={handleKeyPress}
                       placeholder={t('typeYourHealthQuestion')}
-                      className={`w-full px-4 py-3 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-300 ${
-                        theme === 'dark'
-                          ? 'bg-slate-700 border-slate-600 text-white placeholder-slate-400'
-                          : 'bg-white border border-gray-300 text-gray-900 placeholder-gray-500'
+                      className={`w-full px-4 py-3 rounded-full focus:outline-none focus:ring-2 focus:border-transparent transition-colors duration-300 ${
+                        (theme === 'noongar-dark' || theme === 'noongar-light')
+                          ? theme === 'noongar-dark'
+                            ? 'bg-slate-700 border-slate-600 text-white placeholder-slate-400 focus:ring-orange-500'
+                            : 'bg-white border border-orange-300 text-orange-900 placeholder-orange-500 focus:ring-orange-500'
+                          : theme === 'dark'
+                          ? 'bg-slate-700 border-slate-600 text-white placeholder-slate-400 focus:ring-blue-500'
+                          : 'bg-white border border-gray-300 text-gray-900 placeholder-gray-500 focus:ring-blue-500'
                       }`}
                       disabled={isLoading}
                     />
@@ -1131,7 +1171,9 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
                   <button
                     onClick={() => setShowSymptomSelector(true)}
                     className={`p-3 rounded-full text-white transition-all transform hover:scale-105 shadow-lg ${
-                      theme === 'dark' 
+                      (theme === 'noongar-dark' || theme === 'noongar-light')
+                        ? 'bg-orange-600 hover:bg-orange-500'
+                        : theme === 'dark' 
                         ? 'bg-blue-600 hover:bg-blue-500' 
                         : 'bg-blue-500 hover:bg-blue-600'
                     }`}
@@ -1144,7 +1186,11 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
                   <button
                     onClick={sendMessage}
                     disabled={!inputText.trim() || isLoading}
-                    className="p-3 rounded-full bg-blue-500 text-white hover:bg-blue-600 transition-all transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                    className={`p-3 rounded-full text-white transition-all transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed ${
+                      (theme === 'noongar-dark' || theme === 'noongar-light')
+                        ? 'bg-orange-500 hover:bg-orange-600'
+                        : 'bg-blue-500 hover:bg-blue-600'
+                    }`}
                     title={t('sendMessage')}
                   >
                     <Send className="w-5 h-5" />

@@ -15,6 +15,7 @@ import { authService } from "../services/api";
 import LanguageDropdown from "../components/LanguageDropdown/LanguageDropdown";
 import ThemeToggle from "../components/ThemeToggle/ThemeToggle";
 import Logo from "../components/Logo/Logo";
+import NoongarSlideshow from "../components/NoongarSlideshow/NoongarSlideshow";
 
 interface HomePageProps {
   onNavigate: (page: string) => void;
@@ -97,15 +98,21 @@ const HomePage: React.FC<HomePageProps> = ({
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')`,
-          }}
+        style={{
+          backgroundImage: theme === "noongar-light" || theme === "noongar-dark"
+            ? `url('/src/images/noongar images/denmark-dooram-dancersweb-006.jpg')`
+            : `url('https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')`,
+        }}
         />
 
         {/* Theme-specific Gradient Overlay */}
         <div
           className={`absolute inset-0 ${
-            theme === "dark"
+            theme === "noongar-light"
+              ? "bg-gradient-to-br from-orange-400/90 via-blue-500/85 to-orange-600/90"
+              : theme === "noongar-dark"
+              ? "bg-gradient-to-br from-black/85 via-gray-900/80 to-black/90"
+              : theme === "dark"
               ? "bg-gradient-to-br from-black/85 via-gray-900/80 to-black/90"
               : "bg-gradient-to-br from-purple-900/80 via-indigo-900/70 to-pink-900/80"
           }`}
@@ -149,6 +156,12 @@ const HomePage: React.FC<HomePageProps> = ({
     {t('experienceFutureHealthcare')}
   </p> */}
 
+ <div className="mb-8">
+              <NoongarSlideshow />
+            </div>
+
+
+
               <div className="backdrop-blur-sm rounded-2xl p-12 border bg-white/15 border-white/30 max-w-3xl mx-auto">
                 {/* Button Stack */}
                 <h2 className="text-3xl font-bold text-white mb-4">
@@ -160,14 +173,22 @@ const HomePage: React.FC<HomePageProps> = ({
                 <div className="flex flex-col items-center gap-6">
                   <button
                     onClick={() => navigate("/login")}
-                    className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-10 py-4 rounded-xl font-semibold text-lg hover:from-blue-600 hover:to-purple-700 transition-all transform hover:scale-105 shadow-lg w-72"
+                    className={`px-10 py-4 rounded-xl font-semibold text-lg transition-all transform hover:scale-105 shadow-lg w-72 ${
+                      theme === 'noongar-light' || theme === 'noongar-dark'
+                        ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:from-orange-600 hover:to-orange-700'
+                        : 'bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:from-blue-600 hover:to-purple-700'
+                    }`}
                   >
                     {t("loginToAccount")}
                   </button>
 
                   <button
                     onClick={() => navigate("/signup")}
-                    className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-10 py-4 rounded-xl font-semibold text-lg hover:from-blue-600 hover:to-purple-700 transition-all transform hover:scale-105 shadow-lg w-72"
+                    className={`px-10 py-4 rounded-xl font-semibold text-lg transition-all transform hover:scale-105 shadow-lg w-72 ${
+                      theme === 'noongar-light' || theme === 'noongar-dark'
+                        ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:from-orange-600 hover:to-orange-700'
+                        : 'bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:from-blue-600 hover:to-purple-700'
+                    }`}
                   >
                     {t("registerNow")}
                   </button>
@@ -212,7 +233,11 @@ const HomePage: React.FC<HomePageProps> = ({
                   key={index}
                   className="backdrop-blur-sm rounded-xl p-8 border bg-white/15 border-white/30"
                 >
-                  <div className="text-blue-400 mb-4">{feature.icon}</div>
+                  <div className={`mb-4 ${
+                    theme === 'noongar-light' || theme === 'noongar-dark'
+                      ? 'text-orange-400'
+                      : 'text-blue-400'
+                  }`}>{feature.icon}</div>
                   <h3 className="text-xl font-semibold text-white mb-3">
                     {feature.title}
                   </h3>
@@ -275,7 +300,11 @@ const HomePage: React.FC<HomePageProps> = ({
 
             {/* Header */}
             <div className="flex items-center mb-6">
-              <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mr-4">
+              <div className={`w-12 h-12 rounded-full flex items-center justify-center mr-4 ${
+                theme === 'noongar-light' || theme === 'noongar-dark'
+                  ? 'bg-gradient-to-r from-orange-500 to-orange-600'
+                  : 'bg-gradient-to-r from-blue-500 to-purple-600'
+              }`}>
                 <User className="w-6 h-6 text-white" />
               </div>
               <div>
@@ -284,7 +313,7 @@ const HomePage: React.FC<HomePageProps> = ({
                     theme === "dark" ? "text-white" : "text-gray-800"
                   }`}
                 >
-                  Welcome to Caremate
+                  Welcome to CareMate
                 </h2>
                 <h2
                   className={`text-2xl font-bold ${
@@ -319,19 +348,14 @@ const HomePage: React.FC<HomePageProps> = ({
                 onClick={languageEnglish}
                 className="w-full bg-white border-2 border-blue-500 text-blue-500 py-3 px-6 rounded-xl font-semibold hover:bg-blue-50 transition-all flex items-center justify-center"
               >
-                {/* <UserPlus className="w-5 h-5 mr-2" /> */}
-                English
+                🇺🇸 English
               </button>
 
               <button
                 onClick={languageNoongar}
-                className={`w-full py-3 px-6 rounded-xl font-semibold transition-all ${
-                  theme === "dark"
-                    ? "bg-gray-700 text-gray-200 hover:bg-gray-600"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
+                className="w-full bg-gradient-to-r from-amber-600 to-orange-700 text-white py-3 px-6 rounded-xl font-semibold hover:from-amber-500 hover:to-orange-600 transition-all flex items-center justify-center shadow-lg"
               >
-                Noongar
+                🇦🇺 Noongar
               </button>
             </div>
 
