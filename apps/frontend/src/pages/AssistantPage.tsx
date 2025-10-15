@@ -420,13 +420,17 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
         currentSession?.id || 'guest-session', 
         messageText
       );
-      
+
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 3000);
+
       if (response.success && response.data) {
-        const { userMessage: backendUserMessage, response: aiResponse } = response.data;
+        const { userMessage: backendUserMessage, response: aiResponse, patientMessage } = response.data;
         
         setMessages(prev => {
           const withoutLast = prev.slice(0, -1);
-          return [...withoutLast, backendUserMessage, aiResponse];
+          return [...withoutLast, backendUserMessage, patientMessage, aiResponse];
         });
 
         if (!isGuest && currentSession) {
@@ -668,10 +672,12 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
     try {
       const symptomNames = symptoms.map(symptom => symptom.name);
       const response = await chatService.sendSymptoms(currentSession?.id || 'guest-session', symptomNames);
-      
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 3000);
       if (response.success && response.data) {
         if (!isGuest && currentSession) {
-          const updatedMessages = [...currentSession.messages, response.data];
+          const updatedMessages = [...currentSession.messages,response.patientMessage, response.data,];
           const updatedSession = { ...currentSession, messages: updatedMessages, updatedAt: new Date().toISOString() };
           setCurrentSession(updatedSession);
           setMessages(updatedMessages);
@@ -681,7 +687,7 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
           );
           setSessions(updatedSessions);
         } else {
-          setMessages(prev => [...prev, response.data!]);
+          setMessages(prev => [...prev, response.patientMessage, response.data!]);
         }
       } else {
         const fallbackMessage: Message = {

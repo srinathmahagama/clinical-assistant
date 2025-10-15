@@ -1,13 +1,6 @@
 import { User, Assessment, ApiResponse, Message, ChatSession } from '../types';
 
-// ===================================================================
-// FLASK BACKEND INTEGRATION
-// ===================================================================
-// Backend endpoints are implemented in Flask
-// Frontend dummy data removed for implemented endpoints
-// ===================================================================
-
-// API Base URL - Flask backend
+// API Base URL - fastAPI backend
 const API_BASE_URL = 'http://localhost:8000';
 
 // ===================================================================
@@ -721,25 +714,9 @@ export const chatService = {
   },
 
   // Main message handler - uses YOUR integration endpoint
-  sendMessage: async (sessionId: string, message: string): Promise<ApiResponse<{userMessage: Message, response: Message}>> => {
+  sendMessage: async (sessionId: string, message: string): Promise<ApiResponse<{userMessage: Message, response: Message, patientMessage: Message }>> => {
     console.log('📤 INTEGRATION: Send message:', message);
-    
-    // Check if message is health-related
-    const healthKeywords = [
-      'fever', 'headache', 'pain', 'symptom', 'hurt', 'sick', 'ill', 'unwell', 
-      'doctor', 'hospital', 'medicine', 'cough', 'cold', 'flu', 'nausea', 'dizziness',
-      // Noongar words
-      'wara', 'kalyakal', 'yoowart', 'koort', 'miyal', 'kaat', 'korbol', 
-      'ngoorndiny', 'woort', 'nyidiny', 'ngaitj', 'kadak', 'boola', 'kwop', 'moorditj'
-    ];
-    
-    const isHealthRelated = healthKeywords.some(keyword => 
-      message.toLowerCase().includes(keyword)
-    );
-    
-    if (isHealthRelated) {
-      console.log('🩺 Health-related message detected, using integration endpoint');
-      
+       
       try {
         // Send to YOUR integration endpoint
         const response = await fetch('http://localhost:8000/analyze-clinical-text', {
@@ -784,14 +761,26 @@ export const chatService = {
           createdAt: new Date().toISOString(),
           type: 'text'
         };
-        
-        return { success: true, data: { userMessage, response: aiResponse } };
-        
+
+      const patientMessage: Message = {
+      id: (Date.now() + 1).toString(),
+      text: chatService.formatAnalysisForPatient(analysisResult),
+      isUser: false,
+      timestamp: new Date().toLocaleTimeString('en-US', { 
+        hour: 'numeric', 
+        minute: '2-digit',
+        hour12: true 
+      }),
+      createdAt: new Date().toISOString(),
+      type: 'text'
+    };
+
+        return { success: true, data: { userMessage, response: aiResponse, patientMessage } };
+
       } catch (error) {
         console.error('❌ Health message analysis failed:', error);
         // Fall through to regular response
       }
-    }
     
     // Regular chat response for non-health messages
     const userMessage: Message = {
@@ -825,7 +814,7 @@ export const chatService = {
 
   // Symptoms handler - uses YOUR integration endpoint
   
-  sendSymptoms: async (sessionId: string, symptoms: string[]): Promise<ApiResponse<Message>> => {
+  sendSymptoms: async (sessionId: string, symptoms: string[]): Promise<ApiResponse<any>> => {
     console.log('🩺 INTEGRATION: Send symptoms to NLP+ML backend:', symptoms);
     
     try {
@@ -860,9 +849,23 @@ export const chatService = {
         createdAt: new Date().toISOString(),
         type: 'text'
       };
-      
-      return { success: true, data: aiResponse };
-      
+
+      const patientMessage: Message = {
+      id: (Date.now() + 1).toString(),
+      text: chatService.formatAnalysisForPatient(analysisResult),
+      isUser: false,
+      timestamp: new Date().toLocaleTimeString('en-US', { 
+        hour: 'numeric', 
+        minute: '2-digit',
+        hour12: true 
+      }),
+      createdAt: new Date().toISOString(),
+      type: 'text'
+    };
+
+
+      return { success: true, data: aiResponse, patientMessage: patientMessage };
+
     } catch (error) {
       console.error('Symptoms analysis failed:', error);
       
@@ -893,7 +896,7 @@ formatAnalysisForChat: (analysisResult: any): string => {
   const analysis = analysisResult.analysis || analysisResult;
   const { text_analysis, ml_prediction } = analysis;
   
-  let response = "🔍 **Health Analysis Results**\n\n";
+  let response = "🔍 **Health Analysis for Experts**\n\n";
   
   // Add symptoms detected from NLP
   if (text_analysis?.entities && text_analysis.entities.length > 0) {
@@ -932,9 +935,44 @@ formatAnalysisForChat: (analysisResult: any): string => {
   }
   
   response += "\n💡 *Please consult with a healthcare provider for proper diagnosis and treatment.*";
-  
   return response;
 },
+
+formatAnalysisForPatient: (analysisResult: any): string => {
+  const analysis = analysisResult?.analysis ?? analysisResult;
+  const { text_analysis, ml_prediction } = analysis ?? {};
+
+  let response = '🩺 **General Health Check**\n\n';
+
+  // Symptoms (brief)
+  const symptoms = (text_analysis?.entities ?? []).filter((e: any) => e.entity === 'SYMPTOM');
+  if (symptoms.length) {
+    response += '🔹 **Symptoms:** ';
+    response += symptoms.map((s: any) => `${s.word}${s.english_translation ? ` (${s.english_translation})` : ''}`).join(', ') + '\n\n';
+  }
+
+  // Helper functions moved to outer scope so they are available below
+  const severityColor = (sev?: string) => sev === 'Severe' ? '🔴' : sev === 'moderate' ? '🟡' : '🟢';
+  const recommendation = (rec?: string) => rec === 'Severe' ? 'Please call 000 for medical support' : 'Please consult a doctor for proper care.';
+
+  // Conditions
+  if (ml_prediction?.top_3_predictions?.length) {
+    const best = ml_prediction.best_prediction;
+    const others = ml_prediction.top_3_predictions.filter((p: any) => p.disease !== best?.disease);
+
+    response += `⚠️ I'm highly confident that you might be experiencing **${best?.disease}** with a severity level of ${ml_prediction?.severity} ${severityColor(ml_prediction?.severity)} \n`;
+    if (others.length) {
+      response += `ℹ️ We also suspect: ${others.slice(0, 2).map((o: any) => o.disease).join(', ')}\n`;
+    }
+
+  }
+
+  response += '\n💡 I recommend, ' + `${recommendation(ml_prediction?.severity)}` + '\n';
+
+  return response;
+
+},
+
        
 
   // Mock other methods we don't need right now

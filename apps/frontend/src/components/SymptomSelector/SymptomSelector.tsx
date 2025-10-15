@@ -183,8 +183,8 @@ const SymptomSelector: React.FC<SymptomSelectorProps> = ({
   const handleSendSymptoms = () => {
     console.log('Sending symptoms and closing selector...');
     onSelectSymptoms(selectedSymptoms);
-    // Don't reset selectedSymptoms - keep them for the chat session
     setSelectedCategory(null);
+    setSelectedSymptoms([]);
     onClose();
   };
 
