@@ -632,6 +632,9 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
     }
   };
 
+
+  
+
   // ADD MISSING SYMPTOM FUNCTION
   const handleSymptomSelection = (symptoms: { name: string; tags: string[] }[]) => {
     if (symptoms.length === 0) return;
@@ -1004,51 +1007,54 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
                   </div>
 
                   {/* Voice Message Button */}
-                  {!showVoiceRecorder ? (
+                      {/* Voice Message Button */}
+                    {!showVoiceRecorder ? (
+                      <button
+                        onClick={() => setShowVoiceRecorder(true)}
+                        className={`p-3 rounded-full text-white transition-all transform hover:scale-105 shadow-lg ${
+                          theme === 'dark' 
+                            ? 'bg-emerald-600 hover:bg-emerald-700' 
+                            : 'bg-emerald-500 hover:bg-emerald-600'
+                        }`}
+                        title="Record voice message"
+                      >
+                        <Mic className="w-5 h-5" />
+                      </button>
+                    ) : (
+                      <VoiceRecorder
+                        onSendVoiceMessage={handleSendVoiceMessage}
+                        onCancel={() => setShowVoiceRecorder(false)}
+                        onTranscribedText={(text) => setInputText(text)}
+                      />
+                    )}
+
+                    {/* Symptom Selector Button */}
                     <button
-                      onClick={() => setShowVoiceRecorder(true)}
+                      onClick={() => setShowSymptomSelector(true)}
                       className={`p-3 rounded-full text-white transition-all transform hover:scale-105 shadow-lg ${
                         theme === 'dark' 
-                          ? 'bg-emerald-600 hover:bg-emerald-700' 
-                          : 'bg-emerald-500 hover:bg-emerald-600'
+                          ? 'bg-amber-600 hover:bg-amber-500' 
+                          : 'bg-amber-500 hover:bg-amber-600'
                       }`}
-                      title="Record voice message"
+                      title="Select symptoms"
                     >
-                      <Mic className="w-5 h-5" />
+                      <Image className="w-5 h-5" />
                     </button>
-                  ) : (
-                    <VoiceRecorder
-                      onSendVoiceMessage={handleSendVoiceMessage}
-                      onCancel={() => setShowVoiceRecorder(false)}
-                    />
-                  )}
 
-                  {/* Symptom Selector Button */}
-                  <button
-                    onClick={() => setShowSymptomSelector(true)}
-                    className={`p-3 rounded-full text-white transition-all transform hover:scale-105 shadow-lg ${
-                      theme === 'dark' 
-                        ? 'bg-amber-600 hover:bg-amber-500' 
-                        : 'bg-amber-500 hover:bg-amber-600'
-                    }`}
-                    title="Select symptoms"
-                  >
-                    <Image className="w-5 h-5" />
-                  </button>
+                    {/* Send Button */}
+                    <button
+                      onClick={sendMessage}
+                      disabled={!inputText.trim() || isLoading}
+                      className={`p-3 rounded-full text-white transition-all transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed ${
+                        theme === 'dark' 
+                          ? 'bg-amber-600 hover:bg-amber-500' 
+                          : 'bg-amber-500 hover:bg-amber-600'
+                      }`}
+                      title={t('sendMessage')}
+                    >
+                      <Send className="w-5 h-5" />
+                    </button>
 
-                  {/* Send Button */}
-                  <button
-                    onClick={sendMessage}
-                    disabled={!inputText.trim() || isLoading}
-                    className={`p-3 rounded-full text-white transition-all transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed ${
-                      theme === 'dark' 
-                        ? 'bg-amber-600 hover:bg-amber-500' 
-                        : 'bg-amber-500 hover:bg-amber-600'
-                    }`}
-                    title={t('sendMessage')}
-                  >
-                    <Send className="w-5 h-5" />
-                  </button>
                 </div>
               </div>
             </div>
