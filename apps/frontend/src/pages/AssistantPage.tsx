@@ -426,11 +426,11 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
       }, 3000);
 
       if (response.success && response.data) {
-        const { userMessage: backendUserMessage, response: aiResponse, patientMessage } = response.data;
-        
+        const { userMessage: backendUserMessage, response: aiResponse, patientMessage, patientMessageNoongar } = response.data;
+
         setMessages(prev => {
           const withoutLast = prev.slice(0, -1);
-          return [...withoutLast, backendUserMessage, patientMessage, aiResponse];
+          return [...withoutLast, backendUserMessage, patientMessageNoongar, patientMessage, aiResponse];
         });
 
         if (!isGuest && currentSession) {
@@ -659,17 +659,18 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
     };
 
     setMessages(prev => [...prev, userMessage]);
+    //console.log('🩺 User symptoms message:', userMessage);
 
     setTimeout(() => {
       setShowSymptomSelector(false);
     }, 300);
 
     // Send to assistant
-    sendMessageToAssistant(messageText, symptoms);
+    sendMessageToAssistant(userMessage, userMessage.text, symptoms);
   };
 
   // ADD MISSING SEND MESSAGE TO ASSISTANT FUNCTION
-  const sendMessageToAssistant = async (messageText: string, symptoms: { name: string; tags: string[] }[]) => {
+  const sendMessageToAssistant = async (userMessage: Message , messageText: string, symptoms: { name: string; tags: string[] }[]) => {
     setIsLoading(true);
     
     try {
@@ -680,17 +681,17 @@ const AssistantPage: React.FC<AssistantPageProps> = ({ onLogout, user, isGuest, 
       }, 3000);
       if (response.success && response.data) {
         if (!isGuest && currentSession) {
-          const updatedMessages = [...currentSession.messages,response.patientMessage, response.data,];
+          console.log('gfhg ', currentSession.messages)
+          const updatedMessages = [...currentSession.messages, userMessage,response.patientMessageNoongar, response.patientMessage, response.data];
           const updatedSession = { ...currentSession, messages: updatedMessages, updatedAt: new Date().toISOString() };
           setCurrentSession(updatedSession);
-          setMessages(updatedMessages);
           
           const updatedSessions = sessions.map(s => 
             s.id === currentSession.id ? updatedSession : s
           );
           setSessions(updatedSessions);
         } else {
-          setMessages(prev => [...prev, response.patientMessage, response.data!]);
+          setMessages(prev => [...prev, response.patientMessageNoongar, response.patientMessage, response.data!]);
         }
       } else {
         const fallbackMessage: Message = {

@@ -657,8 +657,8 @@ export const chatService = {
     console.log('🆕 MOCK: Create chat session');
     
     const initialMessages = {
-      en: "Hello! I'm your health assistant. I can help you understand your symptoms, explain your assessment results, or answer health questions. How can I help you today?",
-      noongar: "Kaya! Ngany mooditj moort. Ngany mooditj wangkiny, ngany mooditj koora, ngany mooditj wangkiny. Ngany mooditj?"
+      en: "Welcome! I am your health assistant. Please describe your symptoms so I can provide proper help.",
+      noongar: "Yirra! Ngany moorditj baalap boordiya, djena noonook marrak yeyi kalyak djinang."
     };
 
     const newSession: ChatSession = {
@@ -691,8 +691,8 @@ export const chatService = {
     console.log('📨 MOCK: Get chat messages for session:', sessionId);
     
     const initialMessages = {
-      en: "Hello! I'm your health assistant. I can help you understand your symptoms, explain your assessment results, or answer health questions. How can I help you today?",
-      noongar: "Kaya! Ngany mooditj moort. Ngany mooditj wangkiny, ngany mooditj koora, ngany mooditj wangkiny. Ngany mooditj?"
+      en: "Welcome! I am your health assistant. Please describe your symptoms so I can provide proper help.",
+      noongar: "Yirra! Ngany moorditj baalap boordiya, djena noonook marrak yeyi kalyak djinang."
     };
 
     const messages: Message[] = [
@@ -714,7 +714,7 @@ export const chatService = {
   },
 
   // Main message handler - uses YOUR integration endpoint
-  sendMessage: async (sessionId: string, message: string): Promise<ApiResponse<{userMessage: Message, response: Message, patientMessage: Message }>> => {
+  sendMessage: async (sessionId: string, message: string): Promise<ApiResponse<{userMessage: Message, response: Message, patientMessage: Message, patientMessageNoongar: Message }>> => {
     console.log('📤 INTEGRATION: Send message:', message);
        
       try {
@@ -748,10 +748,11 @@ export const chatService = {
           type: 'text'
         };
         
-        // Create AI response from analysis
+        const confidence = (Number)((analysisResult.analysis.ml_prediction.best_prediction.confidence).toString().split('.')[0]);
+
         const aiResponse: Message = {
           id: (Date.now() + 1).toString(),
-          text: chatService.formatAnalysisForChat(analysisResult),
+          text: confidence > 13 ? chatService.formatAnalysisForChat(analysisResult): chatService.defaultMsg(),
           isUser: false,
           timestamp: new Date().toLocaleTimeString('en-US', { 
             hour: 'numeric', 
@@ -775,7 +776,20 @@ export const chatService = {
       type: 'text'
     };
 
-        return { success: true, data: { userMessage, response: aiResponse, patientMessage } };
+const patientMessageNoongar: Message = {
+      id: (Date.now() + 1).toString(),
+      text: chatService.formatAnalysisForPatientNoongar(analysisResult),
+      isUser: false,
+      timestamp: new Date().toLocaleTimeString('en-US', { 
+        hour: 'numeric', 
+        minute: '2-digit',
+        hour12: true 
+      }),
+      createdAt: new Date().toISOString(),
+      type: 'text'
+    };
+
+        return { success: true, data: { userMessage, response: aiResponse, patientMessage, patientMessageNoongar } };
 
       } catch (error) {
         console.error('❌ Health message analysis failed:', error);
@@ -836,10 +850,13 @@ export const chatService = {
       
       const analysisResult = await response.json();
       
+      const confidence = (Number)((analysisResult.analysis.ml_prediction.best_prediction.confidence).toString().split('.')[0]);
+
+
       // Format the response for the chat interface
       const aiResponse: Message = {
         id: Date.now().toString(),
-        text: chatService.formatAnalysisForChat(analysisResult),
+        text: confidence > 13 ? chatService.formatAnalysisForChat(analysisResult): chatService.defaultMsg(),
         isUser: false,
         timestamp: new Date().toLocaleTimeString('en-US', { 
           hour: 'numeric', 
@@ -863,8 +880,20 @@ export const chatService = {
       type: 'text'
     };
 
+    const patientMessageNoongar: Message = {
+      id: (Date.now() + 1).toString(),
+      text: chatService.formatAnalysisForPatientNoongar(analysisResult),
+      isUser: false,
+      timestamp: new Date().toLocaleTimeString('en-US', { 
+        hour: 'numeric', 
+        minute: '2-digit',
+        hour12: true 
+      }),
+      createdAt: new Date().toISOString(),
+      type: 'text'
+    };
 
-      return { success: true, data: aiResponse, patientMessage: patientMessage };
+    return { success: true, data: aiResponse, patientMessage: patientMessage, patientMessageNoongar: patientMessageNoongar };
 
     } catch (error) {
       console.error('Symptoms analysis failed:', error);
@@ -888,16 +917,17 @@ export const chatService = {
   },
 
   // Helper function to format analysis for chat
-  // In chatService.sendMessage, update the response formatting:
+  // In chatService.sendMessage, update the response formatting: 
+
 formatAnalysisForChat: (analysisResult: any): string => {
   console.log('📋 Formatting analysis for chat:', analysisResult);
   
   // Handle case where analysis might be nested
   const analysis = analysisResult.analysis || analysisResult;
   const { text_analysis, ml_prediction } = analysis;
-  
-  let response = "🔍 **Health Analysis for Experts**\n\n";
-  
+
+  let response = "⚕️ Patient Severity Analysis for Medical Professionals \n\n";
+
   // Add symptoms detected from NLP
   if (text_analysis?.entities && text_analysis.entities.length > 0) {
     const symptoms = text_analysis.entities.filter((entity: any) => entity.entity === 'SYMPTOM');
@@ -916,9 +946,9 @@ formatAnalysisForChat: (analysisResult: any): string => {
   
   // Add ML predictions
   if (ml_prediction) {
-    response += "**Possible Conditions:**\n";
+    response += "Possible Conditions as of symptoms detected: \n \n";
     if (ml_prediction.best_prediction) {
-      response += `• **${ml_prediction.best_prediction.disease}** (${ml_prediction.best_prediction.confidence} confidence)\n`;
+      response += `• ${ml_prediction.best_prediction.disease} (${ml_prediction.best_prediction.confidence} confidence)\n`;
     }
     
     if (ml_prediction.top_3_predictions) {
@@ -933,16 +963,14 @@ formatAnalysisForChat: (analysisResult: any): string => {
       response += `\n**Severity Level:** ${ml_prediction.severity}\n`;
     }
   }
-  
-  response += "\n💡 *Please consult with a healthcare provider for proper diagnosis and treatment.*";
-  return response;
+    return response;
 },
 
 formatAnalysisForPatient: (analysisResult: any): string => {
   const analysis = analysisResult?.analysis ?? analysisResult;
   const { text_analysis, ml_prediction } = analysis ?? {};
 
-  let response = '🩺 **General Health Check**\n\n';
+  let response = '🤒 Possible Health Condition \n \n';
 
   // Symptoms (brief)
   const symptoms = (text_analysis?.entities ?? []).filter((e: any) => e.entity === 'SYMPTOM');
@@ -952,31 +980,90 @@ formatAnalysisForPatient: (analysisResult: any): string => {
   }
 
   // Helper functions moved to outer scope so they are available below
-  const severityColor = (sev?: string) => sev === 'Severe' ? '🔴' : sev === 'moderate' ? '🟡' : '🟢';
-  const recommendation = (rec?: string) => rec === 'Severe' ? 'Please call 000 for medical support' : 'Please consult a doctor for proper care.';
+
+  const recommendation = (rec?: string) => rec === 'Severe' ? 'Please call 000 for support' : 'Please consult a doctor for proper care.';
+  const confidence = (Number)((ml_prediction.best_prediction.confidence).toString().split('.')[0]);
+  const severityColor = () => confidence > 35 ? '🔴' :  '🟡' ;
+
+  const confidenceMsg = (confidence?: number) => {
+    const best = ml_prediction.best_prediction;
+    if (confidence === undefined) return '';
+    if (confidence < 13) return `⚠️ Sorry, no matching condition found. \n`;
+    if (confidence < 35) return `${severityColor()} I'm moderately confident that you might be experiencing **${best?.disease}** with a severity level of ${ml_prediction?.severity} \n`;
+    return `${severityColor()} I'm highly confident that you might be experiencing **${best?.disease}** with a severity level of ${ml_prediction?.severity} \n`;
+  };
 
   // Conditions
   if (ml_prediction?.top_3_predictions?.length) {
     const best = ml_prediction.best_prediction;
     const others = ml_prediction.top_3_predictions.filter((p: any) => p.disease !== best?.disease);
 
-    response += `⚠️ I'm highly confident that you might be experiencing **${best?.disease}** with a severity level of ${ml_prediction?.severity} ${severityColor(ml_prediction?.severity)} \n`;
-    if (others.length) {
-      response += `ℹ️ We also suspect: ${others.slice(0, 2).map((o: any) => o.disease).join(', ')}\n`;
+    response +=  confidenceMsg(confidence);
+    if (others.length && confidence >= 20) {
+      response += `\n ℹ️ Also may be suspecting :  ${others.slice(0, 2).map((o: any) => o.disease).join(',  ')}\n`;
+      response += '\n💡 I recommend,' + `${recommendation(ml_prediction?.severity)} \n 🌿 Take Care of Your Health` + '\n';
     }
 
   }
 
-  response += '\n💡 I recommend, ' + `${recommendation(ml_prediction?.severity)}` + '\n';
 
   return response;
 
 },
 
+formatAnalysisForPatientNoongar: (analysisResult: any): string => {
+  const analysis = analysisResult?.analysis ?? analysisResult;
+  const { text_analysis, ml_prediction } = analysis ?? {};
+
+  let response = '🤒 Marr kapa boordiya \n \n';
+
+  // Symptoms (brief)
+  const symptoms = (text_analysis?.entities ?? []).filter((e: any) => e.entity === 'SYMPTOM');
+  if (symptoms.length) {
+    response += '🔹 **Symptoms:** ';
+    response += symptoms.map((s: any) => `${s.word}${s.english_translation ? ` (${s.english_translation})` : ''}`).join(', ') + '\n\n';
+  }
+
+  // Helper functions moved to outer scope so they are available below
+
+  const recommendation = (rec?: string) => rec === 'Severe' ? 'Yirra call 000 moorditj djena.' : 'Yirra yarn doctor moorditj marlak.';
+  const confidence = (Number)((ml_prediction.best_prediction.confidence).toString().split('.')[0]);
+  const severityColor = () => confidence > 35 ? '🔴' :  '🟡' ;
+
+  const confidenceMsg = (confidence?: number) => {
+    const best = ml_prediction.best_prediction;
+    if (confidence === undefined) return '';
+    if (confidence < 20) return `⚠️ Moorditj waarnk koodak, ngala djinang marr yennar doctor.\n`;
+    if (confidence < 35) return `${severityColor()} Ngany yennar moorditj kura noonook mar. **${best?.disease}** with a severity level of / kalyak moordit ${ml_prediction?.severity} \n`;
+    return `${severityColor()} Ngany baalap moorditj kura noonook mar. **${best?.disease}** with a severity level of / kalyak moordit ${ml_prediction?.severity} \n`;
+  };
+
+  // Conditions
+  if (ml_prediction?.top_3_predictions?.length) {
+    const best = ml_prediction.best_prediction;
+    const others = ml_prediction.top_3_predictions.filter((p: any) => p.disease !== best?.disease);
+
+    response +=  confidenceMsg(confidence);
+    if (others.length && confidence >= 20) {
+      response += `\n ℹ️yeyi kura djinang boordawan :  ${others.slice(0, 2).map((o: any) => o.disease).join(',  ')}\n`;
+      response += '\n💡 Ngany baalap kalyak djena. ' + `${recommendation(ml_prediction?.severity)} \n 🌿 Boodjar moorditj ngalla yeyi.` + '\n';
+    }
+
+  }
+  return response;
+
+},
+
+defaultMsg: (): string => {
+  let response = `Would you like to try again?, pls describe your symptoms or concerns in more detail.`;
+  return response;
+},
+
+
        
 
   // Mock other methods we don't need right now
-  sendVoiceMessage: async (sessionId: string, audioBlob: Blob, duration: number): Promise<ApiResponse<{userMessage: Message, response: Message}>> => {
+  sendVoiceMessage: async (sessionId: string, audioBlob: Blob, duration: number): Promise<ApiResponse<any>> => {
     console.log('🎤 MOCK: Send voice message');
     await simulateApiDelay(2000);
     
