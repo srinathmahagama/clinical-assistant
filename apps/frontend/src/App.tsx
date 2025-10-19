@@ -24,7 +24,8 @@ const AppContent: React.FC<{
   handleLogout: () => void;
   handleContinueAsGuest: () => void;
   handleNavigate: (data?: any) => void;
-}> = ({ user, isGuest, showSignInPopup, setShowSignInPopup, handleLogin, handleLogout, handleContinueAsGuest, handleNavigate }) => {
+  handleRestoreGuestSession: () => void;
+}> = ({ user, isGuest, showSignInPopup, setShowSignInPopup, handleLogin, handleLogout, handleContinueAsGuest, handleNavigate, handleRestoreGuestSession }) => {
   const location = useLocation();
   const navigate = useNavigate();
   
@@ -39,12 +40,52 @@ const AppContent: React.FC<{
     await handleContinueAsGuest();
     navigate('/dashboard');
   };
-  
+
+  // Check for guest session on mount and route changes
+  useEffect(() => {
+    const checkGuestSession = () => {
+      const guestSession = localStorage.getItem('guestSession');
+      const sessionTimestamp = localStorage.getItem('guestSessionTimestamp');
+      
+      if (guestSession === 'true' && sessionTimestamp && !user && !isGuest) {
+        const sessionAge = Date.now() - parseInt(sessionTimestamp);
+        const sessionMaxAge = 24 * 60 * 60 * 1000; // 24 hours
+        
+        if (sessionAge < sessionMaxAge) {
+          // Valid guest session exists - restore it
+          handleRestoreGuestSession();
+        } else {
+          // Session expired
+          localStorage.removeItem('guestSession');
+          localStorage.removeItem('guestSessionTimestamp');
+          if (location.pathname !== '/home') {
+            setShowSignInPopup(true);
+          }
+        }
+      }
+    };
+
+    checkGuestSession();
+  }, [location.pathname, user, isGuest, handleRestoreGuestSession]);
+
   return (
     <>
       <Routes>
-        <Route path="/" element={<Navigate to={user ? "/dashboard" : "/home"} replace />} />
-        <Route path="/home" element={<HomePage onNavigate={handleNavigate} onLogout={handleLogoutWithRedirect} onContinueAsGuest={handleContinueAsGuestWithRedirect} user={user} isGuest={isGuest} />} />
+        {/* FIX: Always redirect to home page first, regardless of auth status */}
+        <Route path="/" element={<Navigate to="/home" replace />} />
+        
+        <Route 
+          path="/home" 
+          element={
+            <HomePage 
+              onNavigate={handleNavigate} 
+              onLogout={handleLogoutWithRedirect} 
+              onContinueAsGuest={handleContinueAsGuestWithRedirect} 
+              user={user} 
+              isGuest={isGuest} 
+            />
+          } 
+        />
         <Route path="/login" element={<LoginPage onNavigate={handleNavigate} onLogin={handleLogin} />} />
         <Route path="/signup" element={<SignUpPage onNavigate={handleNavigate} onLogin={handleLogin} />} />
         <Route 
@@ -56,6 +97,7 @@ const AppContent: React.FC<{
                 isGuest={isGuest}
                 onLogout={handleLogoutWithRedirect}
                 onSignIn={() => setShowSignInPopup(true)}
+                onRestoreGuestSession={handleRestoreGuestSession}
               />
             </ProtectedRoute>
           } 
@@ -90,17 +132,23 @@ const AppContent: React.FC<{
       </Routes>
       
       {/* Sign-in Popup - Only show when not on home page, login page, or signup page, and when user is not logged in */}
-      {location.pathname !== '/home' && location.pathname !== '/login' && location.pathname !== '/signup' && !user && (
+      {location.pathname !== '/home' && location.pathname !== '/login' && location.pathname !== '/signup' && !user && !isGuest && (
         <SignInPopup
           isOpen={showSignInPopup}
-          onClose={() => setShowSignInPopup(false)}
+          onClose={() => {
+            setShowSignInPopup(false);
+            // If user closes popup and no session exists, redirect to home
+            if (!user && !isGuest) {
+              navigate('/home');
+            }
+          }}
           onSignIn={() => {
             setShowSignInPopup(false);
-            window.location.href = '/login';
+            navigate('/login');
           }}
           onSignUp={() => {
             setShowSignInPopup(false);
-            window.location.href = '/signup';
+            navigate('/signup');
           }}
           onContinueAsGuest={handleContinueAsGuestWithRedirect}
         />
@@ -117,17 +165,45 @@ function App() {
   const [showSignInPopup, setShowSignInPopup] = useState(false);
 
   useEffect(() => {
-    // Check if user is already logged in
+    // Check if user is already logged in or has guest session
     const checkAuth = async () => {
       try {
-        // First check localStorage for quick access
+        // First check for guest session
+        const guestSession = localStorage.getItem('guestSession');
+        const sessionTimestamp = localStorage.getItem('guestSessionTimestamp');
+        
+        if (guestSession === 'true' && sessionTimestamp) {
+          const sessionAge = Date.now() - parseInt(sessionTimestamp);
+          const sessionMaxAge = 24 * 60 * 60 * 1000; // 24 hours
+          
+          if (sessionAge < sessionMaxAge) {
+            // Valid guest session exists
+            const guestUser = {
+              id: `guest-${sessionTimestamp}`,
+              firstName: 'Guest',
+              lastName: 'User',
+              email: `guest@temp.com`,
+              createdAt: new Date(parseInt(sessionTimestamp)).toISOString(),
+              isEmailVerified: false,
+              isGuest: true
+            };
+            setUser(guestUser);
+            setIsGuest(true);
+            setIsLoading(false);
+            return;
+          } else {
+            // Guest session expired
+            localStorage.removeItem('guestSession');
+            localStorage.removeItem('guestSessionTimestamp');
+          }
+        }
+
+        // Check for regular authenticated user
         const userStr = localStorage.getItem('user');
         const token = localStorage.getItem('authToken');
         
         if (userStr && token) {
           const localUser = JSON.parse(userStr);
-          setUser(localUser);
-          setIsGuest(localUser.isGuest || false);
           
           // Verify with backend
           const response = await authService.getCurrentUser();
@@ -138,17 +214,13 @@ function App() {
             // Token expired or invalid, clear local storage
             localStorage.removeItem('user');
             localStorage.removeItem('authToken');
-            setUser(null);
-            setIsGuest(false);
-            setShowSignInPopup(true);
+            // Don't show popup immediately, let user see home page first
           }
-        } else {
-          // No local user data, show sign-in popup
-          setShowSignInPopup(true);
         }
+        // If no session found, just continue to home page without showing popup
       } catch (error) {
         console.error('Auth check failed:', error);
-        setShowSignInPopup(true);
+        // Continue to home page even if auth check fails
       } finally {
         setIsLoading(false);
       }
@@ -161,52 +233,93 @@ function App() {
     setUser(userData);
     setIsGuest(userData.isGuest || false);
     setShowSignInPopup(false);
+    
+    // Clear guest session if exists
+    if (userData.isGuest) {
+      localStorage.setItem('guestSession', 'true');
+      localStorage.setItem('guestSessionTimestamp', Date.now().toString());
+    } else {
+      localStorage.removeItem('guestSession');
+      localStorage.removeItem('guestSessionTimestamp');
+    }
   };
 
   const handleLogout = async () => {
-    await authService.logout();
-    setUser(null);
-    setIsGuest(false);
-    setShowSignInPopup(false);
+    try {
+      await authService.logout();
+    } catch (error) {
+      console.error('Logout error:', error);
+    } finally {
+      setUser(null);
+      setIsGuest(false);
+      setShowSignInPopup(false);
+      // Clear all session storage
+      localStorage.removeItem('user');
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('guestSession');
+      localStorage.removeItem('guestSessionTimestamp');
+    }
   };
 
   const handleContinueAsGuest = async () => {
     try {
       const response = await authService.createGuest();
       if (response.success && response.data) {
-        setUser(response.data);
-        setIsGuest(true);
-        setShowSignInPopup(false);
-      } else {
-        console.error('Failed to create guest session:', response.message);
-        // Fallback to local guest user
         const guestUser = {
-          id: `guest-${Date.now()}`,
-          firstName: 'Guest',
-          lastName: 'User',
-          email: `guest-${Date.now()}@temp.com`,
-          createdAt: new Date().toISOString(),
-          isEmailVerified: false
+          ...response.data,
+          isGuest: true
         };
         setUser(guestUser);
         setIsGuest(true);
         setShowSignInPopup(false);
+        
+        // Save guest session to localStorage
+        localStorage.setItem('guestSession', 'true');
+        localStorage.setItem('guestSessionTimestamp', Date.now().toString());
+      } else {
+        console.error('Failed to create guest session:', response.message);
+        // Fallback to local guest user
+        await handleCreateLocalGuest();
       }
     } catch (error) {
       console.error('Error creating guest session:', error);
       // Fallback to local guest user
-      const guestUser = {
-        id: `guest-${Date.now()}`,
-        firstName: 'Guest',
-        lastName: 'User',
-        email: `guest-${Date.now()}@temp.com`,
-        createdAt: new Date().toISOString(),
-        isEmailVerified: false
-      };
-      setUser(guestUser);
-      setIsGuest(true);
-      setShowSignInPopup(false);
+      await handleCreateLocalGuest();
     }
+  };
+
+  const handleCreateLocalGuest = async () => {
+    const guestUser = {
+      id: `guest-${Date.now()}`,
+      firstName: 'Guest',
+      lastName: 'User',
+      email: `guest-${Date.now()}@temp.com`,
+      createdAt: new Date().toISOString(),
+      isEmailVerified: false,
+      isGuest: true
+    };
+    setUser(guestUser);
+    setIsGuest(true);
+    setShowSignInPopup(false);
+    
+    // Save guest session to localStorage
+    localStorage.setItem('guestSession', 'true');
+    localStorage.setItem('guestSessionTimestamp', Date.now().toString());
+  };
+
+  const handleRestoreGuestSession = () => {
+    const guestUser = {
+      id: `guest-${Date.now()}`,
+      firstName: 'Guest',
+      lastName: 'User',
+      email: `guest@temp.com`,
+      createdAt: new Date().toISOString(),
+      isEmailVerified: false,
+      isGuest: true
+    };
+    setUser(guestUser);
+    setIsGuest(true);
+    setShowSignInPopup(false);
   };
 
   const handleNavigate = (data?: any) => {
@@ -240,6 +353,7 @@ function App() {
                 handleLogout={handleLogout}
                 handleContinueAsGuest={handleContinueAsGuest}
                 handleNavigate={handleNavigate}
+                handleRestoreGuestSession={handleRestoreGuestSession}
               />
             </div>
           </Router>
