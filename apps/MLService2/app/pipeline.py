@@ -12,6 +12,23 @@ ART_DIR  = APP_ROOT / "training" / "data" / "processed"
 
 # ------------------------ helpers ------------------------
 
+def _normalize_feature_names(df: pd.DataFrame) -> pd.DataFrame:
+    """Renames columns to match model training names (undo bracket sanitization)."""
+    rename_map = {}
+    for c in df.columns:
+        # if it looks like 'age_bin_0,_18_' -> 'age_bin_[0, 18)'
+        if "_bin_" in c and "," in c and "_" in c:
+            fixed = c.replace("_", " ").replace(" ,", ",").strip()
+            if not fixed.startswith("age_bin_["):
+                fixed = fixed.replace("age bin", "age_bin_[")
+            if not fixed.endswith(")"):
+                fixed += ")"
+            rename_map[c] = fixed
+    if rename_map:
+        df = df.rename(columns=rename_map)
+    return df
+
+
 def _clean_colnames_inplace(df: pd.DataFrame) -> None:
     df.columns = (
         df.columns
@@ -39,6 +56,8 @@ def _to_float_or_none(v: Any) -> float:
         return None
 
 def _predict_proba(model, X: pd.DataFrame) -> np.ndarray:
+    if hasattr(model, "feature_names_in_"):
+        X = X.reindex(columns=model.feature_names_in_, fill_value=0.0)
     return np.asarray(model.predict_proba(X))
 
 def _interval_label(left: float, right: float, right_closed: bool = False) -> str:
@@ -266,13 +285,23 @@ def _predict_hybrid(payload: Dict[str, Any]) -> Tuple[str, Dict[str, float]]:
     scale_cols = set(ARTS.get("scale_cols", []))
     clean_names = bool(ARTS.get("clean_names", True))
 
-    base_cols = [c for c in meta_cols if c not in set(lr_prob_cols)]
+    # --- IMPORTANT: build LR base features using the exact names from training ---
+    lr_expected_cols = list(getattr(lr, "feature_names_in_", []))
+    if lr_expected_cols:
+        base_cols = lr_expected_cols
+    else:
+        # Fallback: meta base cols (rare)
+        base_cols = [c for c in meta_cols if c not in set(lr_prob_cols)]
+
+    # Build one row and compute engineered features with those names
     row = _start_row(base_cols)
     _fill_numeric(row, payload, base_cols)
     _apply_cc_flags(row, payload, base_cols)
     _apply_engineering(row, base_cols)
 
-    base_df = pd.DataFrame([row])[base_cols]
+    base_df = pd.DataFrame([row])
+    # Align columns exactly to LR
+    base_df = base_df.reindex(columns=base_cols, fill_value=0.0)
 
     if scaler is not None and scale_cols:
         cols_to_scale = [c for c in base_df.columns if c in scale_cols]
